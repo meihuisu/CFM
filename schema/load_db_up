@@ -1,0 +1,4 @@
+\i '/Users/mei/scec/CFM/schema/sql/setup_schema.sql';
+\i '/Users/mei/scec/CFM/schema/sql/setup_tbs.sql';
+\i '/Users/mei/scec/CFM/schema/sql/setup_object_tb.sql';
+

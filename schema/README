@@ -1,0 +1,6 @@
+
+dropdb mei_test
+createdb mei_test
+psql mei_test
+
+

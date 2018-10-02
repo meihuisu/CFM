@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<meta charset="utf-8">
+<html>
+<head>
+<link rel="stylesheet" href="css/vendor/bootstrap.css">
+<link rel="stylesheet" href="css/vendor/jquery-ui.css">
+<script type='text/javascript' src='js/vendor/jquery.min.js'></script>
+<script type='text/javascript' src='js/vendor/bootstrap.min.js'></script>
+<script type='text/javascript' src='js/vendor/jquery-ui.js'></script>
+<script type="text/javascript" src="js/debug.js"></script>
+<script type="text/javascript" src="js/cfm_util.js"></script>
+<script type="text/javascript" src="js/cfm_query.js"></script>
+<style>
+.ui-slider-range { background: orange; }
+</style>
+</head>
+<body>
+<div class="container-fluid">
+<div id='viewerBlock' style="position:absolute; top:0px; left:0px">
+  <div id='myCFM_plots' class="row col-md-12 col-xs-12"></div>
+</div>
+
+<div id='queryBlock' style="position:absolute; top:0px; left:0px">
+  <div id='myCFM_query' class="row col-md-12 col-xs-12" style="margin:40px">
+    <p><strong>Query for Fault Object by region:</strong>
+     <button id="regionBtn" type="button" class="btn btn-default" style="border: 0; color: blue" onclick="getRegionList()">
+            <span class="glyphicon glyphicon-search"></span>
+     </button>
+    </p>
+    <div id="regionList"></div>
+    <div id="searchByRegionResult"><b>...</b></div>
+    <br>
+    <br>
+    <p><strong>Query for Fault Object by strike range:</strong>
+     <button id="strikeBtn" type="button" class="btn btn-default" style="border:0; color:blue" onclick="getStrikeRange()">
+            <span class="glyphicon glyphicon-search"></span>
+     </button>
+    </p>
+    <div id="strikeRange"></div>
+    <div id="searchByStrikeRangeResult"><b>...</b></div>
+    <br>
+    <br>
+    <p><strong>Query for Fault Object by keyword:</strong>
+     <button id="keywordBtn" type="button" class="btn btn-default" style="border: 0; color: blue" onclick="searchBuKeyword(abc)">
+            <span class="glyphicon glyphicon-search"></span>
+     </button>
+    </p>
+    <div id="searchByKeywordResult"><b>...</b></div>
+<!--
+    <p><strong>Query for Fault System:</strong>
+    <form autocomplete="off">
+      <select name="Fault System" onchange="searchBySystem(this.value)"> 
+        <option value="">  Click to select</option>
+        <option value="CRFA">Coast Ranges Fault Area</option>
+        <option value="ETRA">Eastern Transverse Ranges Area</option>
+        <option value="GRFS">Garlock Fault System</option>
+        <option value="GVFA">Great Valley Fault Area</option>
+        <option value="MJVA">Mojave Fault Area</option>
+        <option value="OCCA">Offshore Central California Area</option>
+        <option value="OCBA">Offshore Continental Borderland Area</option>
+        <option value="PNRA">Peninsular Ranges Area</option>
+        <option value="SALT">Salton Trough Fault Area</option>
+        <option value="SAFS">San Andreas Fault System</option>
+        <option value="SNFA">Sierra Nevada Fault Area</option>
+        <option value="WTRA">Western Transverse Ranges Area</option>
+      </select>
+    </form>
+    <div id="searchBySystemResult"><b>...</b></div>
+-->
+</div><!-- myCFM_query -->
+</div><!-- queryBlock -->
+
+</div><!-- container-fuild -->
+
+</body>
+</html>
+
