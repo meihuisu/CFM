@@ -8,6 +8,8 @@ function refreshAll() {
   document.getElementById("keywordTxt").value = '';
   $("#regionBtn").attr("disabled", false);
   $("#regionBtn").show();  
+  $("#rangeBtn").attr("disabled", false);
+  $("#rangeBtn").show();  
 }
 
 function setupSlider(min,max) {

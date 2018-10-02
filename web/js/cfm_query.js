@@ -125,8 +125,8 @@ function getStrikeRange() {
     };
     xmlhttp.open("GET","php/getStrikeRange.php",true);
     xmlhttp.send();
-    $("#strikeBtn").attr("disabled", true);  // only does it once
-    $("#strikeBtn").hide();  // only does it once
+    $("#rangeBtn").attr("disabled", true);  // only does it once
+    $("#rangeBtn").hide();  // only does it once
 }
 
 function getMinMax(str) {
