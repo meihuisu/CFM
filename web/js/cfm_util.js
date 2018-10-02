@@ -1,3 +1,14 @@
+function refreshAll() {
+  document.getElementById("searchByStrikeRangeResult").innerHTML = "<b>...</b>";
+  document.getElementById("searchByKeywordResult").innerHTML = "<b>...</b>";
+  document.getElementById("searchByRegionResult").innerHTML = "<b>...</b>";
+  document.getElementById("regionList").innerHTML = "";
+  document.getElementById("strikeRange").innerHTML = "";
+  document.getElementById("searchByStrikeRangeResult").innerHTML = "<b>...</b>";
+  document.getElementById("keywordTxt").value = '';
+  $("#regionBtn").attr("disabled", false);
+  $("#regionBtn").show();  
+}
 
 function setupSlider(min,max) {
   $( "#slider-strike-range" ).slider({

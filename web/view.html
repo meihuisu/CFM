@@ -22,6 +22,11 @@
 
 <div id='queryBlock' style="position:absolute; top:0px; left:0px">
   <div id='myCFM_query' class="row col-md-12 col-xs-12" style="margin:40px">
+    <p>
+    <button id="refreshBtn" class="btn btn-sm" title="refresh the query terms" style="color:blue" onclick="refreshAll()">
+           <span class="glyphicon glyphicon-refresh"></span>
+    </button>
+    </p>
     <p><strong>Query for Fault Object by region:</strong>
      <button id="regionBtn" type="button" class="btn btn-default" style="border: 0; color: blue" onclick="getRegionList()">
             <span class="glyphicon glyphicon-search"></span>
@@ -41,9 +46,11 @@
     <br>
     <br>
     <p><strong>Query for Fault Object by keyword:</strong>
-     <button id="keywordBtn" type="button" class="btn btn-default" style="border: 0; color: blue" onclick="searchBuKeyword(abc)">
+     <div style="display:flex"> Keyword: <input type="text" id="keywordTxt" onfocus="this.value=''" style="right-margin:10px; border:1px solid black; color:orange; text-align:center;">
+       <button id="keywordBtn" type="button" class="btn btn-default" style="border: 0; color: blue" onclick="searchByKeyword()">
             <span class="glyphicon glyphicon-search"></span>
-     </button>
+       </button>
+     </div>
     </p>
     <div id="searchByKeywordResult"><b>...</b></div>
 <!--
