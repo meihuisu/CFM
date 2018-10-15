@@ -20,10 +20,10 @@ th {text-align: left;}
 <?php
 $q = ($_GET['q']);
 
-$dbconn = pg_connect("host=localhost port=5432 dbname=mei_test user=webonly password=scec");
+$dbconn = pg_connect("host=localhost port=5432 dbname=CFM5_db user=webonly password=scec");
 if (!$dbconn) { die('Could not connect'); }
 
-$query = "SELECT OBJECT_tb_idx, name FROM OBJECT_tb WHERE to_tsvector(name) @@ to_tsquery($1)";
+$query = "SELECT gid, name FROM OBJECT_tb WHERE to_tsvector(name) @@ to_tsquery($1)";
 $result = pg_prepare($dbconn, "my_query", $query);
 
 $data = array($q);
@@ -34,7 +34,7 @@ $result = pg_execute($dbconn, "my_query", $data);
 
 echo "<table>
 <tr>
-<th>idx</th>
+<th>gid</th>
 <th>CFM5.2 Fault Object Name</th>
 </tr>";
 while($row = pg_fetch_row($result)) {

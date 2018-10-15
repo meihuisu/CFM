@@ -41,6 +41,35 @@ function searchByKeyword() {
     xmlhttp.send();
 }
 
+function searchByLatlon() {
+    latstr=document.getElementById("latTxt").value;
+    window.console.log("lat");
+    window.console.log(latstr);
+    lonstr=document.getElementById("lonTxt").value;
+    window.console.log("lon");
+    window.console.log(lonstr);
+    if (latstr == "" || lonstr=="") {
+        document.getElementById("searchByLatlonResult").innerHTML = "";
+        return;
+    } else {
+
+        if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("searchByLatlonResult").innerHTML = this.responseText;
+            }
+        }
+        xmlhttp.open("GET","php/byLatlon.php?lat="+latstr+"&lon="+lonstr,true);
+        xmlhttp.send();
+    }
+}
+
 
 function searchBySystem(str) {
     if (str == "") {
@@ -119,7 +148,7 @@ function getStrikeRange() {
             document.getElementById("strikeRange").innerHTML = this.responseText;
             window.console.log(this.responseText);
             // parse responsetText for min and max
-            [rangeMin, rangeMax]=getMinMax(this.responseText);
+            [rangeMin, rangeMax]=getMinMax();
             setupSlider(rangeMin, rangeMax);
         }
     };
@@ -129,10 +158,10 @@ function getStrikeRange() {
     $("#rangeBtn").hide();  // only does it once
 }
 
-function getMinMax(str) {
-    var subs=str.split('!',5);
-    rMin=parseInt(subs[2]);
-    rMax=parseInt(subs[3]);  
+function getMinMax() {
+    str= $('[data-side="strike-range"]').data('params');
+    rMin=parseInt(str.min);
+    rMax=parseInt(str.max);  
     return [rMin, rMax];
 }
 

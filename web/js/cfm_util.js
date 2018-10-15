@@ -2,10 +2,13 @@ function refreshAll() {
   document.getElementById("searchByStrikeRangeResult").innerHTML = "<b>...</b>";
   document.getElementById("searchByKeywordResult").innerHTML = "<b>...</b>";
   document.getElementById("searchByRegionResult").innerHTML = "<b>...</b>";
+  document.getElementById("searchByLatlonResult").innerHTML = "<b>...</b>";
   document.getElementById("regionList").innerHTML = "";
   document.getElementById("strikeRange").innerHTML = "";
   document.getElementById("searchByStrikeRangeResult").innerHTML = "<b>...</b>";
   document.getElementById("keywordTxt").value = '';
+  document.getElementById("latTxt").value = '';
+  document.getElementById("lonTxt").value = '';
   $("#regionBtn").attr("disabled", false);
   $("#regionBtn").show();  
   $("#rangeBtn").attr("disabled", false);

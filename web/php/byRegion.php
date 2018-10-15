@@ -20,12 +20,12 @@ th {text-align: left;}
 <?php
 $q = ($_GET['q']);
 
-$dbconn = pg_connect("host=localhost port=5432 dbname=mei_test user=webonly password=scec");
+$dbconn = pg_connect("host=localhost port=5432 dbname=CFM5_db user=webonly password=scec");
 if (!$dbconn) { die('Could not connect'); }
 
 $query = "SELECT OBJECT_tb.name,REGION_tb.name,OBJECT_tb.strike 
    from OBJECT_tb,REGION_tb 
-   where REGION_tb.abb=$1 and REGION_tb.REGION_tb_idx=OBJECT_tb.REGION_tb_idx";
+   where REGION_tb.abb=$1 and REGION_tb.gid=OBJECT_tb.REGION_tb_gid";
 $result = pg_prepare($dbconn, "my_query", $query);
 
 $data = array($q);

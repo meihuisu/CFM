@@ -20,7 +20,7 @@ th {text-align: left;}
 <?php
 $q = ($_GET['q']);
 
-$dbconn = pg_connect("host=localhost port=5432 dbname=mei_test user=webonly password=scec");
+$dbconn = pg_connect("host=localhost port=5432 dbname=CFM5_db user=webonly password=scec");
 if (!$dbconn) { die('Could not connect'); }
 
 $query = "SELECT * FROM SYSTEM_tb WHERE abb = $1";
@@ -34,7 +34,7 @@ $result = pg_execute($dbconn, "my_query", $data);
 
 echo "<table>
 <tr>
-<th>idx</th>
+<th>gid</th>
 <th>Major Fault System</th>
 <th>abbreviation</th>
 </tr>";
