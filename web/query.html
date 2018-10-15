@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<meta charset="utf-8">
+<html>
+<head>
+<link rel="stylesheet" href="css/vendor/bootstrap.css">
+<link rel="stylesheet" href="css/vendor/jquery-ui.css">
+<script type='text/javascript' src='js/vendor/jquery.min.js'></script>
+<script type='text/javascript' src='js/vendor/bootstrap.min.js'></script>
+<script type='text/javascript' src='js/vendor/jquery-ui.js'></script>
+<script type="text/javascript" src="js/debug.js"></script>
+<script type="text/javascript" src="js/cfm_util.js"></script>
+<script type="text/javascript" src="js/cfm_query.js"></script>
+<style>
+.ui-slider-range { background: orange; }
+</style>
+</head>
+<body>
+<div class="container-fluid">
+<div id='viewerBlock' style="position:absolute; top:0px; left:0px">
+  <div id='myCFM_plots' class="row col-md-12 col-xs-12"></div>
+</div>
+
+<div id='queryBlock' style="position:absolute; top:0px; left:0px">
+  <div id='myCFM_query' class="row col-md-12 col-xs-12" style="margin:40px">
+    <p>
+    <button id="refreshBtn" class="btn btn-sm" title="refresh all" style="color:blue" onclick="refreshAll()">
+           <span class="glyphicon glyphicon-refresh"></span>
+    </button>
+    </p>
+    <p><strong>Query for Fault Object by region:</strong>
+     <button id="regionBtn" type="button" title="retrieve region list" class="btn btn-default" style="border: 0; color: blue" onclick="getRegionList()">
+            <span class="glyphicon glyphicon-search"></span>
+     </button>
+    </p>
+    <div id="regionList"></div>
+    <div id="searchByRegionResult"><b>...</b></div>
+    <br>
+    <br>
+    <p><strong>Query for Fault Object by strike range:</strong>
+     <button id="rangeBtn" type="button" title="retrieve strike range" class="btn btn-default" style="border:0; color:blue" onclick="getStrikeRange()">
+            <span class="glyphicon glyphicon-search"></span>
+     </button>
+    </p>
+    <div id="strikeRange"></div>
+    <div id="searchByStrikeRangeResult"><b>...</b></div>
+    <br>
+    <br>
+    <p><strong>Query for Fault Object by keyword:</strong>
+     <div style="display:flex"> Keyword: <input type="text" id="keywordTxt" onfocus="this.value=''" style="right-margin:10px; border:1px solid black; color:orange; text-align:center;">
+       <button id="keywordBtn" type="button" title="search with keyword" class="btn btn-default" style="border: 0; color: blue" onclick="searchByKeyword()">
+            <span class="glyphicon glyphicon-search"></span>
+       </button>
+     </div>
+    </p>
+    <div id="searchByKeywordResult"><b>...</b></div>
+    <br>
+    <br>
+    <p><strong>Query for Fault Object by latlon:(32.2112628759,-115.0092189871)</strong>
+     <div style="display:flex">
+<div>
+lat: 
+<input type="text" id="latTxt" onfocus="this.value=''" style="right-margin:10px; border:1px solid black; color:orange; text-align:center;">
+</div>
+<div style="margin:0 0 0 20px">
+lon:
+<input type="text" id="lonTxt" onfocus="this.value=''" style="right-margin:10px; border:1px solid black; color:orange; text-align:center;">
+</div>
+
+       <button id="latlonBtn" type="button" title="search with latlon" class="btn btn-default" style="border: 0; color: blue" onclick="searchByLatlon()">
+            <span class="glyphicon glyphicon-search"></span>
+       </button>
+     </div>
+    </p>
+    <div id="searchByLatlonResult"><b>...</b></div>
+    <br>
+    <br>
+</div><!-- myCFM_query -->
+</div><!-- queryBlock -->
+
+</div><!-- container-fuild -->
+
+</body>
+</html>
+
