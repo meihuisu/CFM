@@ -33,14 +33,18 @@ echo "lon range: ", $minlon,", ",$maxlon,"<br>";
 
 $query0 = "SELECT OBJECT_tb.name, TRACE_tb.gid from TRACE_tb INNER JOIN OBJECT_tb ON TRACE_tb.gid = OBJECT_tb.trace_tb_gid where ST_Intersects(ST_MakePoint($1,$2)::geography, (ST_Transform(geom,4326)::geography))";
 
-$query = "SELECT OBJECT_tb.name, TRACE_tb.gid from TRACE_tb INNER JOIN OBJECT_tb ON TRACE_tb.gid = OBJECT_tb.trace_tb_gid where TRACE_tb.geom && ST_Transform(ST_MakeEnvelope( $1, $2, $3, $4, 4326), 26711)";
+$query = "SELECT OBJECT_tb.gid, OBJECT_tb.name, TRACE_tb.gid from TRACE_tb INNER JOIN OBJECT_tb ON TRACE_tb.gid = OBJECT_tb.trace_tb_gid where TRACE_tb.geom && ST_Transform(ST_MakeEnvelope( $1, $2, $3, $4, 4326), 26711)";
 $result = pg_prepare($dbconn, "my_query", $query);
 
 $data = array($minlon, $minlat, $maxlon, $maxlat);
 $result = pg_execute($dbconn, "my_query", $data);
 
+$arr = array();
+$idx=0;
+
 echo "<table>
 <tr>
+<th>gid</th>
 <th>CFM5.2 Fault Object Name</th>
 <th>trace_tb:gid</th>
 </tr>";
@@ -48,9 +52,16 @@ while($row = pg_fetch_row($result)) {
     echo "<tr>";
     echo "<td>" . $row[0] . "</td>";
     echo "<td>" . $row[1] . "</td>";
+    echo "<td>" . $row[2] . "</td>";
     echo "</tr>";
+    $arr[$idx] = intVal($row[0]);
+    $idx += 1;
 }
 echo "</table>";
+$arrstring = htmlspecialchars(json_encode($arr,JSON_FORCE_OBJECT), ENT_QUOTES, 'UTF-8');
+echo "<div data-side=\"gitListByLatLon\" data-params=\"";
+echo $arrstring;
+echo "\" style=\"display:flex\"></div>";
 
 pg_close($dbconn);
 ?>

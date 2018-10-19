@@ -32,6 +32,9 @@ print "looking up for : ";
 print $q;
 $result = pg_execute($dbconn, "my_query", $data);
 
+$arr = array();
+$idx =0;
+
 echo "<table>
 <tr>
 <th>gid</th>
@@ -42,8 +45,15 @@ while($row = pg_fetch_row($result)) {
     echo "<td>" . $row[0] . "</td>";
     echo "<td>" . $row[1] . "</td>";
     echo "</tr>";
+    $arr[$idx] = intVal($row[0]);
+    $idx += 1;
 }
 echo "</table>";
+
+$arrstring = htmlspecialchars(json_encode($arr,JSON_FORCE_OBJECT), ENT_QUOTES, 'UTF-8');
+echo "<div data-side=\"gitListByKeyword\" data-params=\""; 
+echo $arrstring;
+echo "\" style=\"display:flex\"></div>"; 
 pg_close($dbconn);
 ?>
 </body>
