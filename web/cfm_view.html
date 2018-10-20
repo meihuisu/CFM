@@ -18,6 +18,10 @@
 
 <style>
 .ui-slider-range { background: orange; }
+#slider-strike-range {
+  overflow: hidden;
+  width: 80%;
+}
 </style>
 </head>
 <body>
@@ -31,11 +35,10 @@
   </button>
 </p>
 </p>
-<div id='viewerBlock' class="row col-md-12 col-xs-12">
-<div id="CFM_plot" style="width: 40%; height: 700px;float:right; border:solid 3px grey"></div>
-</div>
-<div id='queryBlock' clsss="row col-md-6 col-xs-6" style="position:absolute; top:40px; left:0px;">
-  <div id='myCFM_query' style="margin:20px; width:700px">
+<div class="row col-md-12 col-xs-12" style="display:inline-block;left:20px;">
+<div id='CFM_plot' style="width:40%;height:700px;left:10px;float:right;border:solid 3px gray"></div>
+<div id='queryBlock' style="width:60%;float:left;top:20px;">
+  <div id='myCFM_query'>
     <div style="display:inline-block">
      <strong>Query for Fault Object by region:</strong>
      <button id="regionBtn" type="button" title="retrieve region list" class="btn btn-default" style="border: 0; color: blue" onclick="getRegionList()">
@@ -63,20 +66,17 @@
     <div id="searchByKeywordResult"><b>...</b></div>
     <br>
     <p><strong>Query for Fault Object by latlon:(32.2112628759,-115.0092189871)</strong>
-     <div style="display:flex">
-<div>
-Lat: 
-<input type="text" id="latTxt" onfocus="this.value=''" style="right-margin:10px; border:1px solid black; color:orange; text-align:center;">
-</div>
-<div style="margin:0 0 0 20px">
-Lon:
-<input type="text" id="lonTxt" onfocus="this.value=''" style="right-margin:10px; border:1px solid black; color:orange; text-align:center;">
-</div>
-
-       <button id="latlonBtn" type="button" title="search with latlon" class="btn btn-default" style="border: 0; color: blue" onclick="searchByLatlon()">
+    <div style="display:flex">
+      <div> Lat: 
+         <input type="text" id="latTxt" onfocus="this.value=''" style="right-margin:10px; border:1px solid black; color:orange; text-align:center;">
+      </div>
+      <div style="margin:0 0 0 20px"> Lon:
+         <input type="text" id="lonTxt" onfocus="this.value=''" style="right-margin:10px; border:1px solid black; color:orange; text-align:center;">
+      </div>
+        <button id="latlonBtn" type="button" title="search with latlon" class="btn btn-default" style="border: 0; color: blue" onclick="searchByLatlon()">
             <span class="glyphicon glyphicon-search"></span>
-       </button>
-     </div>
+        </button>
+    </div>
     </p>
     <div id="searchByLatlonResult"><b>...</b></div>
     <br>
@@ -90,8 +90,9 @@ Lon:
     </p>
 --->
     <div id="geoSearchByObjGidResult"></div>
-</div><!-- myCFM_query -->
+  </div><!-- myCFM_query -->
 </div><!-- queryBlock -->
+</div>
 
 </div><!-- container-fuild -->
 

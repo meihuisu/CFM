@@ -33,8 +33,6 @@ function addGeoJSONAsFeature(geoJSON, gid, content) {
           };
 
   cfmTraceList.features.push(tmp);
-//  printTraces();
-  window.console.log("add a json");
 }
 
 function plotAll() {

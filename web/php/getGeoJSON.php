@@ -25,10 +25,10 @@ $metastring=$row[1];
 
 echo "<div data-side=\"geo-json\" data-params=\"[";
 echo $arrstring;
-echo "]\" style=\"display:flex\">$arrstring</div>";
+echo "]\" style=\"display:none\">$arrstring</div>";
 echo "<div data-side=\"meta-json\" data-params=\"";
 echo $metastring;
-echo "\" style=\"display:flex\">$metastring</div>";
+echo "\" style=\"display:none\">$metastring</div>";
 
 pg_close($dbconn);
 ?>

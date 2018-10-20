@@ -7,7 +7,7 @@ function remove_geo_layer(layer)
 
 function load_geo()
 {
-  printTraces();
+//  printTraces();
   geoLayerPtr=addGeo(cfmTraceList, viewermap);
 }
 
