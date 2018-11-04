@@ -9,3 +9,12 @@ FROM '/Users/mei/scec/CFM/CFM-github/schema/data/section_tb.csv' DELIMITER ',' C
 
 COPY FAULT_tb(name, abb)
 FROM '/Users/mei/scec/CFM/CFM-github/schema/data/fault_tb.csv' DELIMITER ',' CSV HEADER;
+
+COPY PROJECT_1000m_tb(name, url)
+FROM '/Users/mei/scec/CFM/CFM-github/schema/data/object_1000m_tb.csv' DELIMITER ',' CSV HEADER;
+
+COPY PROJECT_500m_tb(name, url)
+FROM '/Users/mei/scec/CFM/CFM-github/schema/data/object_500m_tb.csv' DELIMITER ',' CSV HEADER;
+
+COPY PROJECT_native_tb(name, url)
+FROM '/Users/mei/scec/CFM/CFM-github/schema/data/object_native_tb.csv' DELIMITER ',' CSV HEADER;

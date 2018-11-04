@@ -1,6 +1,6 @@
 function searchByStrikeRange(min,max) {
     if (min == "" || max == "") {
-        document.getElementById("searchByStrikeRangeResult").innerHTML = "";
+        document.getElementById("searchResult").innerHTML = "";
         return;
     } else {
         if (window.XMLHttpRequest) {
@@ -12,8 +12,9 @@ function searchByStrikeRange(min,max) {
         }
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("searchByStrikeRangeResult").innerHTML = this.responseText;
-                setQueryGitList("gitListByStrikeRange");
+                document.getElementById("phpResponseText").innerHTML = this.responseText;
+                var str = getQueryMeta("metaByStrikeRange");
+                document.getElementById("searchResult").innerHTML = makeResultTable(str);
             }
         };
         xmlhttp.open("GET","php/byStrikeRange.php?min="+min+"&max="+max,true);
@@ -32,8 +33,9 @@ function searchByKeyword() {
     }
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            document.getElementById("searchByKeywordResult").innerHTML = this.responseText;
-            setQueryGitList("gitListByKeyword");
+            document.getElementById("phpResponseText").innerHTML = this.responseText;
+            var str=getQueryMeta("metaByKeyword");
+            document.getElementById("searchResult").innerHTML = makeResultTable(str);
         }
     };
     xmlhttp.open("GET","php/byKeyword.php?q="+str,true);
@@ -48,7 +50,7 @@ function searchByLatlon() {
     window.console.log("lon");
     window.console.log(lonstr);
     if (latstr == "" || lonstr=="") {
-        document.getElementById("searchByLatlonResult").innerHTML = "";
+        document.getElementById("searchResult").innerHTML = "";
         return;
     } else {
 
@@ -61,8 +63,9 @@ function searchByLatlon() {
         }
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("searchByLatlonResult").innerHTML = this.responseText;
-                setQueryGitList("gitListByLatLon");
+                document.getElementById("phpResponseText").innerHTML = this.responseText;
+                var str=getQueryMeta("metaByLatLon");
+                document.getElementById("searchResult").innerHTML = makeResultTable(str);
             }
         }
         xmlhttp.open("GET","php/byLatlon.php?lat="+latstr+"&lon="+lonstr,true);
@@ -73,7 +76,7 @@ function searchByLatlon() {
 
 function searchByRegion(str) {
     if (str == "") {
-        document.getElementById("searchByRegionResult").innerHTML = "";
+        document.getElementById("searchResult").innerHTML = "";
         return;
     } else {
         if (window.XMLHttpRequest) {
@@ -85,8 +88,9 @@ function searchByRegion(str) {
         }
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("searchByRegionResult").innerHTML = this.responseText;
-                setQueryGitList("gitListByRegion");
+                document.getElementById("phpResponseText").innerHTML = this.responseText;
+                var str=getQueryMeta("metaByRegion");
+                document.getElementById("searchResult").innerHTML = makeResultTable(str);
             }
         };
         xmlhttp.open("GET","php/byRegion.php?q="+str,true);
@@ -104,7 +108,8 @@ function getRegionList() {
     }
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            document.getElementById("regionList").innerHTML = this.responseText;
+            document.getElementById("phpResponseText").innerHTML = this.responseText;
+            document.getElementById("regionList").innerHTML = makeRegionList();
         }
     };
     xmlhttp.open("GET","php/getRegionList.php",true);
@@ -123,9 +128,8 @@ function getStrikeRange() {
     }
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            document.getElementById("strikeRange").innerHTML = this.responseText;
-            window.console.log(this.responseText);
-            // parse responsetText for min and max
+            document.getElementById("phpResponseText").innerHTML = this.responseText;
+            document.getElementById("strikeRange").innerHTML = makeStrikeSlider();
             [rangeMin, rangeMax]=getStrikeRangeMinMax();
             setupSlider(rangeMin, rangeMax);
         }
@@ -137,7 +141,7 @@ function getStrikeRange() {
 }
 
 
-function getGeoJSONbyObjGid(gitstr) {
+function getGeoJSONbyObjGid(gitstr, propdata) {
     // if gitstr is not set look for it in the input field
     if(typeof gitstr == 'undefined')   
         gitstr=document.getElementById("objGidTxt").value;
@@ -154,8 +158,7 @@ function getGeoJSONbyObjGid(gitstr) {
             document.getElementById("geoSearchByObjGidResult").innerHTML = this.responseText;
             // grab the geoJSON
             geoJSON=getGeoJSON();
-            metaJSON=getMetaJSON();
-            addGeoJSONAsFeature(geoJSON,parseInt(gitstr),metaJSON);
+            addGeoJSONAsFeature(geoJSON,parseInt(gitstr),propdata);
         }
     };
     xmlhttp.open("GET","php/getGeoJSON.php?obj_gid="+gitstr,true);

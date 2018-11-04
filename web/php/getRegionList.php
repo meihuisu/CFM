@@ -1,38 +1,32 @@
 <!DOCTYPE html>
 <html>
 <head>
-<style>
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-table, td, th {
-    border: 1px solid black;
-    padding: 5px;
-}
-
-th {text-align: left;}
-</style>
 </head>
 <body>
 
 <?php
+
 $dbconn = pg_connect("host=localhost port=5432 dbname=CFM5_db user=webonly password=scec");
 if (!$dbconn) { die('Could not connect'); }
 
 $query = "SELECT name,abb FROM REGION_tb";
 $result = pg_query($dbconn, $query);
 
-echo "
-<form autocomplete=\"off\"> <select name=\"users\" onchange=\"searchByRegion(this.value)\">
-  <option value=\"\">  Click to select</option>";
+$regionList=array();
 
 while($row = pg_fetch_row($result)) {
-    echo "<option value=\"" . $row[1] . "\">". $row[0] . "</option>";
+    $item = new \stdClass();
+    $item->gid=$row[0];
+    $item->name=$row[1];
+    array_push($regionList, json_encode($item));
 }
 
-echo "</select></form>";
+$regionstring = htmlspecialchars(json_encode($regionList), ENT_QUOTES, 'UTF-8');
+
+echo "<div data-side=\"regions\" data-params=\"";
+echo $regionstring;
+echo "\" style=\"display:flex\"></div>";
+
 pg_close($dbconn);
 ?>
 </body>

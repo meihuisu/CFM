@@ -12,16 +12,17 @@
 <script type='text/javascript' src='js/vendor/jquery-ui.js'></script>
 <script type="text/javascript" src="js/debug.js"></script>
 <script type="text/javascript" src="js/cfm_util.js"></script>
+<script type="text/javascript" src="js/cfm_leaflet.js"></script>
 <script type="text/javascript" src="js/cfm_main.js"></script>
 <script type="text/javascript" src="js/cfm_query.js"></script>
-<script type="text/javascript" src="js/cfm_viewer.js"></script>
 
 <style>
-.ui-slider-range { background: orange; }
-#slider-strike-range {
-  overflow: hidden;
-  width: 80%;
-}
+.ui-slider-range { background:linear-gradient(to right, rgb(255,0,0), rgb(0,0,255) ) }
+
+table { width: 100%; border-collapse: collapse; }
+table, td, th { border: 1px solid black; padding: 5px; }
+th {text-align: left;}
+
 </style>
 </head>
 <body>
@@ -46,15 +47,13 @@
      </button>
     </div>
     <div id="regionList"></div>
-    <div id="searchByRegionResult"><b>...</b></div>
     <br>
     <p><strong>Query for Fault Object by strike range:</strong>
      <button id="rangeBtn" type="button" title="retrieve strike range" class="btn btn-default" style="border:0; color:blue" onclick="getStrikeRange()">
             <span class="glyphicon glyphicon-search"></span>
      </button>
     </p>
-    <div id="strikeRange"></div>
-    <div id="searchByStrikeRangeResult"><b>...</b></div>
+    <div id="strikeRange" style="width:80%; overflow:hidden;"></div>
     <br>
     <p><strong>Query for Fault Object by keyword:</strong>
      <div style="display:flex"> Keyword: <input type="text" id="keywordTxt" onfocus="this.value=''" style="right-margin:10px; border:1px solid black; color:orange; text-align:center;">
@@ -63,7 +62,6 @@
        </button>
      </div>
     </p>
-    <div id="searchByKeywordResult"><b>...</b></div>
     <br>
     <p><strong>Query for Fault Object by latlon:(32.2112628759,-115.0092189871)</strong>
     <div style="display:flex">
@@ -78,7 +76,6 @@
         </button>
     </div>
     </p>
-    <div id="searchByLatlonResult"><b>...</b></div>
     <br>
 <!---  FOR DEBUG
     <p><strong>Query for GEO JSON Object by object_tb_gid:</strong>
@@ -89,8 +86,10 @@
      </div>
     </p>
 --->
-    <div id="geoSearchByObjGidResult"></div>
+    <div id="geoSearchByObjGidResult" style="display:none"></div>
   </div><!-- myCFM_query -->
+  <div id="phpResponseText"></div>
+  <div id="searchResult"><b>...</b></div>
 </div><!-- queryBlock -->
 </div>
 
