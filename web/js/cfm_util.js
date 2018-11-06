@@ -30,12 +30,7 @@ var cfm_layer_list=[];
 //   {"gid":gid2, "style":style2, "visibility": vis2, "highlight": hl2}...]
 var cfm_style_list=[];
 
-/***
-   styling data structure 
-***/
-// [ { "keyword" : key1, "color": color1 }, { "keyword" : key2, "color": color1 }, ...]
-var plot_style_list;
-var plot_style_list_default;
+var cfm_toggle_plot=1;
 
 // strike range is from 5 to 359
 var strike_range_min = 5;
@@ -45,6 +40,15 @@ function plotAll() {
 //  load_geo_list_layer();
   load_trace_list();
   skip_gid_list();
+}
+
+function toggleAll() {
+  cfm_toggle_plot= !cfm_toggle_plot;
+  if(cfm_toggle_plot) {
+    toggle_on_all_layer()
+    } else {
+      toggle_off_all_layer()
+  }
 }
 
 function refreshAll() {
@@ -212,12 +216,8 @@ function makeStrikeSlider()
 
 function nullTableEntry(gid)
 {
-  var layerbtn="layer_"+gid+"_btn";
-  var highlightbtn="highlight_"+gid+"_btn";
-  document.getElementById(layerbtn).disabled = true; 
-  document.getElementById(highlightbtn).disabled = true;
-  document.getElementById(layerbtn).style.visibility = "hidden"; 
-  document.getElementById(highlightbtn).style.visibility = "hidden"; 
+  var row="row_"+gid;
+  document.getElementById(row).style.display= "none"; 
 }
 
 
@@ -230,7 +230,7 @@ function makeResultTable(str)
        var gid=s['gid'];
        var name=s['name'];
        var strike=s['strike'];
-       html=html+"<tr><td><button id=\"layer_"+gid+"_btn\" onclick=toggle_layer("+gid+");><span class=\"glyphicon glyphicon-eye-open\"></span></button><button id=\"highlight_"+gid+"_btn\" onclick=toggle_highlight("+gid+");><span class=\"glyphicon glyphicon-star-empty\"></span></button> </td><td>" + name + "</td> <td>" + strike + "</td></tr>";
+       html=html+"<tr id=\"row_"+gid+"\"><td><button onclick=toggle_layer("+gid+");><span id=\"toggle_"+gid+"\" class=\"glyphicon glyphicon-eye-open\"></span></button><button onclick=toggle_highlight("+gid+");><span id=\"highlight_"+gid+"\" class=\"glyphicon glyphicon-star-empty\"></span></button> </td><td>" + name + "</td> <td>" + strike + "</td></tr>";
     }
    html=html+ "</table>";
    return html;

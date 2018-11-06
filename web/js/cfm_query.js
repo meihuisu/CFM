@@ -182,6 +182,7 @@ function getGeoJSONbyObjGid(gitstr, meta) {
 */
             makeGeoJSONFeature(geoJSON, parseInt(gitstr), meta);
             if(gotAllGeoJSON()) {
+               plotAll();
                window.console.log("All the data is IN...");
             } 
         }

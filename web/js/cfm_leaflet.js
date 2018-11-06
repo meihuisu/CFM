@@ -105,7 +105,7 @@ function makeGeoJSONFeature(geoJSON, gid, meta) {
   
   cfm_trace_list.push({"gid":gid, "trace":cfmTrace});
   cfm_gid_list.push(gid);
-  cfm_style_list.push({"gid":gid, "style":style, "visibility": 0, "highlight":0});
+  cfm_style_list.push({"gid":gid, "style":style, "visible": 0, "highlight":0});
 }
 
 /* return true if target is in the trace list */
@@ -139,11 +139,14 @@ function find_style_list(target) {
 function toggle_highlight(target) {
    var s=find_style_list(target);
    var h=s['highlight'];
+   var  star='#'+"highlight_"+target;
 
    if(h==0) {
+     $(star).removeClass('glyphicon-star-empty').addClass('glyphicon-star');
      s['highlight']=1;
      highlight_layer(target);
      } else {
+       $(star).removeClass('glyphicon-star').addClass('glyphicon-star-empty');
        s['highlight']=0;
        unhighlight_layer(target);
    }
@@ -195,7 +198,7 @@ function load_trace_list()
      var layer=addGeoToMap(trace, viewermap);
      cfm_layer_list.push({"gid":gid, "layer":layer}); 
      var s =find_style_list(gid);
-     s['visibility']=1; // turn it on
+     s['visible']=1; // turn it on
   }
   window.console.log("load_layer_list...",sz);
 }
@@ -209,18 +212,47 @@ function skip_gid_list() {
   }
 }
 
+function toggle_off_all_layer()
+{
+  var sz=cfm_style_list.length;
+  if (sz==0) return;
+  for (var i=0; i<sz; i++) {
+     var s=cfm_style_list[i];
+     var vis=s['visible'];
+     var gid=s['gid'];
+     if(vis == 1) 
+       toggle_layer(gid) 
+  }
+}
+
+function toggle_on_all_layer()
+{
+  var sz=cfm_style_list.length;
+  if (sz==0) return;
+  for (var i=0; i<sz; i++) {
+     var s=cfm_style_list[i];
+     var vis=s['visible'];
+     var gid=s['gid'];
+     if(vis == 0) 
+       toggle_layer(gid) 
+  }
+}
+
 function toggle_layer(target)
 {
   var c=find_layer_list(target);
   var s=find_style_list(target);
   var t=find_trace_list(target);
   var layer=c['layer'];
-  var vis=s['visibility'];
+  var vis=s['visible'];
+  var eye='#'+"toggle_"+target;
   if(vis == 1) {
+    $(eye).removeClass('glyphicon-eye-open').addClass('glyphicon-eye-close');
     viewermap.removeLayer(layer);
-    s['visibility'] = 0;
+    s['visible'] = 0;
     } else {
-      s['visibility'] = 1;
+      s['visible'] = 1;
+      $(eye).removeClass('glyphicon-eye-close').addClass('glyphicon-eye-open');
       viewermap.addLayer(layer);
   }
 }
