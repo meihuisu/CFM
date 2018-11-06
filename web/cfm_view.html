@@ -63,6 +63,14 @@ th {text-align: left;}
      </div>
     </p>
     <br>
+    <p><strong>Query for Fault Object by name:</strong>
+     <div style="display:flex"> Name: <input type="text" id="faultNameTxt" onfocus="this.value=''" style="right-margin:10px; border:1px solid black; width:300px; color:orange; text-align:center;">
+       <button id="nameBtn" type="button" title="search with name" class="btn btn-default" style="border: 0; color: blue" onclick="searchByFaultName()">
+            <span class="glyphicon glyphicon-search"></span>
+       </button>
+     </div>
+    </p>
+    <br>
     <p><strong>Query for Fault Object by latlon:(32.2112628759,-115.0092189871)</strong>
     <div style="display:flex">
       <div> Lat: 
@@ -89,7 +97,7 @@ th {text-align: left;}
     <div id="geoSearchByObjGidResult" style="display:none"></div>
   </div><!-- myCFM_query -->
   <div id="phpResponseText"></div>
-  <div id="searchResult"><b>...</b></div>
+  <div id="searchResult"></div>
 </div><!-- queryBlock -->
 </div>
 

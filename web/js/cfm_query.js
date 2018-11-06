@@ -22,6 +22,25 @@ function searchByStrikeRange(min,max) {
     }
 }
 
+function searchByFaultName() {
+    str=document.getElementById("faultNameTxt").value;
+    if (window.XMLHttpRequest) {
+        // code for IE7+, Firefox, Chrome, Opera, Safari
+        xmlhttp = new XMLHttpRequest();
+    } else {
+        // code for IE6, IE5
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("phpResponseText").innerHTML = this.responseText;
+            var str=getQueryMeta("metaByFaultName");
+            document.getElementById("searchResult").innerHTML = makeResultTable(str);
+        }
+    };
+    xmlhttp.open("GET","php/byFaultName.php?q="+str,true);
+    xmlhttp.send();
+}
 function searchByKeyword() {
     str=document.getElementById("keywordTxt").value;
     if (window.XMLHttpRequest) {
@@ -141,7 +160,7 @@ function getStrikeRange() {
 }
 
 
-function getGeoJSONbyObjGid(gitstr, propdata) {
+function getGeoJSONbyObjGid(gitstr, meta) {
     // if gitstr is not set look for it in the input field
     if(typeof gitstr == 'undefined')   
         gitstr=document.getElementById("objGidTxt").value;
@@ -157,8 +176,14 @@ function getGeoJSONbyObjGid(gitstr, propdata) {
         if (this.readyState == 4 && this.status == 200) {
             document.getElementById("geoSearchByObjGidResult").innerHTML = this.responseText;
             // grab the geoJSON
-            geoJSON=getGeoJSON();
-            addGeoJSONAsFeature(geoJSON,parseInt(gitstr),propdata);
+            var geoJSON=getGeoJSON();
+/* multiple faults per single layer
+            addGeoJSONAsFeatureToList(geoJSON,parseInt(gitstr),meta);
+*/
+            makeGeoJSONFeature(geoJSON, parseInt(gitstr), meta);
+            if(gotAllGeoJSON()) {
+               window.console.log("All the data is IN...");
+            } 
         }
     };
     xmlhttp.open("GET","php/getGeoJSON.php?obj_gid="+gitstr,true);
