@@ -52,14 +52,12 @@ th {text-align: left;}
      </button>
     </div>
     <div id="regionList"></div>
-    <br>
     <p><strong>Query for Fault Object by strike range:</strong>
      <button id="rangeBtn" type="button" title="retrieve strike range" class="btn btn-default" style="border:0; color:blue" onclick="getStrikeRange()">
             <span class="glyphicon glyphicon-search"></span>
      </button>
     </p>
     <div id="strikeRange" style="width:80%; overflow:hidden;"></div>
-    <br>
     <p><strong>Query for Fault Object by keyword:</strong>
      <div style="display:flex"> Keyword: <input type="text" id="keywordTxt" onfocus="this.value=''" style="right-margin:10px; border:1px solid black; color:orange; text-align:center;">
        <button id="keywordBtn" type="button" title="search with keyword" class="btn btn-default" style="border: 0; color: blue" onclick="searchByKeyword()">
@@ -67,7 +65,7 @@ th {text-align: left;}
        </button>
      </div>
     </p>
-    <br>
+<!--
     <p><strong>Query for Fault Object by name:</strong>
      <div style="display:flex"> Name: <input type="text" id="faultNameTxt" onfocus="this.value=''" style="right-margin:10px; border:1px solid black; width:300px; color:orange; text-align:center;">
        <button id="nameBtn" type="button" title="search with name" class="btn btn-default" style="border: 0; color: blue" onclick="searchByFaultName()">
@@ -75,7 +73,7 @@ th {text-align: left;}
        </button>
      </div>
     </p>
-    <br>
+-->
     <p><strong>Query for Fault Object by latlon:(32.2112628759,-115.0092189871)</strong>
     <div style="display:flex">
       <div> Lat: 
@@ -89,7 +87,6 @@ th {text-align: left;}
         </button>
     </div>
     </p>
-    <br>
 <!---  FOR DEBUG
     <p><strong>Query for GEO JSON Object by object_tb_gid:</strong>
      <div style="display:flex"> Object gid: <input type="text" id="objGidTxt" onfocus="this.value=''" style="right-margin:10px; border:1px solid black; color:orange; text-align:center;">

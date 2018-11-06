@@ -230,7 +230,7 @@ function makeResultTable(str)
        var gid=s['gid'];
        var name=s['name'];
        var strike=s['strike'];
-       html=html+"<tr id=\"row_"+gid+"\"><td><button onclick=toggle_layer("+gid+");><span id=\"toggle_"+gid+"\" class=\"glyphicon glyphicon-eye-open\"></span></button><button onclick=toggle_highlight("+gid+");><span id=\"highlight_"+gid+"\" class=\"glyphicon glyphicon-star-empty\"></span></button> </td><td>" + name + "</td> <td>" + strike + "</td></tr>";
+       html=html+"<tr id=\"row_"+gid+"\"><td><button onclick=toggle_highlight("+gid+");><span id=\"highlight_"+gid+"\" class=\"glyphicon glyphicon-star-empty\"></span></button><button onclick=toggle_layer("+gid+");><span id=\"toggle_"+gid+"\" class=\"glyphicon glyphicon-eye-open\"></span></button></td><td>" + name + "</td> <td>" + strike + "</td></tr>";
     }
    html=html+ "</table>";
    return html;
