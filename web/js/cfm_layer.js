@@ -1,18 +1,63 @@
-// This is leaflet specific utilities
+/***
+   cfm_layer.js
+***/
 
 var highlight_style = {
     'color': 'RGB(0, 255, 255)',
     'weight': 3,
-    'opacity': 1
 };
 
-/*********************************************************
- This is setup for global Layer consist of many 
- feautures(=faults) to be manipulated in sync
-*********************************************************/
-// global trace features in JSON
+/***
+ global Layer consist of many feautures(=faults) to be 
+ manipulated in sync
+***/
 var cfm_all_trace={"type":"FeatureCollection", "features":[]};
 var cfm_all_layer;
+
+/***
+   tracking data structure
+***/
+// [ { "abb": abb1, "name" : name1 }, {"abb": abb2, "name": name2 }, ... ]
+var cfm_region_list=[];
+
+// [ { "abb": abb1, "name" : name1 }, {"abb": abb2, "name": name2 }, ... ]
+var cfm_system_list=[];
+
+// [ { "abb": abb1, "name" : name1 }, {"abb": abb2, "name": name2 }, ... ]
+var cfm_section_list=[];
+
+// [ { "abb": abb1, "name" : name1 }, {"abb": abb2, "name": name2 }, ... ]
+var cfm_name_list=[];
+
+
+// { gid1, gid2, ... }, all objects
+var cfm_gid_list=[];
+
+// { gid1, gid2, ... }, objects without geoJSON info
+var cfm_skip_gid_list=[];
+
+// all gid ==> gid from object_tb
+//  [ { "gid": gid1,  "meta": mmm1 }, {  "gid": gid2, "meta": mmm2 }, ... } 
+var cfm_fault_meta_list=[];
+
+// [ {"gid": gid1, "trace": trace1 }, {"gid":gid2, "trace":trace2}... ]
+var cfm_trace_list=[];
+
+// [ {"gid": gid1, "layer": layer1 }, {"gid":gid2, "layer":layer2}...]
+var cfm_layer_list=[];
+
+// tracking original style
+// [ {"gid": gid1, "style": style1, "visibility": vis1, "highlight": hl1 }...]
+var cfm_style_list=[];
+
+var cfm_toggle_plot=1;
+
+// strike range is from 5 to 359
+var strike_range_min = 5;
+var strike_range_max = 359;
+
+/*********************************************************
+*********************************************************/
 
 function reset_all_layer() {
   if(cfm_all_layer != undefined)
@@ -270,7 +315,7 @@ function refresh_map()
 
 function setup_viewer()
 {
- var mymap = L.map('CFM_plot').setView([34.3, -118.4], 7);
+ var mymap = L.map('CFM_plot').setView([34, -118], 6);
 
  var topoURL='https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png';
  var topoAttribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreeMap</a> contributors,<a href=http://viewfinderpanoramas.org"> SRTM</a> | &copy; <a href="https://www.opentopomap.org/copyright">OpenTopoMap</a>(CC-BY-SA)';

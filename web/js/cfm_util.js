@@ -3,39 +3,6 @@
 
 ***/
 
-/***
-   tracking data structure
-***/
-// [ { "region_id": region1_gid, "name" : name1 }, {"region_id": region2_gid, "name": name2 }, ... ]
-var cfm_region_list=[];
-
-// { gid1, gid2, ... }
-var cfm_gid_list=[];
-
-// { gid1, gid2, ... }, object without geoJSON info
-var cfm_skip_gid_list=[];
-
-//  [ { "gid": gid1,  "meta": mmm1 }, {  "gid": gid2, "meta": mmm2 }, ... } 
-var cfm_fault_list=[];
-
-// gid ==> gid from object_tb
-// [ {"gid": gid1, "trace": trace1 }, {"gid":gid2, "trace":trace2}... ]
-var cfm_trace_list=[];
-
-// [ {"gid": gid1, "layer": layer1 }, {"gid":gid2, "layer":layer2}...]
-var cfm_layer_list=[];
-
-// tracking original style
-// [ {"gid": gid1, "style": style1, "visibility": vis1, "highlight": hl1 },
-//   {"gid":gid2, "style":style2, "visibility": vis2, "highlight": hl2}...]
-var cfm_style_list=[];
-
-var cfm_toggle_plot=1;
-
-// strike range is from 5 to 359
-var strike_range_min = 5;
-var strike_range_max = 359;
-
 function plotAll() {
 //  load_geo_list_layer();
   load_trace_list();
@@ -66,9 +33,6 @@ function refreshAll() {
   $("#regionBtn").show();  
   $("#rangeBtn").attr("disabled", false);
   $("#rangeBtn").show();  
-/* multi-faults layer
-  reset_geo_list_layer();
-*/
   reset_geo_plot();
   refresh_map();
 }
@@ -108,8 +72,8 @@ function getColorFromMeta(meta) {
 // use that to grab the matching geoJson
 function getQueryMeta(namedList) {
     var str="";
-    if (namedList == 'metaByFaultName') {
-        str = $('[data-side="metaByFaultName"]').data('params');
+    if (namedList == 'metaByFaultObjectName') {
+        str = $('[data-side="metaByFaultObjectName"]').data('params');
     }
     if (namedList == 'metaByLatLon') {
         str = $('[data-side="metaByLatLon"]').data('params');
@@ -117,8 +81,17 @@ function getQueryMeta(namedList) {
     if (namedList == 'metaByKeyword') {
         str = $('[data-side="metaByKeyword"]').data('params');
     }
+    if (namedList == 'metaBySystem') {
+        str = $('[data-side="metaBySystem"]').data('params');
+    }
     if (namedList == 'metaByRegion') {
         str = $('[data-side="metaByRegion"]').data('params');
+    }
+    if (namedList == 'metaBySection') {
+        str = $('[data-side="metaBySection"]').data('params');
+    }
+    if (namedList == 'metaByName') {
+        str = $('[data-side="metaByName"]').data('params');
     }
     if (namedList == 'metaByStrikeRange') {
         str = $('[data-side="metaByStrikeRange"]').data('params');
@@ -132,14 +105,14 @@ function getQueryMeta(namedList) {
        var meta = JSON.parse(str[i]);
        var gidstr=meta['gid'];
        var gid=parseInt(gidstr);
-       cfm_fault_list.push({"gid":gid, "meta": meta });
+       cfm_fault_meta_list.push({"gid":gid, "meta": meta });
        getGeoJSONbyObjGid(gidstr,meta);
     }
     return str;
 }
 
 function gotAllGeoJSON() {
-  if (cfm_fault_list.length == (cfm_gid_list.length+cfm_skip_gid_list.length))
+  if (cfm_fault_meta_list.length == (cfm_gid_list.length+cfm_skip_gid_list.length))
     return 1;
   return 0;
 }
@@ -201,9 +174,64 @@ function makeRegionList() {
     window.console.log("Number of regions received from backend ->",sz);
     for( var i=0; i< sz; i++) {
        var s = JSON.parse(str[i]);
-       var gid=s['gid'];
+       var abb=s['abb'];
        var name=s['name'];
-       html=html+"<option value=\"" + name + "\">"+ gid +"</option>";
+       html=html+"<option value=\"" + abb + "\">"+ name +"</option>";
+    }
+    return html;
+}
+
+// use the section list from php backend, generate the form html
+function makeSectionList() {
+    var str = $('[data-side="sections"]').data('params');
+    if (str == undefined)
+      return "";
+
+    var html= "<form autocomplete=\"off\"> <select name=\"users\" onchange=\"searchBySection(this.value)\"> <option value=\"\">  Click to select a Section</option>";
+
+    var sz=(Object.keys(str).length);
+    for( var i=0; i< sz; i++) {
+       var s = JSON.parse(str[i]);
+       var abb=s['abb'];
+       var name=s['name'];
+       html=html+"<option value=\"" + abb + "\">"+ name +"</option>";
+    }
+    return html;
+}
+
+// use the system list from php backend, generate the form html
+function makeSystemList() {
+    var str = $('[data-side="systems"]').data('params');
+    if (str == undefined)
+      return "";
+
+    var html= "<form autocomplete=\"off\"> <select name=\"users\" onchange=\"searchBySystem(this.value)\"> <option value=\"\">  Click to select a System</option>";
+
+    var sz=(Object.keys(str).length);
+    window.console.log("Number of systems received from backend ->",sz);
+    for( var i=0; i< sz; i++) {
+       var s = JSON.parse(str[i]);
+       var abb=s['abb'];
+       var name=s['name'];
+       html=html+"<option value=\"" + abb + "\">"+ name +"</option>";
+    }
+    return html;
+}
+
+// use the fault list from php backend, generate the form html
+function makeNameList() {
+    var str = $('[data-side="names"]').data('params');
+    if (str == undefined)
+      return "";
+
+    var html= "<form autocomplete=\"off\"> <select name=\"users\" onchange=\"searchByName(this.value)\"> <option value=\"\">  Click to select a Name</option>";
+
+    var sz=(Object.keys(str).length);
+    for( var i=0; i< sz; i++) {
+       var s = JSON.parse(str[i]);
+       var abb=s['abb'];
+       var name=s['name'];
+       html=html+"<option value=\"" + abb + "\">"+ name +"</option>";
     }
     return html;
 }
@@ -217,20 +245,22 @@ function makeStrikeSlider()
 function nullTableEntry(gid)
 {
   var row="row_"+gid;
-  document.getElementById(row).style.display= "none"; 
+  dptr= document.getElementById(row);
+  if(dptr) 
+     dptr.style.display= "none"; 
 }
 
 
+// str=metadata
 function makeResultTable(str)
 {
-    var html="<table><tr><th></th><th>CFM5.2 Fault Object Name</th><th>Strike</th></tr>";
+    var html="<table><tr><th></th><th>CFM5.2 Fault Object Name</th></tr>";
     var sz=(Object.keys(str).length);
     for( var i=0; i< sz; i++) {
        var s = JSON.parse(str[i]);
        var gid=s['gid'];
        var name=s['name'];
-       var strike=s['strike'];
-       html=html+"<tr id=\"row_"+gid+"\"><td><button onclick=toggle_highlight("+gid+");><span id=\"highlight_"+gid+"\" class=\"glyphicon glyphicon-star-empty\"></span></button><button onclick=toggle_layer("+gid+");><span id=\"toggle_"+gid+"\" class=\"glyphicon glyphicon-eye-open\"></span></button></td><td>" + name + "</td> <td>" + strike + "</td></tr>";
+       html=html+"<tr id=\"row_"+gid+"\"><td><button onclick=toggle_highlight("+gid+");><span id=\"highlight_"+gid+"\" class=\"glyphicon glyphicon-star-empty\"></span></button><button onclick=toggle_layer("+gid+");><span id=\"toggle_"+gid+"\" class=\"glyphicon glyphicon-eye-open\"></span></button></td><td>" + name + "</td></tr>";
     }
    html=html+ "</table>";
    return html;

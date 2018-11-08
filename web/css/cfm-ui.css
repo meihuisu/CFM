@@ -1,0 +1,15 @@
+/* required styles */
+
+.ui-slider-range { background:linear-gradient(to right, rgb(255,0,0), rgb(0,0,255) ) }
+
+table { width: 100%; border-collapse: collapse;}
+table, td, th { border: 1px solid gray; padding: 2px;}
+th {text-align: left;}
+
+.cfm-btn {
+          background: white;
+          border: 0;
+          color: blue;
+          display: inline-block;
+        }
+
