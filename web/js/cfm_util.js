@@ -6,26 +6,31 @@
 function plotAll() {
 //  load_geo_list_layer();
   load_trace_list();
-  skip_gid_list();
 }
 
 function toggleAll() {
   cfm_toggle_plot= !cfm_toggle_plot;
   if(cfm_toggle_plot) {
     toggle_on_all_layer()
+    makeResultTableWithList(cfm_gid_list);
     } else {
       toggle_off_all_layer()
+      // need to revert to the current search result
+      makeResultTableWithList(cfm_active_gid_list);
   }
 }
 
 function refreshAll() {
   document.getElementById("geoSearchByObjGidResult").innerHTML = "";
   document.getElementById("regionList").innerHTML = "";
+  document.getElementById("sectionList").innerHTML = "";
+  document.getElementById("nameList").innerHTML = "";
+  document.getElementById("systemList").innerHTML = "";
   document.getElementById("strikeRange").innerHTML = "";
   document.getElementById("searchResult").innerHTML = "";
-  document.getElementById("phpResponseText").innerHTML = "";
+  document.getElementById("phpResponseTxt").innerHTML = "";
   document.getElementById("keywordTxt").value = '';
-  document.getElementById("faultNameTxt").value = '';
+//  document.getElementById("faultNameTxt").value = '';
   document.getElementById("latTxt").value = '';
   document.getElementById("lonTxt").value = '';
 //  document.getElementById("objGidTxt").value = '';
@@ -33,8 +38,8 @@ function refreshAll() {
   $("#regionBtn").show();  
   $("#rangeBtn").attr("disabled", false);
   $("#rangeBtn").show();  
-  reset_geo_plot();
   refresh_map();
+  reset_geo_plot();
 }
 
 function getContentFromMeta(meta) {
@@ -57,7 +62,7 @@ function getGidFromMeta(meta) {
 function getColorFromMeta(meta) {
     var strike=meta['strike'];
     var color="black";
-    if(strike != "") {
+    if(strike != undefined && strike != "") {
         v=parseInt(strike);
         v=(v-strike_range_min)/(strike_range_max-strike_range_min);
         blue = Math.round(255 * v);
@@ -68,33 +73,45 @@ function getColorFromMeta(meta) {
      return color;
 }
 
+
+function processGeoList() {
+    geostr = $('[data-side="allGeoList"]').data('params');
+    nogeostr = $('[data-side="allNoGeoList"]').data('params');
+    if(geostr == undefined || nogeostr == undefined) {
+        window.console.log("BAD BAD BAD");
+        return;
+    }
+
+    var sz=geostr.length;
+    window.console.log("Number of geo gid from backend ->",sz);
+    for( var i=0; i< sz; i++) {
+       var gidstr=geostr[i];
+       var gid=parseInt(gidstr);
+       cfm_gid_list.push(gid);
+    }
+
+    sz=nogeostr.length;
+    window.console.log("Number of no geo gid from backend ->",sz);
+    for( var i=0; i< sz; i++) {
+       var gidstr=nogeostr[i];
+       var gid=parseInt(gidstr);
+       cfm_gid_list.push(gid);
+       cfm_nogeo_gid_list.push(gid);
+    }
+}
+
 // extract meta data blob from php backend, extract object_tb's gid and 
 // use that to grab the matching geoJson
-function getQueryMeta(namedList) {
+function processTraceMeta(metaList) {
     var str="";
-    if (namedList == 'metaByFaultObjectName') {
-        str = $('[data-side="metaByFaultObjectName"]').data('params');
+
+    if (metaList == 'metaByAllTraces') {
+        str = $('[data-side="allTraces"]').data('params');
     }
-    if (namedList == 'metaByLatLon') {
-        str = $('[data-side="metaByLatLon"]').data('params');
-    }
-    if (namedList == 'metaByKeyword') {
-        str = $('[data-side="metaByKeyword"]').data('params');
-    }
-    if (namedList == 'metaBySystem') {
-        str = $('[data-side="metaBySystem"]').data('params');
-    }
-    if (namedList == 'metaByRegion') {
-        str = $('[data-side="metaByRegion"]').data('params');
-    }
-    if (namedList == 'metaBySection') {
-        str = $('[data-side="metaBySection"]').data('params');
-    }
-    if (namedList == 'metaByName') {
-        str = $('[data-side="metaByName"]').data('params');
-    }
-    if (namedList == 'metaByStrikeRange') {
-        str = $('[data-side="metaByStrikeRange"]').data('params');
+
+    if(str == undefined) {
+       window.console.log("BAD BAD BAD");
+       return;
     }
 
     var sz=(Object.keys(str).length);
@@ -102,17 +119,72 @@ function getQueryMeta(namedList) {
     // iterate through the list and grab the geo info and update leaflet feature
     // structure one by one
     for( var i=0; i< sz; i++) {
+       var t=str[i];
        var meta = JSON.parse(str[i]);
        var gidstr=meta['gid'];
        var gid=parseInt(gidstr);
-       cfm_fault_meta_list.push({"gid":gid, "meta": meta });
-       getGeoJSONbyObjGid(gidstr,meta);
+       if(metaList == 'metaByAllTraces') {
+         cfm_fault_meta_list.push({"gid":gid, "meta": meta });
+         if( !in_nogeo_gid_list(gid)) {
+           getGeoJSONbyObjGid(gidstr,meta);
+         }
+         } else {
+           window.console.log("BAD ??");
+       }
     }
     return str;
 }
 
+function processSearchResult(rlist) {
+    cfm_search_gid_list=[];
+    var str="";
+    if (rlist == 'searchByFaultObjectName') {
+        str = $('[data-side="resultByFaultObjectName"]').data('params');
+    }
+    if (rlist == 'searchByLatLon') {
+        str = $('[data-side="resultByLatLon"]').data('params');
+    }
+    if (rlist == 'searchByKeyword') {
+        str = $('[data-side="resultByKeyword"]').data('params');
+    }
+    if (rlist == 'searchBySystem') {
+        str = $('[data-side="resultBySystem"]').data('params');
+    }
+    if (rlist == 'searchByRegion') {
+        str = $('[data-side="resultByRegion"]').data('params');
+    }
+    if (rlist == 'searchBySection') {
+        str = $('[data-side="resultBySection"]').data('params');
+    }
+    if (rlist == 'searchByName') {
+        str = $('[data-side="resultByName"]').data('params');
+    }
+    if (rlist == 'searchByStrikeRange') {
+        str = $('[data-side="resultByStrikeRange"]').data('params');
+    }
+
+    if(str == undefined) {
+       window.console.log("BAD BAD BAD");
+       return;
+    }
+
+    // gid, name
+    var sz=(Object.keys(str).length);
+    window.console.log("Number of gid blobs received from backend ->",sz);
+    for( var i=0; i< sz; i++) {
+       var tmp= JSON.parse(str[i]);
+       var gid=parseInt(tmp['gid']);
+       cfm_active_gid_list.push(gid);
+       if( ! in_nogeo_gid_list(gid)) {
+          toggle_layer(gid);
+       }
+   
+    }
+    return (str);
+}
+
 function gotAllGeoJSON() {
-  if (cfm_fault_meta_list.length == (cfm_gid_list.length+cfm_skip_gid_list.length))
+  if (cfm_fault_meta_list.length == cfm_trace_list.length)
     return 1;
   return 0;
 }
@@ -133,135 +205,4 @@ function getStrikeRangeMinMax() {
     rMin=parseInt(str.min);
     rMax=parseInt(str.max);
     return [rMin, rMax];
-}
-
-function setupSlider(min,max) {
-  $( "#slider-strike-range" ).slider({
-    range: true,
-    min: 0,
-    max: 500,
-    step: 0.001,
-    values: [ min, max ],
-    slide: function( event, ui ) {
-      $( "#strike-range" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ] );
-    }
-  });
-  $( "#strike-range" ).val( $( "#slider-strike-range" ).slider( "values", 0 ) + " - " + $( "#slider-strike-range" ).slider( "values", 1 ) );
-
-  $('#slider-strike-range').slider("option", "min", min);
-  $('#slider-strike-range').slider("option", "max", max);
-  $( "#strike-range" ).val( min + " - " + max );
-}
-
-function searchWithStrikeRange() {
-  //grab the min and max from the slider..
-  vals = $( "#slider-strike-range" ).slider("option", "values");
-  searchByStrikeRange(vals[0],vals[1]);
-}
-
-
-/******************/
-
-// use the region list from php backend, generate the form html
-function makeRegionList() {
-    var str = $('[data-side="regions"]').data('params');
-    if (str == undefined)
-      return "";
-
-    var html= "<form autocomplete=\"off\"> <select name=\"users\" onchange=\"searchByRegion(this.value)\"> <option value=\"\">  Click to select a Region</option>";
-
-    var sz=(Object.keys(str).length);
-    window.console.log("Number of regions received from backend ->",sz);
-    for( var i=0; i< sz; i++) {
-       var s = JSON.parse(str[i]);
-       var abb=s['abb'];
-       var name=s['name'];
-       html=html+"<option value=\"" + abb + "\">"+ name +"</option>";
-    }
-    return html;
-}
-
-// use the section list from php backend, generate the form html
-function makeSectionList() {
-    var str = $('[data-side="sections"]').data('params');
-    if (str == undefined)
-      return "";
-
-    var html= "<form autocomplete=\"off\"> <select name=\"users\" onchange=\"searchBySection(this.value)\"> <option value=\"\">  Click to select a Section</option>";
-
-    var sz=(Object.keys(str).length);
-    for( var i=0; i< sz; i++) {
-       var s = JSON.parse(str[i]);
-       var abb=s['abb'];
-       var name=s['name'];
-       html=html+"<option value=\"" + abb + "\">"+ name +"</option>";
-    }
-    return html;
-}
-
-// use the system list from php backend, generate the form html
-function makeSystemList() {
-    var str = $('[data-side="systems"]').data('params');
-    if (str == undefined)
-      return "";
-
-    var html= "<form autocomplete=\"off\"> <select name=\"users\" onchange=\"searchBySystem(this.value)\"> <option value=\"\">  Click to select a System</option>";
-
-    var sz=(Object.keys(str).length);
-    window.console.log("Number of systems received from backend ->",sz);
-    for( var i=0; i< sz; i++) {
-       var s = JSON.parse(str[i]);
-       var abb=s['abb'];
-       var name=s['name'];
-       html=html+"<option value=\"" + abb + "\">"+ name +"</option>";
-    }
-    return html;
-}
-
-// use the fault list from php backend, generate the form html
-function makeNameList() {
-    var str = $('[data-side="names"]').data('params');
-    if (str == undefined)
-      return "";
-
-    var html= "<form autocomplete=\"off\"> <select name=\"users\" onchange=\"searchByName(this.value)\"> <option value=\"\">  Click to select a Name</option>";
-
-    var sz=(Object.keys(str).length);
-    for( var i=0; i< sz; i++) {
-       var s = JSON.parse(str[i]);
-       var abb=s['abb'];
-       var name=s['name'];
-       html=html+"<option value=\"" + abb + "\">"+ name +"</option>";
-    }
-    return html;
-}
-
-function makeStrikeSlider()
-{
-    var html=" Strike range: <input type=\"text\" id=\"strike-range\" readonly style=\"border:0; color:orange; text-align:center;\"><button id=\"strikeBtn\" type=\"button\" title=\"search with strike range\" class=\"btn btn-default\" style=\"border:0; color:blue\" onclick=\"searchWithStrikeRange()\"><span class=\"glyphicon glyphicon-search\"></span></button></div><div id=\"slider-strike-range\"></div><br>";
-    return html;
-} 
-
-function nullTableEntry(gid)
-{
-  var row="row_"+gid;
-  dptr= document.getElementById(row);
-  if(dptr) 
-     dptr.style.display= "none"; 
-}
-
-
-// str=metadata
-function makeResultTable(str)
-{
-    var html="<table><tr><th></th><th>CFM5.2 Fault Object Name</th></tr>";
-    var sz=(Object.keys(str).length);
-    for( var i=0; i< sz; i++) {
-       var s = JSON.parse(str[i]);
-       var gid=s['gid'];
-       var name=s['name'];
-       html=html+"<tr id=\"row_"+gid+"\"><td><button onclick=toggle_highlight("+gid+");><span id=\"highlight_"+gid+"\" class=\"glyphicon glyphicon-star-empty\"></span></button><button onclick=toggle_layer("+gid+");><span id=\"toggle_"+gid+"\" class=\"glyphicon glyphicon-eye-open\"></span></button></td><td>" + name + "</td></tr>";
-    }
-   html=html+ "</table>";
-   return html;
 }

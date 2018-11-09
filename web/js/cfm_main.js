@@ -7,6 +7,9 @@ jQuery(document).ready(function() {
 
   viewermap=setup_viewer();
 
+  getGeoTraceList();
+  getAllTraces();
+
 }) // end of MAIN
 
 

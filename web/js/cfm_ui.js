@@ -101,14 +101,13 @@ function makeStrikeSlider()
     return html;
 } 
 
-function nullTableEntry(gid)
-{
-  var row="row_"+gid;
-  dptr= document.getElementById(row);
-  if(dptr) 
-     dptr.style.display= "none"; 
+function nullTableEntry(target) {
+   // disable the toggle and highlight button
+   t_btn="#toggle_"+target;
+   h_btn="#highlight_"+target; 
+   $(t_btn).attr("disabled", true);
+   $(h_btn).attr("disabled", true);
 }
-
 
 // str=metadata
 function makeResultTable(str)
@@ -117,11 +116,59 @@ function makeResultTable(str)
     html=html+"<div style=\"overflow:auto; max-height: 300px; border:1px solid grey\"><table>";
     var sz=(Object.keys(str).length);
     for( var i=0; i< sz; i++) {
+       var s=str[i];
        var s = JSON.parse(str[i]);
-       var gid=s['gid'];
+       var gidstr=s['gid'];
+       var gid=parseInt(s['gid']);
        var name=s['name'];
-       html=html+"<tr id=\"row_"+gid+"\"><td style=\"width:25px\"><button class=\"btn btn-xs cfm-btn\" onclick=toggle_highlight("+gid+");><span id=\"highlight_"+gid+"\" class=\"glyphicon glyphicon-star-empty\"></span></td><td style=\"width:25px\"></button><button class=\"btn btn-xs cfm-btn\" onclick=toggle_layer("+gid+");><span id=\"toggle_"+gid+"\" class=\"glyphicon glyphicon-eye-open\"></span></button></td><td>" + name + "</td></tr>";
+       if(!in_nogeo_gid_list(gid)) {
+         html=html+"<tr id=\"row_"+gid+"\"><td style=\"width:25px\"><button class=\"btn btn-xs cfm-btn\" title=\"highlight the fault\" onclick=toggle_highlight("+gid+");><span id=\"highlight_"+gid+"\" class=\"glyphicon glyphicon-star-empty\"></span></button></td><td style=\"width:25px\"><button class=\"btn btn-xs cfm-btn\" title=\"toggle on/off the fault\" onclick=toggle_layer("+gid+");><span id=\"toggle_"+gid+"\" class=\"glyphicon glyphicon-eye-open\"></span></button></td><td style=\"width:25px\"><button class=\"btn btn-xs cfm-btn\" title=\"downloads\" onclick=download_layer("+gid+");><span id=\"download_"+gid+"\" class=\"glyphicon glyphicon-download\"></span></button></td><td>" + name +"/"+gid + "</td></tr>";
+        } else {
+         html=html+"<tr id=\"row_"+gid+"\"><td style=\"width:25px\"><button class=\"btn btn-xs cfm-btn\" title=\"highlight the fault\" onclick=toggle_highlight("+gid+") disabled><span id=\"highlight_"+gid+"\" class=\"glyphicon glyphicon-star-empty\"></span></button></td><td style=\"width:25px\"><button class=\"btn btn-xs cfm-btn\" title=\"toggle on/off the fault\" onclick=toggle_layer("+gid+") disabled><span id=\"toggle_"+gid+"\" class=\"glyphicon glyphicon-eye-open\"></span></button></td> <td style=\"width:25px\"><button class=\"btn btn-xs cfm-btn\" title=\"downloads\" onclick=download_layer("+gid+");><span id=\"download_"+gid+"\" class=\"glyphicon glyphicon-download\"></span></button></td><td>" + name +"/"+gid + "</td></tr>";
+      }
     }
-   html=html+ "</table></div>";
-   return html;
+    html=html+ "</table></div>";
+    return html;
+}
+
+// using internal information, existing style_list
+function _makeResultTableWithGList(glist)
+{
+    var html="<table><tr><th style=\"border:1px solid white\">CFM5.2 Fault Object Name</th></tr></table>";
+    html=html+"<div style=\"overflow:auto; max-height: 300px; border:1px solid grey\"><table>";
+    var sz=glist.length;
+    for( var i=0; i< sz; i++) {
+       var gid=glist[i];
+       var t=find_meta_list(gid);
+       var meta=t['meta'];
+       var name=meta['name'];
+       if(!in_nogeo_gid_list(gid)) {
+         var s= find_style_list(gid);
+         var h= s['highlight'];
+         if(h) {
+           html=html+"<tr id=\"row_"+gid+"\"><td style=\"width:25px\"><button class=\"btn btn-xs cfm-btn\" title=\"highlight the fault\" onclick=toggle_highlight("+gid+");><span id=\"highlight_"+gid+"\" class=\"glyphicon glyphicon-star\"></span></button></td><td style=\"width:25px\"><button class=\"btn btn-xs cfm-btn\" title=\"toggle on/off the fault\" onclick=toggle_layer("+gid+");><span id=\"toggle_"+gid+"\" class=\"glyphicon glyphicon-eye-open\"></span></button></td><td style=\"width:25px\"><button class=\"btn btn-xs cfm-btn\" title=\"downloads\" onclick=download_layer("+gid+");><span id=\"download_"+gid+"\" class=\"glyphicon glyphicon-download\"></span></button></td><td>" + name +"/"+gid + "</td></tr>";
+           } else {
+             html=html+"<tr id=\"row_"+gid+"\"><td style=\"width:25px\"><button class=\"btn btn-xs cfm-btn\" title=\"highlight the fault\" onclick=toggle_highlight("+gid+");><span id=\"highlight_"+gid+"\" class=\"glyphicon glyphicon-star-empty\"></span></button></td><td style=\"width:25px\"><button class=\"btn btn-xs cfm-btn\" title=\"toggle on/off the fault\" onclick=toggle_layer("+gid+");><span id=\"toggle_"+gid+"\" class=\"glyphicon glyphicon-eye-open\"></span></button></td><td style=\"width:25px\"><button class=\"btn btn-xs cfm-btn\" title=\"downloads\" onclick=download_layer("+gid+");><span id=\"download_"+gid+"\" class=\"glyphicon glyphicon-download\"></span></button></td><td>" + name +"/"+gid + "</td></tr>";
+        }
+        } else {
+         html=html+"<tr id=\"row_"+gid+"\"><td style=\"width:25px\"><button class=\"btn btn-xs cfm-btn\" title=\"highlight the fault\" onclick=toggle_highlight("+gid+") disabled><span id=\"highlight_"+gid+"\" class=\"glyphicon glyphicon-star-empty\"></span></button></td><td style=\"width:25px\"><button class=\"btn btn-xs cfm-btn\" title=\"toggle on/off the fault\" onclick=toggle_layer("+gid+") disabled><span id=\"toggle_"+gid+"\" class=\"glyphicon glyphicon-eye-open\"></span></button></td> <td style=\"width:25px\"><button class=\"btn btn-xs cfm-btn\" title=\"downloads\" onclick=download_layer("+gid+");><span id=\"download_"+gid+"\" class=\"glyphicon glyphicon-download\"></span></button></td><td>" + name +"/"+gid + "</td></tr>";
+       }
+    }
+    html=html+ "</table></div>";
+    return html;
+}
+
+
+// using existing gid_list,
+function makeResultTableWithList(glist)
+{
+    // reset it first
+    document.getElementById("searchResult").innerHTML ="";
+
+    window.console.log("using active list..");
+
+    if(glist.length > 0) {
+      toggle_layer_with_list(glist);
+      document.getElementById("searchResult").innerHTML = _makeResultTableWithGList(glist);
+    }
 }

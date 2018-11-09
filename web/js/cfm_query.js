@@ -1,4 +1,6 @@
 function searchByStrikeRange(min,max) {
+    toggle_off_all_layer();
+    cfm_active_gid_list=[];
     if (min == "" || max == "") {
         document.getElementById("searchResult").innerHTML = "";
         return;
@@ -12,8 +14,8 @@ function searchByStrikeRange(min,max) {
         }
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("phpResponseText").innerHTML = this.responseText;
-                var str = getQueryMeta("metaByStrikeRange");
+                document.getElementById("phpResponseTxt").innerHTML = this.responseText;
+                var str = processSearchResult("searchByStrikeRange");
                 document.getElementById("searchResult").innerHTML = makeResultTable(str);
             }
         };
@@ -31,6 +33,8 @@ function searchWithStrikeRange() {
 
 
 function searchByFaultObjectName() {
+    toggle_off_all_layer();
+    cfm_active_gid_list=[];
     str=document.getElementById("faultNameTxt").value;
     if (window.XMLHttpRequest) {
         // code for IE7+, Firefox, Chrome, Opera, Safari
@@ -41,8 +45,8 @@ function searchByFaultObjectName() {
     }
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            document.getElementById("phpResponseText").innerHTML = this.responseText;
-            var str=getQueryMeta("metaByFaultName");
+            document.getElementById("phpResponseTxt").innerHTML = this.responseText;
+            var str=processSearchResult("searchByFaultName");
             document.getElementById("searchResult").innerHTML = makeResultTable(str);
         }
     };
@@ -50,6 +54,8 @@ function searchByFaultObjectName() {
     xmlhttp.send();
 }
 function searchByKeyword() {
+    toggle_off_all_layer();
+    cfm_active_gid_list=[];
     str=document.getElementById("keywordTxt").value;
     if (window.XMLHttpRequest) {
         // code for IE7+, Firefox, Chrome, Opera, Safari
@@ -60,8 +66,8 @@ function searchByKeyword() {
     }
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            document.getElementById("phpResponseText").innerHTML = this.responseText;
-            var str=getQueryMeta("metaByKeyword");
+            document.getElementById("phpResponseTxt").innerHTML = this.responseText;
+            var str=processSearchResult("searchByKeyword");
             document.getElementById("searchResult").innerHTML = makeResultTable(str);
         }
     };
@@ -70,6 +76,8 @@ function searchByKeyword() {
 }
 
 function searchByLatlon() {
+    toggle_off_all_layer();
+    cfm_active_gid_list=[];
     latstr=document.getElementById("latTxt").value;
     window.console.log("lat");
     window.console.log(latstr);
@@ -90,8 +98,8 @@ function searchByLatlon() {
         }
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("phpResponseText").innerHTML = this.responseText;
-                var str=getQueryMeta("metaByLatLon");
+                document.getElementById("phpResponseTxt").innerHTML = this.responseText;
+                var str=processSearchResult("searchByLatLon");
                 document.getElementById("searchResult").innerHTML = makeResultTable(str);
             }
         }
@@ -101,6 +109,8 @@ function searchByLatlon() {
 }
 
 function searchByRegion(str) {
+    toggle_off_all_layer();
+    cfm_active_gid_list=[];
     if (str == "") {
         document.getElementById("searchResult").innerHTML = "";
         return;
@@ -114,8 +124,8 @@ function searchByRegion(str) {
         }
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("phpResponseText").innerHTML = this.responseText;
-                var str=getQueryMeta("metaByRegion");
+                document.getElementById("phpResponseTxt").innerHTML = this.responseText;
+                var str=processSearchResult("searchByRegion");
                 document.getElementById("searchResult").innerHTML = makeResultTable(str);
             }
         };
@@ -125,6 +135,8 @@ function searchByRegion(str) {
 }
 
 function searchBySection(str) {
+    toggle_off_all_layer();
+    cfm_active_gid_list=[];
     if (str == "") {
         document.getElementById("searchResult").innerHTML = "";
         return;
@@ -138,8 +150,8 @@ function searchBySection(str) {
         }
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("phpResponseText").innerHTML = this.responseText;
-                var str=getQueryMeta("metaBySection");
+                document.getElementById("phpResponseTxt").innerHTML = this.responseText;
+                var str=processSearchResult("searchBySection");
                 document.getElementById("searchResult").innerHTML = makeResultTable(str);
             }
         };
@@ -149,6 +161,8 @@ function searchBySection(str) {
 }
 
 function searchBySystem(str) {
+    toggle_off_all_layer();
+    cfm_active_gid_list=[];
     if (str == "") {
         document.getElementById("searchResult").innerHTML = "";
         return;
@@ -162,8 +176,8 @@ function searchBySystem(str) {
         }
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("phpResponseText").innerHTML = this.responseText;
-                var str=getQueryMeta("metaBySystem");
+                document.getElementById("phpResponseTxt").innerHTML = this.responseText;
+                var str=processSearchResult("searchBySystem");
                 document.getElementById("searchResult").innerHTML = makeResultTable(str);
             }
         };
@@ -174,6 +188,8 @@ function searchBySystem(str) {
 
 
 function searchByName(str) {
+    toggle_off_all_layer();
+    cfm_active_gid_list=[];
     if (str == "") {
         document.getElementById("searchResult").innerHTML = "";
         return;
@@ -187,14 +203,55 @@ function searchByName(str) {
         }
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("phpResponseText").innerHTML = this.responseText;
-                var str=getQueryMeta("metaByName");
+                document.getElementById("phpResponseTxt").innerHTML = this.responseText;
+                var str=processSearchResult("searchByName");
                 document.getElementById("searchResult").innerHTML = makeResultTable(str);
             }
         };
         xmlhttp.open("GET","php/byName.php?q="+str,true);
         xmlhttp.send();
     }
+}
+
+
+// returning 2 lists, one is gid list where each gid has a geo/shapefile
+//                    one is nogid list where no gid has a geo/shapefile
+function getGeoTraceList() {
+    if (window.XMLHttpRequest) {
+        // code for IE7+, Firefox, Chrome, Opera, Safari
+        xmlhttp = new XMLHttpRequest();
+    } else {
+        // code for IE6, IE5
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("phpResponseTxt").innerHTML = this.responseText;
+            processGeoList();
+        }
+    };
+    xmlhttp.open("GET","php/getGeoTraceList.php",true);
+    xmlhttp.send();
+}
+
+
+function getAllTraces() {
+    if (window.XMLHttpRequest) {
+        // code for IE7+, Firefox, Chrome, Opera, Safari
+        xmlhttp = new XMLHttpRequest();
+    } else {
+        // code for IE6, IE5
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("phpResponseTxt").innerHTML = this.responseText;
+            var str=processTraceMeta("metaByAllTraces");
+            document.getElementById("searchResult").innerHTML = makeResultTable(str);
+        }
+    };
+    xmlhttp.open("GET","php/getAllTraces.php",true);
+    xmlhttp.send();
 }
 
 function getRegionList() {
@@ -207,7 +264,7 @@ function getRegionList() {
     }
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            document.getElementById("phpResponseText").innerHTML = this.responseText;
+            document.getElementById("phpResponseTxt").innerHTML = this.responseText;
             document.getElementById("regionList").innerHTML = makeRegionList();
         }
     };
@@ -227,7 +284,7 @@ function getSectionList() {
     }
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            document.getElementById("phpResponseText").innerHTML = this.responseText;
+            document.getElementById("phpResponseTxt").innerHTML = this.responseText;
             document.getElementById("sectionList").innerHTML = makeSectionList();
         }
     };
@@ -247,7 +304,7 @@ function getNameList() {
     }
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            document.getElementById("phpResponseText").innerHTML = this.responseText;
+            document.getElementById("phpResponseTxt").innerHTML = this.responseText;
             document.getElementById("nameList").innerHTML = makeNameList();
         }
     };
@@ -268,7 +325,7 @@ function getSystemList() {
     }
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            document.getElementById("phpResponseText").innerHTML = this.responseText;
+            document.getElementById("phpResponseTxt").innerHTML = this.responseText;
             document.getElementById("systemList").innerHTML = makeSystemList();
         }
     };
@@ -289,7 +346,7 @@ function getStrikeRange() {
     }
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            document.getElementById("phpResponseText").innerHTML = this.responseText;
+            document.getElementById("phpResponseTxt").innerHTML = this.responseText;
             document.getElementById("strikeRange").innerHTML = makeStrikeSlider();
             [rangeMin, rangeMax]=getStrikeRangeMinMax();
             setupSlider(rangeMin, rangeMax);
@@ -302,10 +359,11 @@ function getStrikeRange() {
 }
 
 
-function getGeoJSONbyObjGid(gitstr, meta) {
-    // if gitstr is not set look for it in the input field
-    if(typeof gitstr == 'undefined')   
-        gitstr=document.getElementById("objGidTxt").value;
+
+function getGeoJSONbyObjGid(gidstr, meta) {
+    // if gidstr is not set look for it in the input field
+    if(typeof gidstr == 'undefined')   
+        gidstr=document.getElementById("objGidTxt").value;
 
     if (window.XMLHttpRequest) {
         // code for IE7+, Firefox, Chrome, Opera, Safari
@@ -319,17 +377,15 @@ function getGeoJSONbyObjGid(gitstr, meta) {
             document.getElementById("geoSearchByObjGidResult").innerHTML = this.responseText;
             // grab the geoJSON
             var geoJSON=getGeoJSON();
+            var gid=parseInt(gidstr);
 /* multiple faults per single layer
-            addGeoJSONAsFeatureToList(geoJSON,parseInt(gitstr),meta);
+            addGeoJSONAsFeatureToList(geoJSON,gid,meta);
 */
-            makeGeoJSONFeature(geoJSON, parseInt(gitstr), meta);
-            if(gotAllGeoJSON()) {
-               plotAll();
-               window.console.log("All the data is IN...");
-            } 
+            var trace=makeGeoJSONFeature(geoJSON, gid, meta);
+            load_a_trace(gid,trace);
         }
     };
-    xmlhttp.open("GET","php/getGeoJSON.php?obj_gid="+gitstr,true);
+    xmlhttp.open("GET","php/getGeoJSON.php?obj_gid="+gidstr,true);
     xmlhttp.send();
 }
 

@@ -8,11 +8,16 @@ var highlight_style = {
 };
 
 /***
- global Layer consist of many feautures(=faults) to be 
+ all trace Layer consist of many feautures(=faults) to be 
  manipulated in sync
 ***/
-var cfm_all_trace={"type":"FeatureCollection", "features":[]};
-var cfm_all_layer;
+//var cfm_all_trace={"type":"FeatureCollection", "features":[]};
+//var cfm_all_layer;
+
+
+
+
+var cfm_toggle_plot=1;
 
 /***
    tracking data structure
@@ -30,88 +35,85 @@ var cfm_section_list=[];
 var cfm_name_list=[];
 
 
-// { gid1, gid2, ... }, all objects
+// { gid1, gid2, ... }, all objects 
 var cfm_gid_list=[];
 
-// { gid1, gid2, ... }, objects without geoJSON info
-var cfm_skip_gid_list=[];
+// { gid1, gid2, ... }, only without geo
+var cfm_nogeo_gid_list=[];
 
-// all gid ==> gid from object_tb
+// all gid ==> gid from object_tb, all objects
 //  [ { "gid": gid1,  "meta": mmm1 }, {  "gid": gid2, "meta": mmm2 }, ... } 
 var cfm_fault_meta_list=[];
 
-// [ {"gid": gid1, "trace": trace1 }, {"gid":gid2, "trace":trace2}... ]
+// [ {"gid": gid1, "trace": trace1 }, {"gid":gid2, "trace":trace2}... ], only with geo
 var cfm_trace_list=[];
 
-// [ {"gid": gid1, "layer": layer1 }, {"gid":gid2, "layer":layer2}...]
+// [ {"gid": gid1, "layer": layer1 }, {"gid":gid2, "layer":layer2}...], only with geo
 var cfm_layer_list=[];
 
 // tracking original style
-// [ {"gid": gid1, "style": style1, "visibility": vis1, "highlight": hl1 }...]
+// [ {"gid": gid1, "style": style1, "visible": vis1, "highlight": hl1 }...], only with geo
 var cfm_style_list=[];
-
-var cfm_toggle_plot=1;
 
 // strike range is from 5 to 359
 var strike_range_min = 5;
 var strike_range_max = 359;
 
+// { gid1, gid2, ... }, tracking current active search result, from all objects
+var cfm_active_gid_list=[];
 /*********************************************************
 *********************************************************/
 
-function reset_all_layer() {
-  if(cfm_all_layer != undefined)
-      viewermap.removeLayer(cfm_all_layer);
-  cfm_all_trace={"type":"FeatureCollection", "features":[]};
-}
+//function reset_all_layer() {
+//  if(cfm_all_layer != undefined)
+//      viewermap.removeLayer(cfm_all_layer);
+//  cfm_all_trace={"type":"FeatureCollection", "features":[]};
+//}
 
-function print_all_trace() {
-  var cnt= cfm_all_trace.features.length;
-  window.console.log("number of traces..",cnt);
-  var str=JSON.stringify(cfm_all_trace);
-  window.console.log(str);
-}
+//function print_all_trace() {
+//  var cnt= cfm_all_trace.features.length;
+//  window.console.log("number of traces..",cnt);
+//  var str=JSON.stringify(cfm_all_trace);
+//  window.console.log(str);
+//}
 
 // add a geoJSON to the global feature list 
-function addGeoJSONAsFeatureToAll(geoJSON, gid, meta) {
-  if( typeof geoJSON === 'object') {
-     blob= geoJSON;
-     } else {
-       blob=JSON.parse(geoJSON);
-  }
-  var content=getContentFromMeta(meta);
-  //var color=getColorFromMeta(meta);
-  var tmp= { "id":gid,
-             "type":"Feature", 
-             "properties": { "popupContent": content,
-                             "style": { 
-                                 "color": "RGB(255,0,0)",
-                                 "weight":3,
-                                 "opacity":1
-                            }},
-             "geometry": blob 
-          };
+//function addGeoJSONAsFeatureToAll(geoJSON, gid, meta) {
+//  if( typeof geoJSON === 'object') {
+//     blob= geoJSON;
+//     } else {
+//       blob=JSON.parse(geoJSON);
+//  }
+//  var content=getContentFromMeta(meta);
+//  var tmp= { "id":gid,
+//             "type":"Feature", 
+//             "properties": { "popupContent": content,
+//                             "style": { 
+//                                 "color": "RGB(255,0,0)",
+//                                 "weight":3,
+//                                 "opacity":1
+//                            }},
+//             "geometry": blob 
+//          };
+//  cfm_all_trace.features.push(tmp);
+//}
 
-  cfm_all_trace.features.push(tmp);
-}
-
-function load_all_trace()
-{
-  cfm_all_layer=addGeoToMap(cfm_all_trace, viewermap);
-  return cfm_all_layer;
-}
+//function load_all_trace()
+//{
+//  cfm_all_layer=addGeoToMap(cfm_all_trace, viewermap);
+//  return cfm_all_layer;
+//}
 /*********************************************************/
 function reset_geo_plot() {
-  cfm_layer_list.forEach(function(element) {
-      var l=element['layer'];
-      viewermap.removeLayer(l);
-  });
-  cfm_gid_list=[];
-  cfm_fault_meta_list=[];
-  cfm_trace_list=[];
-  cfm_layer_list=[];
-  cfm_region_list={};
-  cfm_style_list=[];
+  // can not really 'destroy' layer and so need to reuse..
+  cfm_active_gid_list=[];
+  reset_layer_list();  // unhighlight the layers first
+  //reset_style_list();
+  // generate the result table according to the style_list..
+  // remove all the layer
+  // redraw the layers
+  cfm_toggle_plot=0;
+  toggleAll();
 }
 
 // create a feature with just 1 geoJSON, per object_tb's gid
@@ -119,9 +121,9 @@ function makeGeoJSONFeature(geoJSON, gid, meta) {
   if(in_trace_list(gid)) {
     return;
   }
+
   if(geoJSON == undefined) {
-    window.console.log("makeGeoJSONFeature, geoJSON is null for ", gid);
-    cfm_skip_gid_list.push(gid);
+    window.console.log("BAD BAD BAD, makeGeoJSONFeature, geoJSON is null for ", gid);
     return;
   }
   if( typeof geoJSON === 'object') {
@@ -145,23 +147,71 @@ function makeGeoJSONFeature(geoJSON, gid, meta) {
              "geometry": blob 
           };
 
-  var cfmTrace={"type":"FeatureCollection", "features":[]};
-  cfmTrace.features.push(tmp);
-  
-  cfm_trace_list.push({"gid":gid, "trace":cfmTrace});
-  cfm_gid_list.push(gid);
+  var a_trace={"type":"FeatureCollection", "features":[]};
+  a_trace.features.push(tmp);
+  cfm_trace_list.push({"gid":gid, "trace":a_trace});
   cfm_style_list.push({"gid":gid, "style":style, "visible": 0, "highlight":0});
+  return a_trace;
+}
+
+/* return true if target is in the trace list */
+function find_style_list(target) {
+   var found=0;
+   cfm_style_list.forEach(function(element) {
+     if ( element['gid'] == target )
+        found=element;
+   });
+   return found;
+}
+
+function reset_style_list() {
+   cfm_style_list.forEach(function(element) {
+     element['visible ']=1;
+     element['highlight']=0;
+   });
+}
+
+function remove_layer_list() {
+  cfm_layer_list.forEach(function(element) {
+      var l=element['layer'];
+      viewermap.removeLayer(l);
+  });
+}
+
+/* return true if target is in the meta list */
+function find_meta_list(target) {
+   var found=0;
+   cfm_fault_meta_list.forEach(function(element) {
+     if ( element['gid'] == target )
+        found=element;
+   });
+   return found;
 }
 
 /* return true if target is in the trace list */
 function in_trace_list(target) {
    var found=0;
-   cfm_gid_list.forEach(function(element) {
-          if (element == target)
-             found=1;
+   cfm_trace_list.forEach(function(element) {
+     if ( element['gid'] == target )
+        found=1;
    });
    return found;
 }
+
+/* return true if target is in the trace list */
+function in_active_gid_list(target) {
+   var found=0;
+
+   if(cfm_active_gid_list.length == 0)
+     return found;
+
+   cfm_active_gid_list.forEach(function(element) {
+     if ( element['gid'] == target )
+        found=1;
+   });
+   return found;
+}
+
 
 function find_layer_list(target) { 
    var found=undefined;
@@ -170,6 +220,17 @@ function find_layer_list(target) {
         found=element;
    });
    return found;
+}
+
+// just in case the layer's color got set to highlight
+function reset_layer_list() { 
+   cfm_layer_list.forEach(function(element) {
+     var gid=element['gid'];
+     var s=find_style_list(gid);
+     if( s['highlight']==1 ) {
+       unhighlight_layer(gid);
+     }
+   });
 }
 
 function find_style_list(target) { 
@@ -209,7 +270,8 @@ function unhighlight_layer(target) {
    var id=get_leaflet_id(l) 
    var o= find_style_list(target);
    var original=o['style'];
-   if(original!=undefined)
+   var v=o['visible'];
+   if(v && original!=undefined)
       viewermap._layers[id].setStyle(original);
 }
 
@@ -225,6 +287,18 @@ function find_trace_list(target) {
         found=element;
    });
    return found;
+}
+
+function load_a_trace(gid,trace) {
+  var t=find_layer_list(gid);
+  if(t) {
+    window.console.log("already plotted this layer", gid);
+    return;
+  }
+  var layer=addGeoToMap(trace, viewermap);
+  cfm_layer_list.push({"gid":gid, "layer":layer}); 
+  var s =find_style_list(gid);
+  s['visible']=1; // turn it on
 }
 
 function load_trace_list()
@@ -248,15 +322,17 @@ function load_trace_list()
   window.console.log("load_layer_list...",sz);
 }
 
-// suppress the buttons for object that has no geoJSON
-function skip_gid_list() {
-  var sz=cfm_skip_gid_list.length;
-  for (var i=0; i<sz; i++) {
-     var gid=cfm_skip_gid_list[i];
-     nullTableEntry(gid);
-  }
+function in_nogeo_gid_list(target) {
+   var found=0;
+   cfm_nogeo_gid_list.forEach(function(element) {
+          if (element == target)
+             found=1;
+   });
+   return found;
 }
 
+// toggle off everything except if there
+// is a set of search result..
 function toggle_off_all_layer()
 {
   var sz=cfm_style_list.length;
@@ -265,7 +341,25 @@ function toggle_off_all_layer()
      var s=cfm_style_list[i];
      var vis=s['visible'];
      var gid=s['gid'];
-     if(vis == 1) 
+     if(vis == 1) { 
+       toggle_layer(gid) 
+     }
+  }
+  cfm_toggle_plot=0;
+}
+
+function toggle_layer_with_list(glist)
+{
+  var sz=glist.length;
+  if (sz==0) return;
+  for (var i=0; i<sz; i++) {
+     var gid=glist[i];
+     var s=find_style_list(gid);
+     if(s == undefined)
+        continue;
+     var vis=s['visible'];
+     var gid=s['gid'];
+     if(vis == 0) 
        toggle_layer(gid) 
   }
 }
@@ -301,6 +395,12 @@ function toggle_layer(target)
       viewermap.addLayer(layer);
   }
 }
+
+//  do some popup and options 
+function download_layer(target) {
+   window.console.log("download_layer: not implmented yet..");
+}
+
 /*********************************************************/
 
 function refresh_map()

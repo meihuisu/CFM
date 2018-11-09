@@ -13,3 +13,7 @@ th {text-align: left;}
           display: inline-block;
         }
 
+
+.cfm-btn:disabled {
+         color: white 
+        }
