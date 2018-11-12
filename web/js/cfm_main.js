@@ -9,6 +9,7 @@ jQuery(document).ready(function() {
 
   getGeoTraceList();
   getAllTraces();
+  setupSearch();
 
 }) // end of MAIN
 

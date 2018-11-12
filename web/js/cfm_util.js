@@ -3,6 +3,16 @@
 
 ***/
 
+// strike range is from 5 to 359
+var strike_range_min = 0;
+var strike_range_max = 0;
+
+function setup_strike_range(min,max)
+{
+   strike_range_min=min;
+   strike_range_max=max;
+}
+
 function plotAll() {
 //  load_geo_list_layer();
   load_trace_list();
@@ -22,11 +32,13 @@ function toggleAll() {
 
 function refreshAll() {
   document.getElementById("geoSearchByObjGidResult").innerHTML = "";
-  document.getElementById("regionList").innerHTML = "";
-  document.getElementById("sectionList").innerHTML = "";
-  document.getElementById("nameList").innerHTML = "";
-  document.getElementById("systemList").innerHTML = "";
-  document.getElementById("strikeRange").innerHTML = "";
+// reset 
+  document.getElementById('selectRegion').selectedIndex=0;
+  document.getElementById('selectSection').selectedIndex = 0;
+  document.getElementById('selectSystem').selectedIndex = 0;
+  document.getElementById('selectName').selectedIndex = 0;
+  $( "#strike-range" ).val( strike_range_min + " - " + strike_range_max );
+  $( "#slider-strike-range" ).slider("option", "values" ,[strike_range_min, strike_range_max]);
   document.getElementById("searchResult").innerHTML = "";
   document.getElementById("phpResponseTxt").innerHTML = "";
   document.getElementById("keywordTxt").value = '';
@@ -34,10 +46,6 @@ function refreshAll() {
   document.getElementById("latTxt").value = '';
   document.getElementById("lonTxt").value = '';
 //  document.getElementById("objGidTxt").value = '';
-  $("#regionBtn").attr("disabled", false);
-  $("#regionBtn").show();  
-  $("#rangeBtn").attr("disabled", false);
-  $("#rangeBtn").show();  
   refresh_map();
   reset_geo_plot();
 }

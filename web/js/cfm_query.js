@@ -1,6 +1,4 @@
 function searchByStrikeRange(min,max) {
-    toggle_off_all_layer();
-    cfm_active_gid_list=[];
     if (min == "" || max == "") {
         document.getElementById("searchResult").innerHTML = "";
         return;
@@ -14,6 +12,8 @@ function searchByStrikeRange(min,max) {
         }
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
+                toggle_off_all_layer();
+                cfm_active_gid_list=[];
                 document.getElementById("phpResponseTxt").innerHTML = this.responseText;
                 var str = processSearchResult("searchByStrikeRange");
                 document.getElementById("searchResult").innerHTML = makeResultTable(str);
@@ -33,8 +33,6 @@ function searchWithStrikeRange() {
 
 
 function searchByFaultObjectName() {
-    toggle_off_all_layer();
-    cfm_active_gid_list=[];
     str=document.getElementById("faultNameTxt").value;
     if (window.XMLHttpRequest) {
         // code for IE7+, Firefox, Chrome, Opera, Safari
@@ -45,6 +43,8 @@ function searchByFaultObjectName() {
     }
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
+            toggle_off_all_layer();
+            cfm_active_gid_list=[];
             document.getElementById("phpResponseTxt").innerHTML = this.responseText;
             var str=processSearchResult("searchByFaultName");
             document.getElementById("searchResult").innerHTML = makeResultTable(str);
@@ -54,8 +54,6 @@ function searchByFaultObjectName() {
     xmlhttp.send();
 }
 function searchByKeyword() {
-    toggle_off_all_layer();
-    cfm_active_gid_list=[];
     str=document.getElementById("keywordTxt").value;
     if (window.XMLHttpRequest) {
         // code for IE7+, Firefox, Chrome, Opera, Safari
@@ -66,6 +64,8 @@ function searchByKeyword() {
     }
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
+            toggle_off_all_layer();
+            cfm_active_gid_list=[];
             document.getElementById("phpResponseTxt").innerHTML = this.responseText;
             var str=processSearchResult("searchByKeyword");
             document.getElementById("searchResult").innerHTML = makeResultTable(str);
@@ -76,8 +76,6 @@ function searchByKeyword() {
 }
 
 function searchByLatlon() {
-    toggle_off_all_layer();
-    cfm_active_gid_list=[];
     latstr=document.getElementById("latTxt").value;
     window.console.log("lat");
     window.console.log(latstr);
@@ -98,6 +96,8 @@ function searchByLatlon() {
         }
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
+                toggle_off_all_layer();
+                cfm_active_gid_list=[];
                 document.getElementById("phpResponseTxt").innerHTML = this.responseText;
                 var str=processSearchResult("searchByLatLon");
                 document.getElementById("searchResult").innerHTML = makeResultTable(str);
@@ -109,8 +109,6 @@ function searchByLatlon() {
 }
 
 function searchByRegion(str) {
-    toggle_off_all_layer();
-    cfm_active_gid_list=[];
     if (str == "") {
         document.getElementById("searchResult").innerHTML = "";
         return;
@@ -124,6 +122,8 @@ function searchByRegion(str) {
         }
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
+                toggle_off_all_layer();
+                cfm_active_gid_list=[];
                 document.getElementById("phpResponseTxt").innerHTML = this.responseText;
                 var str=processSearchResult("searchByRegion");
                 document.getElementById("searchResult").innerHTML = makeResultTable(str);
@@ -135,8 +135,6 @@ function searchByRegion(str) {
 }
 
 function searchBySection(str) {
-    toggle_off_all_layer();
-    cfm_active_gid_list=[];
     if (str == "") {
         document.getElementById("searchResult").innerHTML = "";
         return;
@@ -150,6 +148,8 @@ function searchBySection(str) {
         }
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
+                toggle_off_all_layer();
+                cfm_active_gid_list=[];
                 document.getElementById("phpResponseTxt").innerHTML = this.responseText;
                 var str=processSearchResult("searchBySection");
                 document.getElementById("searchResult").innerHTML = makeResultTable(str);
@@ -161,8 +161,6 @@ function searchBySection(str) {
 }
 
 function searchBySystem(str) {
-    toggle_off_all_layer();
-    cfm_active_gid_list=[];
     if (str == "") {
         document.getElementById("searchResult").innerHTML = "";
         return;
@@ -176,6 +174,8 @@ function searchBySystem(str) {
         }
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
+                toggle_off_all_layer();
+                cfm_active_gid_list=[];
                 document.getElementById("phpResponseTxt").innerHTML = this.responseText;
                 var str=processSearchResult("searchBySystem");
                 document.getElementById("searchResult").innerHTML = makeResultTable(str);
@@ -188,8 +188,6 @@ function searchBySystem(str) {
 
 
 function searchByName(str) {
-    toggle_off_all_layer();
-    cfm_active_gid_list=[];
     if (str == "") {
         document.getElementById("searchResult").innerHTML = "";
         return;
@@ -203,6 +201,8 @@ function searchByName(str) {
         }
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
+                toggle_off_all_layer();
+                cfm_active_gid_list=[];
                 document.getElementById("phpResponseTxt").innerHTML = this.responseText;
                 var str=processSearchResult("searchByName");
                 document.getElementById("searchResult").innerHTML = makeResultTable(str);
@@ -270,8 +270,6 @@ function getRegionList() {
     };
     xmlhttp.open("GET","php/getRegionList.php",true);
     xmlhttp.send();
-    $("#regionBtn").attr("disabled", true);  // only does it once
-    $("#regionBtn").hide();  // only does it once
 }
 
 function getSectionList() {
@@ -290,8 +288,6 @@ function getSectionList() {
     };
     xmlhttp.open("GET","php/getSectionList.php",true);
     xmlhttp.send();
-    $("#sectionBtn").attr("disabled", true);  // only does it once
-    $("#sectionBtn").hide();  // only does it once
 }
 
 function getNameList() {
@@ -310,8 +306,6 @@ function getNameList() {
     };
     xmlhttp.open("GET","php/getNameList.php",true);
     xmlhttp.send();
-    $("#nameBtn").attr("disabled", true);  // only does it once
-    $("#nameBtn").hide();  // only does it once
 }
 
 
@@ -331,8 +325,6 @@ function getSystemList() {
     };
     xmlhttp.open("GET","php/getSystemList.php",true);
     xmlhttp.send();
-    $("#systemBtn").attr("disabled", true);  // only does it once
-    $("#systemBtn").hide();  // only does it once
 }
 
 
@@ -354,8 +346,6 @@ function getStrikeRange() {
     };
     xmlhttp.open("GET","php/getStrikeRange.php",true);
     xmlhttp.send();
-    $("#rangeBtn").attr("disabled", true);  // only does it once
-    $("#rangeBtn").hide();  // only does it once
 }
 
 
@@ -389,3 +379,12 @@ function getGeoJSONbyObjGid(gidstr, meta) {
     xmlhttp.send();
 }
 
+
+function setupSearch()
+{
+   queryByType("system");
+   queryByType("region");
+   queryByType("section");
+   queryByType("name");
+   getStrikeRange();
+}

@@ -55,10 +55,6 @@ var cfm_layer_list=[];
 // [ {"gid": gid1, "style": style1, "visible": vis1, "highlight": hl1 }...], only with geo
 var cfm_style_list=[];
 
-// strike range is from 5 to 359
-var strike_range_min = 5;
-var strike_range_max = 359;
-
 // { gid1, gid2, ... }, tracking current active search result, from all objects
 var cfm_active_gid_list=[];
 /*********************************************************

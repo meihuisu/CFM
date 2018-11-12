@@ -7,6 +7,8 @@
 <link rel="stylesheet" href="css/vendor/bootstrap.css">
 <link rel="stylesheet" href="css/vendor/jquery-ui.css">
 <link rel="stylesheet" href="css/cfm-ui.css">
+<link rel="stylesheet" href="css/sidebar.css">
+
 <script type="text/javascript" src="js/vendor/leaflet-src.js"></script>
 <script type='text/javascript' src='js/vendor/jquery.min.js'></script>
 <script type='text/javascript' src='js/vendor/bootstrap.min.js'></script>
@@ -18,90 +20,109 @@
 <script type="text/javascript" src="js/cfm_leaflet.js"></script>
 <script type="text/javascript" src="js/cfm_main.js"></script>
 <script type="text/javascript" src="js/cfm_query.js"></script>
+<script type="text/javascript" src="js/cfm_sidebar.js"></script>
 </head>
 <body>
 <div class="container-fluid">
 <p>
-  <button id="refreshBtn" class="btn btn-sm" title="refresh all" style="color:blue" onclick="refreshAll()">
-    <span class="glyphicon glyphicon-refresh"></span>
-  </button>
-<!--
-  <button id="plotBtn" class="btn btn-sm" title="plot them all" style="color:blue" onclick="plotAll()">
-    <span class="glyphicon glyphicon-picture"></span>
-  </button>
--->
-  <button id="toggleBtn" class="btn btn-sm" title="toggle all" style="color:blue" onclick="toggleAll()">
-    <span class="glyphicon glyphicon-adjust"></span>
-  </button>
+  <div style="width:100%">
+  <button id="typeBtn" class="btn cfm-top-btn" title="search by type" onclick="typeClick();">
+     <span class="glyphicon glyphicon-search"></span>Type</button>
+  <button id="keywordBtn" class="btn cfm-top-btn" title="search by keyword" onclick="keywordClick();">
+     <span class="glyphicon glyphicon-search"></span>Keyword</button>
+  <button id="latlonBtn" class="btn cfm-top-btn" title="search by latlon" onclick="latlonClick();">
+     <span class="glyphicon glyphicon-search"></span>Latlon</button>
+  <button id="strikeBtn" class="btn cfm-top-btn" title="search by strike" onclick="strikeClick();">
+     <span class="glyphicon glyphicon-search"></span>strike</button>
+  <button id="refreshBtn" class="btn cfm-top-btn" title="refresh all" onclick="refreshAll();">
+     <span class="glyphicon glyphicon-refresh"></span>Refresh</button>
+  <button id="toggleBtn" class="btn cfm-top-btn" title="toggle all" onclick="toggleAll();">
+     <span class="glyphicon glyphicon-adjust"></span>Toggle</button>
+  </div>
 </p>
 </p>
 <div class="row col-md-12 col-xs-12" style="display:inline-block;left:20px;">
 <div id='CFM_plot' style="position:fixed;width:40%;height:90%;left:58%;border:solid 3px gray"></div>
+<div id='resultBlock' style="width:55%; height:90%;float:left;top:20px;">
+  <div id="searchResult" class="table-responsive"></div>
+</div>
 <div id='queryBlock' style="width:55%;float:left;top:20px;">
   <div id='myCFM_query'>
-    <div style="display:inline-block">
-     <strong>Query for Fault by system:</strong>
-     <button id="systemBtn" type="button" title="retrieve systemlist" class="btn btn-default" style="border: 0; color: blue" onclick="getSystemList()">
-            <span class="glyphicon glyphicon-search"></span>
-     </button>
+<div id="pull-out" style="width:60%">
+<ul id="sidebar" class="navigation" >
+  <li id='type' class='navigationLi col-md-12 col-xs-12' style="background-color:#f9f9f9; display:none">
+    <div id='typeMenu' class='menu'>
+      <div id='typeLabel' class='menuLabel' style="margin-left:20px;font-size:14px;font-weight:bold">Query for Fault by type:<button class="pull-right" title="dismiss" onclick="dismissType()" style="border:none;background-color:transparent"><span class="glyphicon glyphicon-remove"></span>
+</button>
+      </div>
+      <div class="row col-md-12 col-xs-12">
+           <div class="row col-md-12 col-xs-12" style="margin-left:20px; margin-top:20px">
+
+      <div class="cfm-div" id="systemList"></div>
+      <div class="cfm-div" id="regionList"></div>
+      <div class="cfm-div" id="sectionList"></div>
+      <div class="cfm-div" id="nameList"></div>
+
+           </div>
+       </div>
     </div>
-    <div id="systemList"></div>
-    <div style="display:inline-block">
-     <strong>Query for Fault by region:</strong>
-     <button id="regionBtn" type="button" title="retrieve region list" class="btn btn-default" style="border: 0; color: blue" onclick="getRegionList()">
-            <span class="glyphicon glyphicon-search"></span>
-     </button>
+  </li>
+  <li id='strike' class='navigationLi col-md-12 col-xs-12' style="background-color:#f9f9f9; display:none">
+    <div id='strikeMenu' class='menu'>
+      <div id='strikeLabel' class='menuLabel' style="margin-left:20px;font-size:14px;font-weight:bold">Query for Fault by strike range:<button class="pull-right" title="dismiss" onclick="dismissStrike()" style="border:none;background-color:transparent"><span class="glyphicon glyphicon-remove"></span>
+</button>
+      </div>
+      <div class="row col-md-12 col-xs-12">
+           <div class="row col-md-12 col-xs-12" style="margin-left:20px; margin-top:20px">
+             <div class="cfm-div" id="strikeRange" style="width:90%; padding-left:10px; padding-right:10px; overflow:hidden;"></div>
+           </div>
+       </div>
     </div>
-    <div id="regionList"></div>
-    <div style="display:inline-block">
-     <strong>Query for Fault by section:</strong>
-     <button id="sectionBtn" type="button" title="retrieve section list" class="btn btn-default" style="border: 0; color: blue" onclick="getSectionList()">
-            <span class="glyphicon glyphicon-search"></span>
-     </button>
-    </div>
-    <div id="sectionList"></div>
-    <div style="display:inline-block">
-     <strong>Query for Fault by name:</strong>
-     <button id="nameBtn" type="button" title="retrieve name list" class="btn btn-default" style="border: 0; color: blue" onclick="getNameList()">
-            <span class="glyphicon glyphicon-search"></span>
-     </button>
-    </div>
-    <div id="nameList"></div>
-    <p><strong>Query for Fault by strike range:</strong>
-     <button id="rangeBtn" type="button" title="retrieve strike range" class="btn btn-default" style="border:0; color:blue" onclick="getStrikeRange()">
-            <span class="glyphicon glyphicon-search"></span>
-     </button>
-    </p>
-    <div id="strikeRange" style="width:80%; overflow:hidden;"></div>
-    <p><strong>Query for Fault by keyword:</strong>
-     <div style="display:flex"> Keyword: <input type="text" id="keywordTxt" onfocus="this.value=''" style="right-margin:10px; border:1px solid black; color:orange; text-align:center;">
+  </li>
+
+  <li id='keyword' class='navigationLi col-md-12 col-xs-12' style="background-color:#f9f9f9; display:none">
+    <div id='keywordMenu' class='menu'>
+      <div id='keywordLabel' class='menuLabel' style="margin-left:20px;font-size:14px;font-weight:bold">Query for Fault by keyword:<button class="pull-right" title="dismiss" onclick="dismissKeyword()" style="border:none;background-color:transparent"><span class="glyphicon glyphicon-remove"></span>
+</button>
+      </div>
+      <div class="row col-md-12 col-xs-12">
+           <div class="row col-md-12 col-xs-12" style="margin-left:20px; margin-top:20px">
+
+<div class="cfm-div">
+       Keyword:&nbsp;<input type="text" id="keywordTxt" onfocus="this.value=''" style="right-margin:10px; border:1px solid black; color:orange; text-align:center;">
        <button id="keywordBtn" type="button" title="search with keyword" class="btn btn-default" style="border: 0; color: blue" onclick="searchByKeyword()">
             <span class="glyphicon glyphicon-search"></span>
        </button>
-     </div>
-    </p>
-<!--
-    <p><strong>Query for Fault by fault object name:</strong>
-     <div style="display:flex"> Name: <input type="text" id="faultNameTxt" onfocus="this.value=''" style="right-margin:10px; border:1px solid black; width:300px; color:orange; text-align:center;">
-       <button id="nameBtn" type="button" title="search with name" class="btn btn-default" style="border: 0; color: blue" onclick="searchByFaultObjectName()">
-            <span class="glyphicon glyphicon-search"></span>
-       </button>
-     </div>
-    </p>
--->
-    <p><strong>Query for Fault by latlon:(32.2112628759,-115.0092189871)</strong>
-    <div style="display:flex">
-      <div> Lat: 
-         <input type="text" id="latTxt" onfocus="this.value=''" style="right-margin:10px; border:1px solid black; color:orange; text-align:center;">
       </div>
-      <div style="margin:0 0 0 20px"> Lon:
-         <input type="text" id="lonTxt" onfocus="this.value=''" style="right-margin:10px; border:1px solid black; color:orange; text-align:center;">
-      </div>
-        <button id="latlonBtn" type="button" title="search with latlon" class="btn btn-default" style="border: 0; color: blue" onclick="searchByLatlon()">
-            <span class="glyphicon glyphicon-search"></span>
-        </button>
+
+
+           </div>
+       </div>
     </div>
-    </p>
+  </li>
+  <li id='latlon' class='navigationLi col-md-12 col-xs-12' style="background-color:#f9f9f9; display:none">
+    <div id='latlonMenu' class='menu'>
+      <div id='latlonLabel' class='menuLabel' style="margin-left:20px;font-size:14px;font-weight:bold">Query for Fault by latlon:<button class="pull-right" title="dismiss" onclick="dismissLatlon()" style="border:none;background-color:transparent"><span class="glyphicon glyphicon-remove"></span>
+</button>
+      </div>
+      <div class="row col-md-12 col-xs-12">
+           <div class="row col-md-12 col-xs-12" style="margin-left:20px; margin-top:20px">
+
+      <div class="cfm-div">
+      Lat:&nbsp;<input type="text" id="latTxt" onfocus="this.value=''" style="right-margin:10px; border:1px solid black; color:orange; text-align:center;">
+      &nbsp;&nbsp;Lon:&nbsp;<input type="text" id="lonTxt" onfocus="this.value=''" style="right-margin:10px; border:1px solid black; color:orange; text-align:center;">
+      <button id="latlonBtn" type="button" title="search with latlon" class="btn btn-default" style="border: 0; color: blue" onclick="searchByLatlon()">
+          <span class="glyphicon glyphicon-search"></span>
+      </button>
+      </div>
+
+           </div>
+       </div>
+    </div>
+  </li>
+</ul>
+</div>
+
 <!---  FOR DEBUG
     <p><strong>Query for GEO JSON Object by object_tb_gid:</strong>
      <div style="display:flex"> Object gid: <input type="text" id="objGidTxt" onfocus="this.value=''" style="right-margin:10px; border:1px solid black; color:orange; text-align:center;">
@@ -114,13 +135,11 @@
     <div id="geoSearchByObjGidResult" style="display:none"></div>
   </div><!-- myCFM_query -->
   <div id="phpResponseTxt"></div>
-  <div id="searchResult" class="table-responsive"></div>
-  <br>
-  <br>
+<br>
+<br>
 </div><!-- queryBlock -->
 </div>
-
-</div><!-- container-fuild -->
+</div><!-- container-fluid -->
 
 </body>
 </html>

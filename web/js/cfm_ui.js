@@ -3,6 +3,7 @@
 ***/
 
 function setupSlider(min,max) {
+  setup_strike_range(min,max);
   $( "#slider-strike-range" ).slider({
     range: true,
     min: 0,
@@ -20,6 +21,14 @@ function setupSlider(min,max) {
   $( "#strike-range" ).val( min + " - " + max );
 }
 
+function queryByType(type)
+{
+  if(type == "system") { getSystemList(); }
+  if(type == "region") { getRegionList(); }
+  if(type == "section") { getSectionList(); }
+  if(type == "name") { getNameList(); }
+}
+
 
 // use the region list from php backend, generate the form html
 function makeRegionList() {
@@ -27,7 +36,7 @@ function makeRegionList() {
     if (str == undefined)
       return "";
 
-    var html= "<form autocomplete=\"off\"> <select name=\"users\" onchange=\"searchByRegion(this.value)\"> <option value=\"\">  Click to select a Region</option>";
+    var html= "<form autocomplete=\"off\"> <select id=\"selectRegion\" onchange=\"searchByRegion(this.value)\"> <option value=\"\">  Click to select a Region</option>";
 
     var sz=(Object.keys(str).length);
     window.console.log("Number of regions received from backend ->",sz);
@@ -46,7 +55,7 @@ function makeSectionList() {
     if (str == undefined)
       return "";
 
-    var html= "<form autocomplete=\"off\"> <select name=\"users\" onchange=\"searchBySection(this.value)\"> <option value=\"\">  Click to select a Section</option>";
+    var html= "<form autocomplete=\"off\"> <select id=\"selectSection\" onchange=\"searchBySection(this.value)\"> <option value=\"\">  Click to select a Section</option>";
 
     var sz=(Object.keys(str).length);
     for( var i=0; i< sz; i++) {
@@ -64,7 +73,7 @@ function makeSystemList() {
     if (str == undefined)
       return "";
 
-    var html= "<form autocomplete=\"off\"> <select name=\"users\" onchange=\"searchBySystem(this.value)\"> <option value=\"\">  Click to select a System</option>";
+    var html= "<form autocomplete=\"off\"> <select id=\"selectSystem\" onchange=\"searchBySystem(this.value)\"> <option value=\"\">  Click to select a System</option>";
 
     var sz=(Object.keys(str).length);
     window.console.log("Number of systems received from backend ->",sz);
@@ -83,7 +92,7 @@ function makeNameList() {
     if (str == undefined)
       return "";
 
-    var html= "<form autocomplete=\"off\"> <select name=\"users\" onchange=\"searchByName(this.value)\"> <option value=\"\">  Click to select a Name</option>";
+    var html= "<form autocomplete=\"off\"> <select id=\"selectName\" onchange=\"searchByName(this.value)\"> <option value=\"\">  Click to select a Name</option>";
 
     var sz=(Object.keys(str).length);
     for( var i=0; i< sz; i++) {
@@ -97,7 +106,7 @@ function makeNameList() {
 
 function makeStrikeSlider()
 {
-    var html=" Strike range: <input type=\"text\" id=\"strike-range\" readonly style=\"border:0; color:orange; text-align:center;\"><button id=\"strikeBtn\" type=\"button\" title=\"search with strike range\" class=\"btn btn-default\" style=\"border:0; color:blue\" onclick=\"searchWithStrikeRange()\"><span class=\"glyphicon glyphicon-search\"></span></button></div><div id=\"slider-strike-range\"></div><br>";
+    var html="Strike range: <input type=\"text\" id=\"strike-range\" readonly style=\"border:0; color:orange; text-align:center;\"><button id=\"strikeBtn\" type=\"button\" title=\"search with strike range\" class=\"btn btn-default\" style=\"border:0; color:blue\" onclick=\"searchWithStrikeRange()\"><span class=\"glyphicon glyphicon-search\"></span></button></div><div id=\"slider-strike-range\"></div><br>";
     return html;
 } 
 
@@ -112,8 +121,8 @@ function nullTableEntry(target) {
 // str=metadata
 function makeResultTable(str)
 {
-    var html="<table><tr><th style=\"border:1px solid white\">CFM5.2 Fault Object Name</th></tr></table>";
-    html=html+"<div style=\"overflow:auto; max-height: 300px; border:1px solid grey\"><table>";
+    var html="<table><tr><th style=\"border:1px solid white\">CFM5.2 Fault Objects</th></tr></table>";
+    html=html+"<div class=\"cfm-table\" ><table>";
     var sz=(Object.keys(str).length);
     for( var i=0; i< sz; i++) {
        var s=str[i];
@@ -134,7 +143,7 @@ function makeResultTable(str)
 // using internal information, existing style_list
 function _makeResultTableWithGList(glist)
 {
-    var html="<table><tr><th style=\"border:1px solid white\">CFM5.2 Fault Object Name</th></tr></table>";
+    var html="<table><tr><th style=\"border:1px solid white\">CFM5.2 Fault Objects</th></tr></table>";
     html=html+"<div style=\"overflow:auto; max-height: 300px; border:1px solid grey\"><table>";
     var sz=glist.length;
     for( var i=0; i< sz; i++) {
