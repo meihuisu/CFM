@@ -9,6 +9,7 @@ var type_sidebar=false;
 var keyword_sidebar=false;
 var latlon_sidebar=false;
 var strike_sidebar=false;
+var gid_sidebar=false;
 
 // initiate a click on the sidebar buttons
 // to dismiss the sidebar
@@ -17,6 +18,7 @@ function dismissSidebar() {
   if(keyword_sidebar) keywordClick();
   if(latlon_sidebar) latlonClick();
   if(strike_sidebar) strikeClick();
+  if(gid_sidebar) gidClick();
 }
 
 // type sidebar js
@@ -30,6 +32,7 @@ function typeClick() {
   if(keyword_sidebar) keywordClick();
   if(latlon_sidebar) latlonClick();
   if(strike_sidebar) strikeClick();
+  if(gid_sidebar) gidClick();
 
   type_sidebar = !type_sidebar;
   if(type_sidebar) {
@@ -76,6 +79,7 @@ function keywordClick() {
   if(type_sidebar) typeClick();
   if(latlon_sidebar) latlonClick();
   if(strike_sidebar) strikeClick();
+  if(gid_sidebar) gidClick();
 
   keyword_sidebar = !keyword_sidebar;
   if(keyword_sidebar) {
@@ -121,6 +125,7 @@ function strikeClick() {
   if(type_sidebar) typeClick();
   if(keyword_sidebar) keywordClick();
   if(latlon_sidebar) latlonClick();
+  if(gid_sidebar) gidClick();
 
   strike_sidebar = !strike_sidebar;
   if(strike_sidebar) {
@@ -166,6 +171,7 @@ function latlonClick() {
   if(type_sidebar) typeClick();
   if(keyword_sidebar) keywordClick();
   if(strike_sidebar) strikeClick();
+  if(gid_sidebar) gidClick();
 
   latlon_sidebar = !latlon_sidebar;
   if(latlon_sidebar) {
@@ -194,6 +200,52 @@ function sidebar_latlon_slideIn() {
     return;
   }
   var panelptr=$('#latlon');
+  panelptr.removeClass('fade-in').addClass('fade-out');
+  panelptr.css("display","none");
+}
+
+// gid sidebar js
+
+// or could initiate a 'click' on
+// the gidButton
+function dismissGid() {
+  gidClick();
+}
+
+// slide out
+function gidClick() {
+  if(type_sidebar) typeClick();
+  if(keyword_sidebar) keywordClick();
+  if(strike_sidebar) strikeClick();
+  if(latlon_sidebar) latlonClick();
+
+  gid_sidebar = !gid_sidebar;
+  if(gid_sidebar) {
+    sidebar_gid_slideOut();
+    $('#gidBtn').addClass('pick');
+    } else {
+      sidebar_gid_slideIn();
+      $('#gidBtn').removeClass('pick');
+  }
+}
+
+function sidebar_gid_slideOut() {
+  if (jQuery('#gid').hasClass('menuDisabled')) {
+    // if this menu is disabled, don't slide
+    return;
+  }
+  var panelptr=$('#gid');
+  var sidebarptr=$('#sidebar');
+  panelptr.css("display","");
+  sidebarptr.css("display","");
+  panelptr.removeClass('fade-out').addClass('fade-in');
+}
+function sidebar_gid_slideIn() {
+  if (jQuery('#gi').hasClass('menuDisabled')) {
+    // if this menu is disabled, don't slide
+    return;
+  }
+  var panelptr=$('#gid');
   panelptr.removeClass('fade-in').addClass('fade-out');
   panelptr.css("display","none");
 }

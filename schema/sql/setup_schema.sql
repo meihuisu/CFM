@@ -89,7 +89,7 @@ CREATE TABLE OBJECT_tb (
    url VARCHAR(200) UNIQUE,
 
    alternative VARCHAR(3),
-   source_Author VARCHAR(20),
+   source_author VARCHAR(20),
    CFM_version VARCHAR(6),
    model_description VARCHAR(100),
    descriptor VARCHAR(10),

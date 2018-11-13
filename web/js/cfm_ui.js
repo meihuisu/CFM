@@ -121,7 +121,7 @@ function nullTableEntry(target) {
 // str=metadata
 function makeResultTable(str)
 {
-    var html="<table><tr><th style=\"border:1px solid white\">CFM5.2 Fault Objects</th></tr></table>";
+    var html="<table><tr><th style=\"border:1px solid white;\">CFM5.2 Fault Objects</th></tr></table>";
     html=html+"<div class=\"cfm-table\" ><table>";
     var sz=(Object.keys(str).length);
     for( var i=0; i< sz; i++) {

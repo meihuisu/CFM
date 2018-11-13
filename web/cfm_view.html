@@ -24,30 +24,27 @@
 </head>
 <body>
 <div class="container-fluid">
-<p>
-  <div style="width:100%">
-  <button id="typeBtn" class="btn cfm-top-btn" title="search by type" onclick="typeClick();">
-     <span class="glyphicon glyphicon-search"></span>Type</button>
-  <button id="keywordBtn" class="btn cfm-top-btn" title="search by keyword" onclick="keywordClick();">
-     <span class="glyphicon glyphicon-search"></span>Keyword</button>
-  <button id="latlonBtn" class="btn cfm-top-btn" title="search by latlon" onclick="latlonClick();">
-     <span class="glyphicon glyphicon-search"></span>Latlon</button>
-  <button id="strikeBtn" class="btn cfm-top-btn" title="search by strike" onclick="strikeClick();">
-     <span class="glyphicon glyphicon-search"></span>strike</button>
-  <button id="refreshBtn" class="btn cfm-top-btn" title="refresh all" onclick="refreshAll();">
-     <span class="glyphicon glyphicon-refresh"></span>Refresh</button>
-  <button id="toggleBtn" class="btn cfm-top-btn" title="toggle all" onclick="toggleAll();">
-     <span class="glyphicon glyphicon-adjust"></span>Toggle</button>
+  <div align="center" id="controlBlock" style="border:10px solid white; width:100%">
+    <button id="typeBtn" class="btn cfm-top-btn" title="search by type" onclick="typeClick();">
+     <span class="glyphicon glyphicon-search"></span> Type</button>
+    <button id="keywordBtn" class="btn cfm-top-btn" title="search by keyword" onclick="keywordClick();">
+     <span class="glyphicon glyphicon-search"></span> Keyword</button>
+    <button id="latlonBtn" class="btn cfm-top-btn" title="search by latlon" onclick="latlonClick();">
+     <span class="glyphicon glyphicon-search"></span> Latlon</button>
+    <button id="strikeBtn" class="btn cfm-top-btn" title="search by strike" onclick="strikeClick();">
+     <span class="glyphicon glyphicon-search"></span> Strike</button>
+    <button id="gidBtn" class="btn cfm-top-btn" title="search by ObjGid" onclick="gidClick();" style="display:none">
+     <span class="glyphicon glyphicon-search"></span> ObjGid</button>
+    <button id="refreshBtn" class="btn cfm-top-btn" title="refresh all" onclick="refreshAll();">
+     <span class="glyphicon glyphicon-refresh"></span> Refresh</button>
+    <button id="toggleBtn" class="btn cfm-top-btn" title="toggle all" onclick="toggleAll();">
+     <span class="glyphicon glyphicon-adjust"></span> Toggle</button>
+    <button id="snapBtn" class="btn cfm-top-btn" title="snapshot" onclick="snapAll();">
+     <span class="glyphicon glyphicon-adjust"></span> Snapshot</button>
   </div>
-</p>
-</p>
 <div class="row col-md-12 col-xs-12" style="display:inline-block;left:20px;">
-<div id='CFM_plot' style="position:fixed;width:40%;height:90%;left:58%;border:solid 3px gray"></div>
-<div id='resultBlock' style="width:55%; height:90%;float:left;top:20px;">
-  <div id="searchResult" class="table-responsive"></div>
-</div>
-<div id='queryBlock' style="width:55%;float:left;top:20px;">
-  <div id='myCFM_query'>
+<div id='CFM_plot' style="position:fixed;width:40%;height:90%;left:58%;border:solid 4px gray"></div>
+<div id='queryBlock' style="width:55%;height:25vh;float:left;top:20px;border:4px solid grey;overflow:auto">
 <div id="pull-out" style="width:60%">
 <ul id="sidebar" class="navigation" >
   <li id='type' class='navigationLi col-md-12 col-xs-12' style="background-color:#f9f9f9; display:none">
@@ -56,7 +53,7 @@
 </button>
       </div>
       <div class="row col-md-12 col-xs-12">
-           <div class="row col-md-12 col-xs-12" style="margin-left:20px; margin-top:20px">
+           <div class="row col-md-12 col-xs-12" style="margin-left:20px;">
 
       <div class="cfm-div" id="systemList"></div>
       <div class="cfm-div" id="regionList"></div>
@@ -120,24 +117,35 @@
        </div>
     </div>
   </li>
-</ul>
-</div>
+<!-- debug purpose
+  <li id='gid' class='navigationLi col-md-12 col-xs-12' style="background-color:#f9f9f9; display:none">
+    <div id='gidMenu' class='menu'>
+      <div id='gidLabel' class='menuLabel' style="margin-left:20px;font-size:14px;font-weight:bold">Query for GEO JSON Object by object_tb_gid:<button class="pull-right" title="dismiss" onclick="dismissGid()" style="border:none;background-color:transparent"><span class="glyphicon glyphicon-remove"></span>
+</button>
+      </div>
+      <div class="row col-md-12 col-xs-12">
+           <div class="row col-md-12 col-xs-12" style="margin-left:20px; margin-top:20px">
 
-<!---  FOR DEBUG
-    <p><strong>Query for GEO JSON Object by object_tb_gid:</strong>
-     <div style="display:flex"> Object gid: <input type="text" id="objGidTxt" onfocus="this.value=''" style="right-margin:10px; border:1px solid black; color:orange; text-align:center;">
+      <div class="cfm-div">
+      Object gid:&nbsp;<input type="text" id="objGidTxt" onfocus="this.value=''" style="right-margin:10px; border:1px solid black; color:orange; text-align:center;">
        <button id="objGidBtn" type="button" title="search with object gid" class="btn btn-default" style="border: 0; color: blue" onclick="getGeoJSONbyObjGid()">
             <span class="glyphicon glyphicon-search"></span>
        </button>
      </div>
-    </p>
---->
-    <div id="geoSearchByObjGidResult" style="display:none"></div>
-  </div><!-- myCFM_query -->
-  <div id="phpResponseTxt"></div>
-<br>
-<br>
+           </div>
+       </div>
+    </div>
+  </li>
+-->
+</ul>
+</div>
 </div><!-- queryBlock -->
+<div id='resultBlock' style="border:2px solid red; width:55%; height:80%;float:left;">
+  <div id="searchResult" class="table-responsive"></div>
+  <div id="geoSearchByObjGidResult" style="display:none"></div>
+  <div id="phpResponseTxt"></div>
+</div>
+<br>
 </div>
 </div><!-- container-fluid -->
 
