@@ -30,6 +30,8 @@ function queryByType(type)
 }
 
 
+
+
 // use the region list from php backend, generate the form html
 function makeRegionList() {
     var str = $('[data-side="regions"]').data('params');
@@ -118,6 +120,20 @@ function nullTableEntry(target) {
    $(h_btn).attr("disabled", true);
 }
 
+function glistFromMeta(str) {
+    var glist=[];
+    var sz=(Object.keys(str).length);
+    for( var i=0; i< sz; i++) {
+       var s=str[i];
+       var s = JSON.parse(str[i]);
+       var gidstr=s['gid'];
+       var gid=parseInt(s['gid']);
+       glist.push(gid);
+    }
+    return glist;
+}
+
+
 // str=metadata
 function makeResultTable(str)
 {
@@ -131,9 +147,9 @@ function makeResultTable(str)
        var gid=parseInt(s['gid']);
        var name=s['name'];
        if(!in_nogeo_gid_list(gid)) {
-         html=html+"<tr id=\"row_"+gid+"\"><td style=\"width:25px\"><button class=\"btn btn-xs cfm-btn\" title=\"highlight the fault\" onclick=toggle_highlight("+gid+");><span id=\"highlight_"+gid+"\" class=\"glyphicon glyphicon-star-empty\"></span></button></td><td style=\"width:25px\"><button class=\"btn btn-xs cfm-btn\" title=\"toggle on/off the fault\" onclick=toggle_layer("+gid+");><span id=\"toggle_"+gid+"\" class=\"glyphicon glyphicon-eye-open\"></span></button></td><td style=\"width:25px\"><button class=\"btn btn-xs cfm-btn\" title=\"downloads\" onclick=download_layer("+gid+");><span id=\"download_"+gid+"\" class=\"glyphicon glyphicon-download\"></span></button></td><td>" + name +"/"+gid + "</td></tr>";
+         html=html+"<tr id=\"row_"+gid+"\"><td style=\"width:25px\"><button class=\"btn btn-xs cfm-btn\" title=\"highlight the fault\" onclick=toggle_highlight("+gid+");><span id=\"highlight_"+gid+"\" class=\"glyphicon glyphicon-star-empty\"></span></button></td><td style=\"width:25px\"><button class=\"btn btn-xs cfm-btn\" title=\"toggle on/off the fault\" onclick=toggle_layer("+gid+");><span id=\"toggle_"+gid+"\" class=\"glyphicon glyphicon-eye-open\"></span></button></td><td style=\"width:25px\"><button class=\"btn btn-xs cfm-btn\" title=\"downloads\" onclick=download_layer("+gid+");><span id=\"download_"+gid+"\" class=\"glyphicon glyphicon-download\"></span></button></td><td>" + name + "</td></tr>";
         } else {
-         html=html+"<tr id=\"row_"+gid+"\"><td style=\"width:25px\"><button class=\"btn btn-xs cfm-btn\" title=\"highlight the fault\" onclick=toggle_highlight("+gid+") disabled><span id=\"highlight_"+gid+"\" class=\"glyphicon glyphicon-star-empty\"></span></button></td><td style=\"width:25px\"><button class=\"btn btn-xs cfm-btn\" title=\"toggle on/off the fault\" onclick=toggle_layer("+gid+") disabled><span id=\"toggle_"+gid+"\" class=\"glyphicon glyphicon-eye-open\"></span></button></td> <td style=\"width:25px\"><button class=\"btn btn-xs cfm-btn\" title=\"downloads\" onclick=download_layer("+gid+");><span id=\"download_"+gid+"\" class=\"glyphicon glyphicon-download\"></span></button></td><td>" + name +"/"+gid + "</td></tr>";
+         html=html+"<tr id=\"row_"+gid+"\"><td style=\"width:25px\"><button class=\"btn btn-xs cfm-btn\" title=\"highlight the fault\" onclick=toggle_highlight("+gid+") disabled><span id=\"highlight_"+gid+"\" class=\"glyphicon glyphicon-star-empty\"></span></button></td><td style=\"width:25px\"><button class=\"btn btn-xs cfm-btn\" title=\"toggle on/off the fault\" onclick=toggle_layer("+gid+") disabled><span id=\"toggle_"+gid+"\" class=\"glyphicon glyphicon-eye-open\"></span></button></td> <td style=\"width:25px\"><button class=\"btn btn-xs cfm-btn\" title=\"downloads\" onclick=download_layer("+gid+");><span id=\"download_"+gid+"\" class=\"glyphicon glyphicon-download\"></span></button></td><td>" + name + "</td></tr>";
       }
     }
     html=html+ "</table></div>";
@@ -144,7 +160,7 @@ function makeResultTable(str)
 function _makeResultTableWithGList(glist)
 {
     var html="<table><tr><th style=\"border:1px solid white\">CFM5.2 Fault Objects</th></tr></table>";
-    html=html+"<div style=\"overflow:auto; max-height: 300px; border:1px solid grey\"><table>";
+    html=html+"<div class=\"cfm-table\" ><table>";
     var sz=glist.length;
     for( var i=0; i< sz; i++) {
        var gid=glist[i];
@@ -155,12 +171,12 @@ function _makeResultTableWithGList(glist)
          var s= find_style_list(gid);
          var h= s['highlight'];
          if(h) {
-           html=html+"<tr id=\"row_"+gid+"\"><td style=\"width:25px\"><button class=\"btn btn-xs cfm-btn\" title=\"highlight the fault\" onclick=toggle_highlight("+gid+");><span id=\"highlight_"+gid+"\" class=\"glyphicon glyphicon-star\"></span></button></td><td style=\"width:25px\"><button class=\"btn btn-xs cfm-btn\" title=\"toggle on/off the fault\" onclick=toggle_layer("+gid+");><span id=\"toggle_"+gid+"\" class=\"glyphicon glyphicon-eye-open\"></span></button></td><td style=\"width:25px\"><button class=\"btn btn-xs cfm-btn\" title=\"downloads\" onclick=download_layer("+gid+");><span id=\"download_"+gid+"\" class=\"glyphicon glyphicon-download\"></span></button></td><td>" + name +"/"+gid + "</td></tr>";
+           html=html+"<tr id=\"row_"+gid+"\"><td style=\"width:25px\"><button class=\"btn btn-xs cfm-btn\" title=\"highlight the fault\" onclick=toggle_highlight("+gid+");><span id=\"highlight_"+gid+"\" class=\"glyphicon glyphicon-star\"></span></button></td><td style=\"width:25px\"><button class=\"btn btn-xs cfm-btn\" title=\"toggle on/off the fault\" onclick=toggle_layer("+gid+");><span id=\"toggle_"+gid+"\" class=\"glyphicon glyphicon-eye-open\"></span></button></td><td style=\"width:25px\"><button class=\"btn btn-xs cfm-btn\" title=\"downloads\" onclick=download_layer("+gid+");><span id=\"download_"+gid+"\" class=\"glyphicon glyphicon-download\"></span></button></td><td>" + name + "</td></tr>";
            } else {
-             html=html+"<tr id=\"row_"+gid+"\"><td style=\"width:25px\"><button class=\"btn btn-xs cfm-btn\" title=\"highlight the fault\" onclick=toggle_highlight("+gid+");><span id=\"highlight_"+gid+"\" class=\"glyphicon glyphicon-star-empty\"></span></button></td><td style=\"width:25px\"><button class=\"btn btn-xs cfm-btn\" title=\"toggle on/off the fault\" onclick=toggle_layer("+gid+");><span id=\"toggle_"+gid+"\" class=\"glyphicon glyphicon-eye-open\"></span></button></td><td style=\"width:25px\"><button class=\"btn btn-xs cfm-btn\" title=\"downloads\" onclick=download_layer("+gid+");><span id=\"download_"+gid+"\" class=\"glyphicon glyphicon-download\"></span></button></td><td>" + name +"/"+gid + "</td></tr>";
+             html=html+"<tr id=\"row_"+gid+"\"><td style=\"width:25px\"><button class=\"btn btn-xs cfm-btn\" title=\"highlight the fault\" onclick=toggle_highlight("+gid+");><span id=\"highlight_"+gid+"\" class=\"glyphicon glyphicon-star-empty\"></span></button></td><td style=\"width:25px\"><button class=\"btn btn-xs cfm-btn\" title=\"toggle on/off the fault\" onclick=toggle_layer("+gid+");><span id=\"toggle_"+gid+"\" class=\"glyphicon glyphicon-eye-open\"></span></button></td><td style=\"width:25px\"><button class=\"btn btn-xs cfm-btn\" title=\"downloads\" onclick=download_layer("+gid+");><span id=\"download_"+gid+"\" class=\"glyphicon glyphicon-download\"></span></button></td><td>" + name + "</td></tr>";
         }
         } else {
-         html=html+"<tr id=\"row_"+gid+"\"><td style=\"width:25px\"><button class=\"btn btn-xs cfm-btn\" title=\"highlight the fault\" onclick=toggle_highlight("+gid+") disabled><span id=\"highlight_"+gid+"\" class=\"glyphicon glyphicon-star-empty\"></span></button></td><td style=\"width:25px\"><button class=\"btn btn-xs cfm-btn\" title=\"toggle on/off the fault\" onclick=toggle_layer("+gid+") disabled><span id=\"toggle_"+gid+"\" class=\"glyphicon glyphicon-eye-open\"></span></button></td> <td style=\"width:25px\"><button class=\"btn btn-xs cfm-btn\" title=\"downloads\" onclick=download_layer("+gid+");><span id=\"download_"+gid+"\" class=\"glyphicon glyphicon-download\"></span></button></td><td>" + name +"/"+gid + "</td></tr>";
+         html=html+"<tr id=\"row_"+gid+"\"><td style=\"width:25px\"><button class=\"btn btn-xs cfm-btn\" title=\"highlight the fault\" onclick=toggle_highlight("+gid+") disabled><span id=\"highlight_"+gid+"\" class=\"glyphicon glyphicon-star-empty\"></span></button></td><td style=\"width:25px\"><button class=\"btn btn-xs cfm-btn\" title=\"toggle on/off the fault\" onclick=toggle_layer("+gid+") disabled><span id=\"toggle_"+gid+"\" class=\"glyphicon glyphicon-eye-open\"></span></button></td> <td style=\"width:25px\"><button class=\"btn btn-xs cfm-btn\" title=\"downloads\" onclick=download_layer("+gid+");><span id=\"download_"+gid+"\" class=\"glyphicon glyphicon-download\"></span></button></td><td>" + name + "</td></tr>";
        }
     }
     html=html+ "</table></div>";

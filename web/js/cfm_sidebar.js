@@ -5,7 +5,10 @@
 
 **/
 
-var type_sidebar=false;
+var system_sidebar=false;
+var region_sidebar=false;
+var section_sidebar=false;
+var name_sidebar=false;
 var keyword_sidebar=false;
 var latlon_sidebar=false;
 var strike_sidebar=false;
@@ -14,53 +17,199 @@ var gid_sidebar=false;
 // initiate a click on the sidebar buttons
 // to dismiss the sidebar
 function dismissSidebar() {
-  if(type_sidebar) typeClick();
+  if(region_sidebar) regionClick();
+  if(section_sidebar) sectionClick();
+  if(system_sidebar) systemClick();
+  if(name_sidebar) nameClick();
   if(keyword_sidebar) keywordClick();
   if(latlon_sidebar) latlonClick();
   if(strike_sidebar) strikeClick();
   if(gid_sidebar) gidClick();
 }
 
-// type sidebar js
+// system sidebar js
 
-function dismissType() {
-  typeClick();
+function dismissSystem() {
+  systemClick();
 }
 
 // slide out
-function typeClick() {
+function systemClick() {
+  if(region_sidebar) regionClick();
+  if(section_sidebar) sectionClick();
+  if(name_sidebar) nameClick();
   if(keyword_sidebar) keywordClick();
   if(latlon_sidebar) latlonClick();
   if(strike_sidebar) strikeClick();
   if(gid_sidebar) gidClick();
 
-  type_sidebar = !type_sidebar;
-  if(type_sidebar) {
-    sidebar_type_slideOut();
-    $('#typeBtn').addClass('pick');
+  system_sidebar = !system_sidebar;
+  if(system_sidebar) {
+    sidebar_system_slideOut();
+    $('#systemBtn').addClass('pick');
     } else {
-      sidebar_type_slideIn();
-      $('#typeBtn').removeClass('pick');
+      sidebar_system_slideIn();
+      $('#systemBtn').removeClass('pick');
   }
 }
 
-function sidebar_type_slideOut() {
-  if (jQuery('#type').hasClass('menuDisabled')) {
+function sidebar_system_slideOut() {
+  if (jQuery('#system').hasClass('menuDisabled')) {
     // if this menu is disabled, don't slide
     return;
   }
-  var panelptr=$('#type');
+  var panelptr=$('#system');
   var sidebarptr=$('#sidebar');
   panelptr.css("display","");
   sidebarptr.css("display","");
   panelptr.removeClass('fade-out').addClass('fade-in');
 }
-function sidebar_type_slideIn() {
-  if (jQuery('#type').hasClass('menuDisabled')) {
+function sidebar_system_slideIn() {
+  if (jQuery('#system').hasClass('menuDisabled')) {
     // if this menu is disabled, don't slide
     return;
   }
-  var panelptr=$('#type');
+  var panelptr=$('#system');
+  panelptr.removeClass('fade-in').addClass('fade-out');
+  panelptr.css("display","none");
+}
+
+
+// region sidebar
+function dismissRegion() {
+  regionClick();
+}
+
+// slide out
+function regionClick() {
+  if(system_sidebar) systemClick();
+  if(section_sidebar) sectionClick();
+  if(name_sidebar) nameClick();
+  if(keyword_sidebar) keywordClick();
+  if(latlon_sidebar) latlonClick();
+  if(strike_sidebar) strikeClick();
+  if(gid_sidebar) gidClick();
+
+  region_sidebar = !region_sidebar;
+  if(region_sidebar) {
+    sidebar_region_slideOut();
+    $('#regionBtn').addClass('pick');
+    } else {
+      sidebar_region_slideIn();
+      $('#regionBtn').removeClass('pick');
+  }
+}
+
+function sidebar_region_slideOut() {
+  if (jQuery('#region').hasClass('menuDisabled')) {
+    // if this menu is disabled, don't slide
+    return;
+  }
+  var panelptr=$('#region');
+  var sidebarptr=$('#sidebar');
+  panelptr.css("display","");
+  sidebarptr.css("display","");
+  panelptr.removeClass('fade-out').addClass('fade-in');
+}
+function sidebar_region_slideIn() {
+  if (jQuery('#region').hasClass('menuDisabled')) {
+    // if this menu is disabled, don't slide
+    return;
+  }
+  var panelptr=$('#region');
+  panelptr.removeClass('fade-in').addClass('fade-out');
+  panelptr.css("display","none");
+}
+
+
+// section sidebar js
+function dismissSection() {
+  sectionClick();
+}
+
+// slide out
+function sectionClick() {
+  if(system_sidebar) systemClick();
+  if(region_sidebar) regionClick();
+  if(name_sidebar) nameClick();
+  if(keyword_sidebar) keywordClick();
+  if(latlon_sidebar) latlonClick();
+  if(strike_sidebar) strikeClick();
+  if(gid_sidebar) gidClick();
+
+  section_sidebar = !section_sidebar;
+  if(section_sidebar) {
+    sidebar_section_slideOut();
+    $('#sectionBtn').addClass('pick');
+    } else {
+      sidebar_section_slideIn();
+      $('#sectionBtn').removeClass('pick');
+  }
+}
+
+function sidebar_section_slideOut() {
+  if (jQuery('#section').hasClass('menuDisabled')) {
+    // if this menu is disabled, don't slide
+    return;
+  }
+  var panelptr=$('#section');
+  var sidebarptr=$('#sidebar');
+  panelptr.css("display","");
+  sidebarptr.css("display","");
+  panelptr.removeClass('fade-out').addClass('fade-in');
+}
+function sidebar_section_slideIn() {
+  if (jQuery('#section').hasClass('menuDisabled')) {
+    // if this menu is disabled, don't slide
+    return;
+  }
+  var panelptr=$('#section');
+  panelptr.removeClass('fade-in').addClass('fade-out');
+  panelptr.css("display","none");
+}
+
+// name sidebar js
+function dismissName() {
+  nameClick();
+}
+
+// slide out
+function nameClick() {
+  if(system_sidebar) systemClick();
+  if(region_sidebar) regionClick();
+  if(section_sidebar) sectionClick();
+  if(keyword_sidebar) keywordClick();
+  if(latlon_sidebar) latlonClick();
+  if(strike_sidebar) strikeClick();
+  if(gid_sidebar) gidClick();
+
+  name_sidebar = !name_sidebar;
+  if(name_sidebar) {
+    sidebar_name_slideOut();
+    $('#nameBtn').addClass('pick');
+    } else {
+      sidebar_name_slideIn();
+      $('#nameBtn').removeClass('pick');
+  }
+}
+
+function sidebar_name_slideOut() {
+  if (jQuery('#name').hasClass('menuDisabled')) {
+    // if this menu is disabled, don't slide
+    return;
+  }
+  var panelptr=$('#name');
+  var sidebarptr=$('#sidebar');
+  panelptr.css("display","");
+  sidebarptr.css("display","");
+  panelptr.removeClass('fade-out').addClass('fade-in');
+}
+function sidebar_name_slideIn() {
+  if (jQuery('#name').hasClass('menuDisabled')) {
+    // if this menu is disabled, don't slide
+    return;
+  }
+  var panelptr=$('#name');
   panelptr.removeClass('fade-in').addClass('fade-out');
   panelptr.css("display","none");
 }
@@ -76,7 +225,10 @@ function dismissKeyword() {
 
 // slide out
 function keywordClick() {
-  if(type_sidebar) typeClick();
+  if(system_sidebar) systemClick();
+  if(region_sidebar) regionClick();
+  if(section_sidebar) sectionClick();
+  if(name_sidebar) nameClick();
   if(latlon_sidebar) latlonClick();
   if(strike_sidebar) strikeClick();
   if(gid_sidebar) gidClick();
@@ -122,7 +274,10 @@ function dismissStrike() {
 
 // slide out
 function strikeClick() {
-  if(type_sidebar) typeClick();
+  if(system_sidebar) systemClick();
+  if(region_sidebar) regionClick();
+  if(section_sidebar) sectionClick();
+  if(name_sidebar) nameClick();
   if(keyword_sidebar) keywordClick();
   if(latlon_sidebar) latlonClick();
   if(gid_sidebar) gidClick();
@@ -168,7 +323,10 @@ function dismissLatlon() {
 
 // slide out
 function latlonClick() {
-  if(type_sidebar) typeClick();
+  if(system_sidebar) systemClick();
+  if(region_sidebar) regionClick();
+  if(section_sidebar) sectionClick();
+  if(name_sidebar) nameClick();
   if(keyword_sidebar) keywordClick();
   if(strike_sidebar) strikeClick();
   if(gid_sidebar) gidClick();
@@ -214,7 +372,10 @@ function dismissGid() {
 
 // slide out
 function gidClick() {
-  if(type_sidebar) typeClick();
+  if(system_sidebar) systemClick();
+  if(region_sidebar) regionClick();
+  if(section_sidebar) sectionClick();
+  if(name_sidebar) nameClick();
   if(keyword_sidebar) keywordClick();
   if(strike_sidebar) strikeClick();
   if(latlon_sidebar) latlonClick();

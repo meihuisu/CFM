@@ -16,8 +16,6 @@ $query = "SELECT gid,name FROM OBJECT_tb WHERE name = $1";
 $result = pg_prepare($dbconn, "my_query", $query);
 $data = array($q);
 
-print "looking up for : ";
-print $q;
 $result = pg_execute($dbconn, "my_query", $data);
 
 $resultList=array();

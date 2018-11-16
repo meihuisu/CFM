@@ -7,10 +7,41 @@
 var strike_range_min = 0;
 var strike_range_max = 0;
 
+function reset_strike_range()
+{
+  $( "#strike-range" ).val( strike_range_min + " - " + strike_range_max );
+  $( "#slider-strike-range" ).slider("option", "values" ,[strike_range_min, strike_range_max]);
+}
+
 function setup_strike_range(min,max)
 {
    strike_range_min=min;
    strike_range_max=max;
+}
+
+function reset_select_region() {
+  document.getElementById('selectRegion').selectedIndex=0;
+}
+
+function reset_select_section() {
+  document.getElementById('selectSection').selectedIndex = 0;
+}
+
+function reset_select_system() {
+  document.getElementById('selectSystem').selectedIndex = 0;
+}
+
+function reset_select_name() {
+  document.getElementById('selectName').selectedIndex = 0;
+}
+
+function reset_select_keyword() {
+  document.getElementById("keywordTxt").value = '';
+}
+
+function reset_select_latlon() {
+  document.getElementById("latTxt").value = '';
+  document.getElementById("lonTxt").value = '';
 }
 
 function plotAll() {
@@ -31,20 +62,16 @@ function toggleAll() {
 }
 
 function refreshAll() {
+  reset_select_region();
+  reset_select_section();
+  reset_select_system();
+  reset_select_name();
+  reset_strike_range();
+  reset_select_keyword();
+  reset_select_latlon();
   document.getElementById("geoSearchByObjGidResult").innerHTML = "";
-// reset 
-  document.getElementById('selectRegion').selectedIndex=0;
-  document.getElementById('selectSection').selectedIndex = 0;
-  document.getElementById('selectSystem').selectedIndex = 0;
-  document.getElementById('selectName').selectedIndex = 0;
-  $( "#strike-range" ).val( strike_range_min + " - " + strike_range_max );
-  $( "#slider-strike-range" ).slider("option", "values" ,[strike_range_min, strike_range_max]);
   document.getElementById("searchResult").innerHTML = "";
   document.getElementById("phpResponseTxt").innerHTML = "";
-  document.getElementById("keywordTxt").value = '';
-//  document.getElementById("faultNameTxt").value = '';
-  document.getElementById("latTxt").value = '';
-  document.getElementById("lonTxt").value = '';
 //  document.getElementById("objGidTxt").value = '';
   refresh_map();
   reset_geo_plot();

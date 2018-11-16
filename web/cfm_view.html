@@ -25,8 +25,14 @@
 <body>
 <div class="container-fluid">
   <div align="center" id="controlBlock" style="border:10px solid white; width:100%">
-    <button id="typeBtn" class="btn cfm-top-btn" title="search by type" onclick="typeClick();">
-     <span class="glyphicon glyphicon-search"></span> Type</button>
+    <button id="systemBtn" class="btn cfm-top-btn" title="search by system" onclick="systemClick();">
+     <span class="glyphicon glyphicon-search"></span> System</button>
+    <button id="regionBtn" class="btn cfm-top-btn" title="search by region" onclick="regionClick();">
+     <span class="glyphicon glyphicon-search"></span> Region</button>
+    <button id="sectionBtn" class="btn cfm-top-btn" title="search by section" onclick="sectionClick();">
+     <span class="glyphicon glyphicon-search"></span> Section</button>
+    <button id="nameBtn" class="btn cfm-top-btn" title="search by name" onclick="nameClick();">
+     <span class="glyphicon glyphicon-search"></span> Name</button>
     <button id="keywordBtn" class="btn cfm-top-btn" title="search by keyword" onclick="keywordClick();">
      <span class="glyphicon glyphicon-search"></span> Keyword</button>
     <button id="latlonBtn" class="btn cfm-top-btn" title="search by latlon" onclick="latlonClick();">
@@ -40,24 +46,67 @@
     <button id="toggleBtn" class="btn cfm-top-btn" title="toggle all" onclick="toggleAll();">
      <span class="glyphicon glyphicon-adjust"></span> Toggle</button>
     <button id="snapBtn" class="btn cfm-top-btn" title="snapshot" onclick="snapAll();">
-     <span class="glyphicon glyphicon-adjust"></span> Snapshot</button>
+     <span class="glyphicon glyphicon-camera"></span> Snapshot</button>
   </div>
+
 <div class="row col-md-12 col-xs-12" style="display:inline-block;left:20px;">
-<div id='CFM_plot' style="position:fixed;width:40%;height:90%;left:58%;border:solid 4px gray"></div>
-<div id='queryBlock' style="width:55%;height:25vh;float:left;top:20px;border:4px solid grey;overflow:auto">
-<div id="pull-out" style="width:60%">
+
+  <div id='CFM_plot' style="position:fixed;width:55%;height:90%;left:43%;border:solid 4px gray"></div>
+
+  <div id='queryBlock' style="width:40%;height:25vh;float:left;top:20px;border:4px solid grey;overflow:auto">
+
+<div id="pull-out" style="width:80%">
 <ul id="sidebar" class="navigation" >
-  <li id='type' class='navigationLi col-md-12 col-xs-12' style="background-color:#f9f9f9; display:none">
-    <div id='typeMenu' class='menu'>
-      <div id='typeLabel' class='menuLabel' style="margin-left:20px;font-size:14px;font-weight:bold">Query for Fault by type:<button class="pull-right" title="dismiss" onclick="dismissType()" style="border:none;background-color:transparent"><span class="glyphicon glyphicon-remove"></span>
+  <li id='system' class='navigationLi col-md-12 col-xs-12' style="background-color:#f9f9f9; display:none">
+    <div id='systemMenu' class='menu'>
+      <div id='systemLabel' class='menuLabel' style="margin-left:20px;font-size:14px;font-weight:bold">Query for Fault by system:<button class="pull-right" title="dismiss" onclick="dismissSystem()" style="border:none;background-color:transparent"><span class="glyphicon glyphicon-remove"></span>
 </button>
       </div>
       <div class="row col-md-12 col-xs-12">
-           <div class="row col-md-12 col-xs-12" style="margin-left:20px;">
+           <div class="row col-md-12 col-xs-12" style="margin-left:20px; margin-top:20px">
 
       <div class="cfm-div" id="systemList"></div>
+
+           </div>
+       </div>
+    </div>
+  </li>
+  <li id='region' class='navigationLi col-md-12 col-xs-12' style="background-color:#f9f9f9; display:none">
+    <div id='regionMenu' class='menu'>
+      <div id='regionLabel' class='menuLabel' style="margin-left:20px;font-size:14px;font-weight:bold">Query for Fault by region:<button class="pull-right" title="dismiss" onclick="dismissRegion()" style="border:none;background-color:transparent"><span class="glyphicon glyphicon-remove"></span>
+</button>
+      </div>
+      <div class="row col-md-12 col-xs-12">
+           <div class="row col-md-12 col-xs-12" style="margin-left:20px; margin-top:20px">
+
       <div class="cfm-div" id="regionList"></div>
+
+           </div>
+       </div>
+    </div>
+  </li>
+  <li id='section' class='navigationLi col-md-12 col-xs-12' style="background-color:#f9f9f9; display:none">
+    <div id='sectionMenu' class='menu'>
+      <div id='sectionLabel' class='menuLabel' style="margin-left:20px;font-size:14px;font-weight:bold">Query for Fault by section:<button class="pull-right" title="dismiss" onclick="dismissSection()" style="border:none;background-color:transparent"><span class="glyphicon glyphicon-remove"></span>
+</button>
+      </div>
+      <div class="row col-md-12 col-xs-12">
+           <div class="row col-md-12 col-xs-12" style="margin-left:20px; margin-top:20px">
+
       <div class="cfm-div" id="sectionList"></div>
+
+           </div>
+       </div>
+    </div>
+  </li>
+  <li id='name' class='navigationLi col-md-12 col-xs-12' style="background-color:#f9f9f9; display:none">
+    <div id='nameMenu' class='menu'>
+      <div id='nameLabel' class='menuLabel' style="margin-left:20px;font-size:14px;font-weight:bold">Query for Fault by name:<button class="pull-right" title="dismiss" onclick="dismissName()" style="border:none;background-color:transparent"><span class="glyphicon glyphicon-remove"></span>
+</button>
+      </div>
+      <div class="row col-md-12 col-xs-12">
+           <div class="row col-md-12 col-xs-12" style="margin-left:20px; margin-top:20px">
+
       <div class="cfm-div" id="nameList"></div>
 
            </div>
@@ -71,7 +120,7 @@
       </div>
       <div class="row col-md-12 col-xs-12">
            <div class="row col-md-12 col-xs-12" style="margin-left:20px; margin-top:20px">
-             <div class="cfm-div" id="strikeRange" style="width:90%; padding-left:10px; padding-right:10px; overflow:hidden;"></div>
+             <div class="cfm-div" id="strikeRange" style="padding-left:10px; padding-right:10px; overflow:hidden;"></div>
            </div>
        </div>
     </div>
@@ -85,13 +134,11 @@
       <div class="row col-md-12 col-xs-12">
            <div class="row col-md-12 col-xs-12" style="margin-left:20px; margin-top:20px">
 
-<div class="cfm-div">
-       Keyword:&nbsp;<input type="text" id="keywordTxt" onfocus="this.value=''" style="right-margin:10px; border:1px solid black; color:orange; text-align:center;">
+      <div class="cfm-div"> Keyword:&nbsp;<input type="text" id="keywordTxt" onfocus="this.value=''" style="right-margin:10px; border:1px solid black; color:orange; text-align:center;">
        <button id="keywordBtn" type="button" title="search with keyword" class="btn btn-default" style="border: 0; color: blue" onclick="searchByKeyword()">
             <span class="glyphicon glyphicon-search"></span>
        </button>
       </div>
-
 
            </div>
        </div>
@@ -105,13 +152,12 @@
       <div class="row col-md-12 col-xs-12">
            <div class="row col-md-12 col-xs-12" style="margin-left:20px; margin-top:20px">
 
-      <div class="cfm-div">
-      Lat:&nbsp;<input type="text" id="latTxt" onfocus="this.value=''" style="right-margin:10px; border:1px solid black; color:orange; text-align:center;">
-      &nbsp;&nbsp;Lon:&nbsp;<input type="text" id="lonTxt" onfocus="this.value=''" style="right-margin:10px; border:1px solid black; color:orange; text-align:center;">
+      <div class="cfm-div"> Lat:&nbsp&nbsp;<input type="text" id="latTxt" onfocus="this.value=''" style="right-margin:10px; border:1px solid black; color:orange; text-align:center;">
       <button id="latlonBtn" type="button" title="search with latlon" class="btn btn-default" style="border: 0; color: blue" onclick="searchByLatlon()">
           <span class="glyphicon glyphicon-search"></span>
       </button>
-      </div>
+</div>
+      <div class="cfm-div"> Lon:&nbsp;<input type="text" id="lonTxt" onfocus="this.value=''" style="right-margin:10px; border:1px solid black; color:orange; text-align:center;"> </div>
 
            </div>
        </div>
@@ -126,8 +172,7 @@
       <div class="row col-md-12 col-xs-12">
            <div class="row col-md-12 col-xs-12" style="margin-left:20px; margin-top:20px">
 
-      <div class="cfm-div">
-      Object gid:&nbsp;<input type="text" id="objGidTxt" onfocus="this.value=''" style="right-margin:10px; border:1px solid black; color:orange; text-align:center;">
+      <div class="cfm-div"> Object gid:&nbsp;<input type="text" id="objGidTxt" onfocus="this.value=''" style="right-margin:10px; border:1px solid black; color:orange; text-align:center;">
        <button id="objGidBtn" type="button" title="search with object gid" class="btn btn-default" style="border: 0; color: blue" onclick="getGeoJSONbyObjGid()">
             <span class="glyphicon glyphicon-search"></span>
        </button>
@@ -138,9 +183,10 @@
   </li>
 -->
 </ul>
-</div>
-</div><!-- queryBlock -->
-<div id='resultBlock' style="border:2px solid red; width:55%; height:80%;float:left;">
+</div><!-- pull-out -->
+  </div><!-- queryBlock -->
+<div id='resultBlock' style="position:fixed; top:30vh; left:30px;width:40%; height:80%;">
+  <br>
   <div id="searchResult" class="table-responsive"></div>
   <div id="geoSearchByObjGidResult" style="display:none"></div>
   <div id="phpResponseTxt"></div>
