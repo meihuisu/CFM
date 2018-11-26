@@ -1,3 +1,5 @@
+DROP TABLE tmp_x;
+
 CREATE TEMP TABLE tmp_x AS
      SELECT name, concat(name,'-trace'), gid from OBJECT_tb;
 
