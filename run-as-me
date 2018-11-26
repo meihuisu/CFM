@@ -23,13 +23,6 @@
    echo $password |sudo passwd --stdin postgres
    sudo chage postgres -M -1
 
-   echo "Adding cfmuser .. "
-   #scec
-   sudo /usr/sbin/useradd -d /home/cfmuser -m cfmuser
-   read -s -p "Enter password for cfmuser: " password
-   echo $password |sudo passwd --stdin cfmuser
-   sudo chage cfmuser -M -1
-   
    #bring in g++
    sudo yum install gcc-c++.x86_64 
    sudo yum install autoconf

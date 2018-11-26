@@ -4,17 +4,10 @@ Carve out db space
 Start PostgreSQL server
   pg_ctl -D /home/postgres/cfm_db -l logfile start
 
-Add role for cfmuser
-  psql
-    DROP ROLE cfmuser;
-    CREATE ROLE cfmuser WITH LOGIN PASSWORD 'scec';
-    GRANT SELECT ON ALL TABLES IN SCHEMA public TO cfmuser;
-    REVOKE CREATE ON SCHEMA public FROM PUBLIC;
+dropdb CFM5_db 
+createdb CFM5_db
 
-  dropdb CFM5_db 
-  createdb CFM5_db
-
-  psql CFM5_db
+psql CFM5_db
     CREATE EXTENSION postgis;
     SELECT PostGIS_Version();
   
