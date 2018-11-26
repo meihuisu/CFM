@@ -17,7 +17,7 @@ CREATE TEMP TABLE tmp_x AS
 UPDATE OBJECT_tb 
     SET OBJECT_1000m_tb_gid = OBJECT_1000m_tb.gid
     FROM tmp_x, OBJECT_1000m_tb
-    WHERE OBJECT_10000m_tb.name = tmp_x.concat
+    WHERE OBJECT_1000m_tb.name = tmp_x.concat
     AND tmp_x.gid = OBJECT_tb.gid;
 
 DROP TABLE tmp_x;
