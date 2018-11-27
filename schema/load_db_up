@@ -17,7 +17,7 @@ psql CFM5_db
   GRANT SELECT ON ALL TABLES IN SCHEMA public TO webonly;
   REVOKE CREATE ON SCHEMA public FROM PUBLIC;
 
-  SELECT UpdateGeometrySRID('trace_tb',geom,26711);
+  SELECT UpdateGeometrySRID('trace_tb','geom',26711);
 
   \dp
   \q
