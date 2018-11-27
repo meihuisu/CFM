@@ -104,7 +104,7 @@ function reset_geo_plot() {
   // can not really 'destroy' layer and so need to reuse..
   cfm_active_gid_list=[];
   reset_layer_list();  // unhighlight the layers first
-  //reset_style_list();
+  // reset_style_list();
   // generate the result table according to the style_list..
   // remove all the layer
   // redraw the layers
