@@ -48,7 +48,9 @@
 
 
 .navigation {
+/*
         background-color: #f9f9f9;
+*/
 	position: relative;
 	padding: 0px;
 	left: 0px;
@@ -148,16 +150,5 @@
     border: 2px;
     border-radius: 2px;
 }
-
-/****  old map marker
-.panel-heading .accordion-toggle:after {
-    font-size: 14px;
-    font-family: 'Glyphicons Halflings';  
-    content: "\e062"; 
-    float: left;
-    margin-right:10px;
-    color: #337ab7;
-}
-****/
 
 
