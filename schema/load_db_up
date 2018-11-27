@@ -12,7 +12,7 @@ psql CFM5_db
   \i '/home/postgres/CFM/schema/sql/setup_object_tb.sql';
   \i '/home/postgres/CFM/schema/sql/linkup_traces.sql';
 
-  DROP ROLE webonly
+  DROP ROLE webonly;
   CREATE ROLE webonly WITH LOGIN PASSWORD 'scec';
   GRANT SELECT ON ALL TABLES IN SCHEMA public TO webonly;
   REVOKE CREATE ON SCHEMA public FROM PUBLIC;
