@@ -1,0 +1,11 @@
+#setup apache webserver on aws node 
+
+ sudo yum install httpd
+ sudo yum install php
+ sudo yum install php-mysqlnd
+ sudo yum install php-pgsql
+
+sudo service httpd start
+
+## put the html in /var/www/html
+## httpd log in /var/log/httpd
