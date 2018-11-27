@@ -3,10 +3,11 @@
 <head>
 </head>
 <body>
-
 <?php
 
-$dbconn = pg_connect("host=localhost port=5432 dbname=CFM5_db user=webonly password=scec");
+print "here..."
+
+$dbconn = pg_connect("host=asperity.scec.org port=5432 dbname=CFM5_db user=webonly password=scec");
 if (!$dbconn) { die('Could not connect'); }
 
 $query = "SELECT gid,name FROM OBJECT_tb where Trace_tb_gid != 0";

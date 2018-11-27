@@ -294,6 +294,10 @@ function load_a_trace(gid,trace) {
   var layer=addGeoToMap(trace, viewermap);
   cfm_layer_list.push({"gid":gid, "layer":layer}); 
   var s =find_style_list(gid);
+  if( s == undefined ) {
+     window.console.log("BAD!! load_a_trace..", gid);
+     return;
+  }
   s['visible']=1; // turn it on
 }
 

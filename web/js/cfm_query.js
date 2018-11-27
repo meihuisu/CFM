@@ -372,7 +372,8 @@ function getGeoJSONbyObjGid(gidstr, meta) {
             addGeoJSONAsFeatureToList(geoJSON,gid,meta);
 */
             var trace=makeGeoJSONFeature(geoJSON, gid, meta);
-            load_a_trace(gid,trace);
+            if(trace != undefined)
+              load_a_trace(gid,trace);
         }
     };
     xmlhttp.open("GET","php/getGeoJSON.php?obj_gid="+gidstr,true);
