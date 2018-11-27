@@ -57,7 +57,7 @@ function makeSectionList() {
     if (str == undefined)
       return "";
 
-    var html= "<form autocomplete=\"off\"> <select id=\"selectSection\" onchange=\"searchBySection(this.value)\"> <option value=\"\">  Click to select a Section</option>";
+    var html= "<form autocomplete=\"off\"><select id=\"selectSection\" onchange=\"searchBySection(this.value)\"> <option value=\"\">  Click to select a Section</option>";
 
     var sz=(Object.keys(str).length);
     for( var i=0; i< sz; i++) {
@@ -170,7 +170,7 @@ function _makeResultTableWithGList(glist)
        if(!in_nogeo_gid_list(gid)) {
          var s= find_style_list(gid);
          var h= s['highlight'];
-         if(h) {
+         if(h!= undefined) {
            html=html+"<tr id=\"row_"+gid+"\"><td style=\"width:25px\"><button class=\"btn btn-xs cfm-btn\" title=\"highlight the fault\" onclick=toggle_highlight("+gid+");><span id=\"highlight_"+gid+"\" class=\"glyphicon glyphicon-star\"></span></button></td><td style=\"width:25px\"><button class=\"btn btn-xs cfm-btn\" title=\"toggle on/off the fault\" onclick=toggle_layer("+gid+");><span id=\"toggle_"+gid+"\" class=\"glyphicon glyphicon-eye-open\"></span></button></td><td style=\"width:25px\"><button class=\"btn btn-xs cfm-btn\" title=\"downloads\" onclick=download_layer("+gid+");><span id=\"download_"+gid+"\" class=\"glyphicon glyphicon-download\"></span></button></td><td>" + name + "</td></tr>";
            } else {
              html=html+"<tr id=\"row_"+gid+"\"><td style=\"width:25px\"><button class=\"btn btn-xs cfm-btn\" title=\"highlight the fault\" onclick=toggle_highlight("+gid+");><span id=\"highlight_"+gid+"\" class=\"glyphicon glyphicon-star-empty\"></span></button></td><td style=\"width:25px\"><button class=\"btn btn-xs cfm-btn\" title=\"toggle on/off the fault\" onclick=toggle_layer("+gid+");><span id=\"toggle_"+gid+"\" class=\"glyphicon glyphicon-eye-open\"></span></button></td><td style=\"width:25px\"><button class=\"btn btn-xs cfm-btn\" title=\"downloads\" onclick=download_layer("+gid+");><span id=\"download_"+gid+"\" class=\"glyphicon glyphicon-download\"></span></button></td><td>" + name + "</td></tr>";

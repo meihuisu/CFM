@@ -74,6 +74,7 @@ function refreshAll() {
   document.getElementById("phpResponseTxt").innerHTML = "";
 //  document.getElementById("objGidTxt").value = '';
   refresh_map();
+  dismiss_sidebar();
   reset_geo_plot();
 }
 
