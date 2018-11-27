@@ -176,6 +176,8 @@ function _makeResultTableWithGList(glist)
              html=html+"<tr id=\"row_"+gid+"\"><td style=\"width:25px\"><button class=\"btn btn-xs cfm-btn\" title=\"highlight the fault\" onclick=toggle_highlight("+gid+");><span id=\"highlight_"+gid+"\" class=\"glyphicon glyphicon-star-empty\"></span></button></td><td style=\"width:25px\"><button class=\"btn btn-xs cfm-btn\" title=\"toggle on/off the fault\" onclick=toggle_layer("+gid+");><span id=\"toggle_"+gid+"\" class=\"glyphicon glyphicon-eye-open\"></span></button></td><td style=\"width:25px\"><button class=\"btn btn-xs cfm-btn\" title=\"downloads\" onclick=download_layer("+gid+");><span id=\"download_"+gid+"\" class=\"glyphicon glyphicon-download\"></span></button></td><td>" + name + "</td></tr>";
         }
         } else {
+/* in nogeo list.. */
+window.console.log("in nogeolist ..",gid);
          html=html+"<tr id=\"row_"+gid+"\"><td style=\"width:25px\"><button class=\"btn btn-xs cfm-btn\" title=\"highlight the fault\" onclick=toggle_highlight("+gid+") disabled><span id=\"highlight_"+gid+"\" class=\"glyphicon glyphicon-star-empty\"></span></button></td><td style=\"width:25px\"><button class=\"btn btn-xs cfm-btn\" title=\"toggle on/off the fault\" onclick=toggle_layer("+gid+") disabled><span id=\"toggle_"+gid+"\" class=\"glyphicon glyphicon-eye-open\"></span></button></td> <td style=\"width:25px\"><button class=\"btn btn-xs cfm-btn\" title=\"downloads\" onclick=download_layer("+gid+");><span id=\"download_"+gid+"\" class=\"glyphicon glyphicon-download\"></span></button></td><td>" + name + "</td></tr>";
        }
     }
