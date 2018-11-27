@@ -9,3 +9,5 @@ sudo service httpd start
 
 ## put the html in /var/www/html
 ## httpd log in /var/log/httpd
+#
+Also need to unzip src/favicon_package_v0.16.zip at /var/www/html
