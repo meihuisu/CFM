@@ -2,7 +2,6 @@
 
  sudo yum install httpd
  sudo yum install php
- sudo yum install php-mysqlnd
  sudo yum install php-pgsql
 
 sudo service httpd start

@@ -80,7 +80,7 @@ function refreshAll() {
 
 function getContentFromMeta(meta) {
 // get info on this..
-    var content="name: "+meta['name'];
+    var content=meta['name'];
     var strike=meta['strike'];
     if(strike != "") {
        content = content + "<br>" + "strike: "+strike;
