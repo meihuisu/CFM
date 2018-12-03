@@ -70,7 +70,7 @@ function addGeoToMap(cfmTrace, mymap) {
      filter: function (feature, layer) {
             if (feature.properties) {
                 var tmp=feature.properties.show_on_map != undefined ? !feature.properties.show_on_map : true;
-                return feature.properties.show_on_map != undefined ? !feature.properties.show_on_map : true;
+                return tmp;
             }
             return false;
      },
@@ -85,18 +85,27 @@ function addGeoToMap(cfmTrace, mymap) {
      onEachFeature: onEachFeature
    }).addTo(mymap);
 
-/*** XXX
    var layerPopup;
    geoLayer.on('mouseover', function(e){
+/* not used..
+    // array of array
     var coordinates = e.layer.feature.geometry.coordinates;
-    var swapped_coordinates = [coordinates[1], coordinates[0]];  //Swap Lat and Lng
+    // pick the middle one
+    var s=Math.floor((coordinates.length)/2);
+    var tmp_coords=coordinates[s][0];
+    var swapped_coordinates = [tmp_coords[1], tmp_coords[0]];  //Swap Lat and Lng
+*/
     if (mymap) {
+       var tmp=e.layer.feature.properties;
+       var level1=tmp.popupLevel1Content;
        layerPopup = L.popup()
-           .setLatLng(swapped_coordinates)
-           .setContent('NEW Popup for feature #'+e.layer.feature.properties.id)
+           .setLatLng(e.latlng) 
+ //          .setContent('layer#'+e.layer.feature.id+'<br>'+level1) 
+           .setContent(level1) 
            .openOn(mymap);
     }
   });
+/*** XXX
   geoLayer.on('mouseout', function (e) {
     if (layerPopup && mymap) {
         mymap.closePopup(layerPopup);

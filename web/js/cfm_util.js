@@ -78,15 +78,37 @@ function refreshAll() {
   reset_geo_plot();
 }
 
-function getContentFromMeta(meta) {
-// get info on this..
-    var content=meta['name'];
-    var strike=meta['strike'];
-    if(strike != "") {
-       content = content + "<br>" + "strike: "+strike;
+function _item(meta,str,type,name) {
+    if(meta[type] !=undefined && meta[type] != "") {
+       str = str + "<br>" + name+ ": "+meta[type];
        } else {
-         content = content + "<br>" + "strike: "+NA;
+         str = str + "<br>" + name+ ": "+NA;
     }
+    return str;
+}
+function getLevel1ContentFromMeta(meta) {
+    var content=meta['fault'];
+    content=content+"<br>--------------------";
+    content=content+"<br>SYSTEM: "+meta['system'];
+    content=content+"<br>REGION: "+meta['region'];
+    content=content+"<br>SECTION: "+meta['section'];
+    content=content+"<br>";
+    content=_item(meta,content,'source_Author','AUTHOR');
+    content=content+"<br>VERSION: "+meta['CFM_version'];
+    content=content+"<br>USGS_ID: "+meta['USGS_ID'];
+    return content;
+}
+
+function getLevel2ContentFromMeta(meta) {
+// get info on this..
+    var content=meta['fault'];
+    content=content+"<br>--------------------";
+    content=_item(meta,content,'strike','STRIKE');
+    content=_item(meta,content,'dip','DIP');
+    content=_item(meta,content,'area','AREA');
+    content=_item(meta,content,'exposure','EXPOSURE');
+    content=_item(meta,content,'final_slip_sense','FINAL_SLIP_SENSE');
+
     return content;
 }
 

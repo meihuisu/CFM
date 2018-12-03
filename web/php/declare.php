@@ -16,4 +16,8 @@ $reference=12;
 $reference_check=13;
 $ID_comments=14;
 $USGS_ID=15;
+$system=16;
+$region=17;
+$section=18;
+$fault=19;
 ?>
