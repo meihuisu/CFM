@@ -20,7 +20,7 @@ $result = pg_execute($dbconn, "my_query", $data);
 
 $resultList=array();
 while($row = pg_fetch_row($result)) {
-    $item = new \stdClass();
+e   $item = new \stdClass();
     $item->gid=$row[0];
     $item->name=$row[1];
     array_push($resultList, json_encode($item));
