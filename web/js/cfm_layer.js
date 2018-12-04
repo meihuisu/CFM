@@ -79,7 +79,7 @@ function makeGeoJSONFeature(geoJSON, gid, meta) {
   }
 
   if(geoJSON == undefined) {
-    window.console.log("BAD BAD BAD, makeGeoJSONFeature, geoJSON is null for ", gid);
+//    window.console.log("makeGeoJSONFeature, geoJSON is null for ", gid);
     return undefined;
   }
   if( typeof geoJSON === 'object') {

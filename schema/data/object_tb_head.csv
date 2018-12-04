@@ -259,7 +259,7 @@ WTRA-SBTS-MULT-Channel_Islands_thrust-SHAW-CFM1,Western Transverse Ranges  Area,
 WTRA-SBTS-SMNB-Santa_Monica_Bay_fault-CFM3,Western Transverse Ranges  Area,WTRA,Southern Boundary thrust system,SBTS,Santa Monica Bay,SMNB,Santa Monica Bay fault,ABC
 WTRA-SBTS-ANCP-Anacapa-Dume_fault-CFM3,Western Transverse Ranges  Area,WTRA,Southern Boundary thrust system,SBTS,Anacapa-Dume,ANCP,Anacapa-Dume fault,ADMF
 WTRA-SGMF-SANC-San_Antonio_Canyon_fault-CFM4,Western Transverse Ranges  Area,WTRA,San Gabriel Mountain faults,SGMF,San Antonio Canyon,SANC,San Antonio Canyon fault,SACF
-WTRA-SBCF-MULT-Western_Deep_fault-SRLN-CVMH-CFM5,Western Transverse Ranges  Area,WTRA,Santa Barbara Channel faults,SBCF,Multiple sections,,Western Deep fault,WSDF
+WTRA-SBCF-MULT-Western_Deep_fault-SRLN-CVMH-CFM5,Western Transverse Ranges  Area,WTRA,Santa Barbara Channel faults,SBCF,Multiple sections,MULT,Western Deep fault,WSDF
 WTRA-SBCF-WEST-Hondo_detachment-S-dip-SRLN-CVMH-CFM5,Western Transverse Ranges  Area,WTRA,Santa Barbara Channel faults,SBCF,Western,WEST,Hondo detachment-S-dip,HNDD
 ETRA-CLHZ-SCHS-Cleghorn_fault-steep-CFM5,Eastern Transverse Ranges Area,ETRA,Cleghorn fault zone,CLGZ,Southern Cleghorn,SCHS,Cleghorn fault,CLGF
 ETRA-CLHZ-SBMT-Tunnel_Ridge-Arrastre_Canyon_fault-steep-CFM5,Eastern Transverse Ranges Area,ETRA,Cleghorn fault zone,CLGZ,San Bernardino Mountains,SBMT,Tunnel Ridge-Arrastre Canyon fault,TRAC

@@ -42,21 +42,21 @@ CREATE TABLE FAULT_tb (
 CREATE TABLE OBJECT_tb (
    gid serial PRIMARY KEY,
 
-   SYSTEM_tb_gid integer DEFAULT 0,
+   SYSTEM_tb_gid integer DEFAULT NULL,
 
-   REGION_tb_gid integer DEFAULT 0,
+   REGION_tb_gid integer DEFAULT NULL,
 
-   SECTION_tb_gid integer DEFAULT 0,
+   SECTION_tb_gid integer DEFAULT NULL,
 
-   FAULT_tb_gid integer DEFAULT 0,
+   FAULT_tb_gid integer DEFAULT NULL,
 
-   TRACE_tb_gid integer DEFAULT 0,
+   TRACE_tb_gid integer DEFAULT NULL,
 
-   OBJECT_1000m_tb_gid integer DEFAULT 0,
+   OBJECT_1000m_tb_gid integer DEFAULT NULL,
 
-   OBJECT_500m_tb_gid integer DEFAULT 0,
+   OBJECT_500m_tb_gid integer DEFAULT NULL,
 
-   OBJECT_native_tb_gid integer DEFAULT 0,
+   OBJECT_native_tb_gid integer DEFAULT NULL,
 
    name VARCHAR(100) UNIQUE NOT NULL,
    url VARCHAR(200) UNIQUE,

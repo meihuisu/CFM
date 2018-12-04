@@ -168,14 +168,7 @@ function _makeResultTableWithGList(glist)
        var gid=glist[i];
        var t=find_meta_list(gid);
        var meta=t['meta'];
-       var name;
-       if( meta == undefined ) {
-          var tmp="hum";
-          window.console.log("this is bad meta..",gid);
-          continue;
-          } else {
-            name=meta['name'];
-       }
+       var name=meta['name'];
        if(!in_nogeo_gid_list(gid)) {
          var s= find_style_list(gid);
          var h= s['highlight'];
@@ -201,8 +194,6 @@ function makeResultTableWithList(glist)
 {
     // reset it first
     document.getElementById("searchResult").innerHTML ="";
-
-    window.console.log("using active list..");
 
     if(glist.length > 0) {
       toggle_layer_with_list(glist);

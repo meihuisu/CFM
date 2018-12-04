@@ -146,8 +146,6 @@ function processGeoList() {
        var gidstr=geostr[i];
        var gid=parseInt(gidstr);
        cfm_gid_list.push(gid);
-       if(gid == 327) 
-         window.console.log("found 327 geo gid from backend..");
     }
 
     sz=nogeostr.length;
@@ -156,7 +154,6 @@ function processGeoList() {
        var gidstr=nogeostr[i];
        var gid=parseInt(gidstr);
        cfm_gid_list.push(gid);
-//       window.console.log("no gid from backend..",gid);
        cfm_nogeo_gid_list.push(gid);
     }
     window.console.log("total mixed geo..", cfm_gid_list.length);
@@ -181,7 +178,6 @@ function processTraceMeta(metaList) {
     window.console.log("Number of meta blobs received from backend ->",sz);
     // iterate through the list and grab the geo info and update leaflet feature
     // structure one by one
-    window.console.log("hum blah", sz);
     for( var i=0; i< sz; i++) {
        var t=str[i];
        var meta = JSON.parse(str[i]);
@@ -189,9 +185,6 @@ function processTraceMeta(metaList) {
        var gid=parseInt(gidstr);
        if(metaList == 'metaByAllTraces') {
          cfm_fault_meta_list.push({"gid":gid, "meta": meta });
-         //if(gid == 241)
-         if(gid == 327)
-             window.console.log("adding.. gid to meta", gid);
          if( !in_nogeo_gid_list(gid)) {
            getGeoJSONbyObjGid(gidstr,meta);
          }
