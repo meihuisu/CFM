@@ -4,7 +4,7 @@
 
 var highlight_style = {
     'color': 'RGB(0, 255, 255)',
-    'weight': 3,
+    'weight': 2,
 };
 
 /***
@@ -91,8 +91,8 @@ function makeGeoJSONFeature(geoJSON, gid, meta) {
   var content=getLevel2ContentFromMeta(meta);
   var level1content=getLevel1ContentFromMeta(meta);
   var color=getColorFromMeta(meta);
-  var style= { "weight":3,
-               "opacity":1,
+  var style= { "weight":2,
+               "opacity":0.6,
                "color": color
               };
 

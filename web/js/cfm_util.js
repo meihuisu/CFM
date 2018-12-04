@@ -50,6 +50,7 @@ function plotAll() {
 }
 
 function toggleAll() {
+  takeDownPopup(viewermap);
   cfm_toggle_plot= !cfm_toggle_plot;
   if(cfm_toggle_plot) {
     toggle_on_all_layer()

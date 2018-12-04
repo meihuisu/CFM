@@ -13,9 +13,14 @@ function setup_viewer()
 {
  var mymap = L.map('CFM_plot').setView([34.3, -118.4], 7);
 
+ L.esri.tileLayer("Topographic").addTo(mymap);
+
+
+/**
  var topoURL='https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png';
  var topoAttribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreeMap</a> contributors,<a href=http://viewfinderpanoramas.org"> SRTM</a> | &copy; <a href="https://www.opentopomap.org/copyright">OpenTopoMap</a>(CC-BY-SA)';
  L.tileLayer(topoURL, { detectRetina: true, attribution: topoAttribution}).addTo(mymap);
+**/
 
 /*
  var openURL='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'; 
@@ -62,6 +67,18 @@ function setup_viewer()
 
   mymap.on('click', onMapClick);
   return mymap;
+}
+
+// this does not work
+function takeDownPopup(mymap) {
+  var popup = L.popup();
+  if (popup) {
+window.console.log("THere is a popup..");
+        mymap.closePopup(popup);
+        popup = null;
+  } else {
+window.console.log("THERE is no popup..");
+  }
 }
 
 function addGeoToMap(cfmTrace, mymap) {
