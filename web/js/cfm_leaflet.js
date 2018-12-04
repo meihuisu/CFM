@@ -13,7 +13,7 @@ function setup_viewer()
 {
  var mymap = L.map('CFM_plot').setView([34.3, -118.4], 7);
 
- L.esri.tileLayer("Topographic").addTo(mymap);
+ L.esri.basemapLayer("Topographic").addTo(mymap);
 
 
 /**
