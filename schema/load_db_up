@@ -11,6 +11,7 @@ psql CFM5_db
   \i '/home/postgres/CFM/schema/sql/setup_tbs.sql';
   \i '/home/postgres/CFM/schema/sql/setup_object_tb.sql';
   \i '/home/postgres/CFM/schema/sql/linkup_traces.sql';
+  \i '/home/postgres/CFM/schema/sql/add_foreign_key.sql';
 
   DROP ROLE webonly;
   CREATE ROLE webonly WITH LOGIN PASSWORD 'scec';
