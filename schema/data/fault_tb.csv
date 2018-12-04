@@ -1,3 +1,4 @@
+name,abb
 ABC,ABC
 Agua Caliente fault zone,ACFZ
 Agua Tibia-Earthquake Valley fault,EQVF
@@ -108,7 +109,7 @@ Grass Valley fault,GSVF
 Gravel Hills fault-nw,GVHN
 Gravel Hills-Harper Lake fault,GHLF
 Harper Valley fault,HPVF
-Harper Valley Ð Mt_General fault,HMGF
+Harper Valley - Mt_General fault,HMGF
 Hector Mine rupture,HCMR
 Helendale-South Lockhart fault,HSLF
 Hidden Springs fault,HDSF

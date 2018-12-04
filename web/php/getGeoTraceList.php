@@ -3,19 +3,18 @@
 <head>
 </head>
 <body>
-
 <?php
 
 $dbconn = pg_connect("host=localhost port=5432 dbname=CFM5_db user=webonly password=scec");
 if (!$dbconn) { die('Could not connect'); }
 
-$query = "SELECT gid,name FROM OBJECT_tb where Trace_tb_gid != 0";
+$query = "SELECT gid,name FROM OBJECT_tb where Trace_tb_gid is not null";
 $result = pg_query($dbconn, $query);
 $gidList=array();
 while($row = pg_fetch_row($result)) {
     array_push($gidList, $row[0]);
 }
-$query = "SELECT gid,name FROM OBJECT_tb where Trace_tb_gid = 0";
+$query = "SELECT gid,name FROM OBJECT_tb where Trace_tb_gid is null";
 $result = pg_query($dbconn, $query);
 $nogidList=array();
 while($row = pg_fetch_row($result)) {

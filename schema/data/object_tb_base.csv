@@ -234,7 +234,7 @@ WTRA-ORFZ-OFFS-Mid-Channel_fault-SRLN-CVMH-CFM5,01,UCSB,CFM5,mapped by Sorlien; 
 WTRA-ORFZ-VNTB-Oak_Ridge_fault-MRSH-CFM5,01,MRSH,CFM5,steep Marshall model w/upper part from Sorlien,MRSH,70.429,67.0641,1.0443E+09,surface,r,,,propose 94b,94
 WTRA-ORFZ-SFNV-Northridge-Frew_fault-CFM2,01,HRVD,CFM2,,CFM,118.962,34.5061,8.5972E+08,blind,t,,,propose 94c,
 WTRA-SSRZ-MULT-Simi-Santa_Rosa_fault-listric-CFM5,01,CMDT,CFM5,,,257.618,39.6288,9.6825E+08,surface,ollr,,1,,98a-c
-WTRA-SSRZ-O1NP-Bailey_fault-steep-CFM5,01,UCSB,CFM5,,,219.74,84.8471,2.7867E+08,,,,,,271
+WTRA-SSRZ-OXNP-Bailey_fault-steep-CFM5,01,UCSB,CFM5,,,219.74,84.8471,2.7867E+08,,,,,,271
 WTRA-SFFS-SGVS-Raymond_fault-extended-CFM5,02,UCSB,CFM5,,,,,,,,,,,103
 WTRA-SFFS-LABS-Hollywood_fault-CFM5,01,UCSB,CFM5,,,258.227,68.0819,2.6404E+08,surface,ollr,,,,102
 WTRA-SFFS-LABS-North_Salt_Lake_blind_fault-CFM3,01,HRVD,CFM3,,,253.914,53.7451,2.1142E+07,surface,,,,,missing
@@ -318,7 +318,7 @@ MJVA-CRSF-TFMT-Coyote_Canyon_fault-CFM5,01,UCSB,CFM5,,,269.878,89.3595,5.9245E+0
 MJVA-CRSF-BLBS-Bicycle_Lake_fault-CFM5,01,UCSB,CFM5,,,276.04396,89.5903,2.4993E+08,surface,,,,,357
 MJVA-CRSF-BLBS-Bitter_Springs_fault-CFM5,01,UCSB,CFM5,,,67.528,88.1996,1.3452E+08,,,,,,477
 MJVA-CRSF-CYTL-Coyote_Lake_fault-CFM5,01,CMDT,CFM5,in CFM5-Mojave Gocad project,,165.191,90,5.9356E+08,surface,,,,,354
-MJVA-CRSF-MAN1-Manix_fault-CFM5,01,UCSB,CFM5,,,249.467,87.3382,5.2349E+08,surface,llss,,,,344
+MJVA-CRSF-MANX-Manix_fault-CFM5,01,UCSB,CFM5,,,249.467,87.3382,5.2349E+08,surface,llss,,,,344
 MJVA-CRSF-CADY-Cady_fault-CFM5,01,UCSB,CFM5,,,90.401,87.7877,2.8663E+08,surface,llss,,,,345
 MJVA-NEMV-RDPS-Red_Pass_fault-CFM5,01,UCSB,CFM5,,,140.118,83.2762,2.5472E+08,surface,rlss,,,,360
 MJVA-NEMV-GRLS-Garlic_Spring_fault-CFM5,01,UCSB,CFM5,,,132.524,88.2656,2.2288E+08,surface,rlss,,,,358

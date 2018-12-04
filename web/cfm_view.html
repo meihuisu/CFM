@@ -64,11 +64,11 @@
 
   <div id='CFM_plot' style="position:fixed;width:55%;height:90%;left:43%;border:solid 4px gray"></div>
 
-  <div id='queryBlock' style="width:40%;height:25vh;float:left;top:20px;border:4px solid grey;overflow:auto">
+  <div id='queryBlock' style="background-color:#f9f9f9;width:40%;height:25vh;float:left;top:20px;border:4px solid grey;overflow:auto">
 
-<div id="pull-out" style="width:80%">
+<div id="pull-out" style="width:80%;">
 <ul id="sidebar" class="navigation" >
-  <li id='system' class='navigationLi col-md-12 col-xs-12' style="background-color:#f9f9f9; display:none">
+  <li id='system' class='navigationLi col-md-12 col-xs-12' style="display:none">
     <div id='systemMenu' class='menu'>
       <div id='systemLabel' class='menuLabel' style="margin-left:20px;font-size:14px;font-weight:bold">Query for Fault by system:<button class="pull-right" title="dismiss" onclick="dismissSystem()" style="border:none;background-color:transparent"><span class="glyphicon glyphicon-remove"></span>
 </button>
@@ -82,7 +82,7 @@
        </div>
     </div>
   </li>
-  <li id='region' class='navigationLi col-md-12 col-xs-12' style="background-color:#f9f9f9; display:none">
+  <li id='region' class='navigationLi col-md-12 col-xs-12' style="display:none">
     <div id='regionMenu' class='menu'>
       <div id='regionLabel' class='menuLabel' style="margin-left:20px;font-size:14px;font-weight:bold">Query for Fault by region:<button class="pull-right" title="dismiss" onclick="dismissRegion()" style="border:none;background-color:transparent"><span class="glyphicon glyphicon-remove"></span>
 </button>
@@ -96,7 +96,7 @@
        </div>
     </div>
   </li>
-  <li id='section' class='navigationLi col-md-12 col-xs-12' style="background-color:#f9f9f9; display:none">
+  <li id='section' class='navigationLi col-md-12 col-xs-12' style="display:none">
     <div id='sectionMenu' class='menu'>
       <div id='sectionLabel' class='menuLabel' style="margin-left:20px;font-size:14px;font-weight:bold">Query for Fault by section:<button class="pull-right" title="dismiss" onclick="dismissSection()" style="border:none;background-color:transparent"><span class="glyphicon glyphicon-remove"></span>
 </button>
@@ -110,7 +110,7 @@
        </div>
     </div>
   </li>
-  <li id='name' class='navigationLi col-md-12 col-xs-12' style="background-color:#f9f9f9; display:none">
+  <li id='name' class='navigationLi col-md-12 col-xs-12' style="display:none">
     <div id='nameMenu' class='menu'>
       <div id='nameLabel' class='menuLabel' style="margin-left:20px;font-size:14px;font-weight:bold">Query for Fault by name:<button class="pull-right" title="dismiss" onclick="dismissName()" style="border:none;background-color:transparent"><span class="glyphicon glyphicon-remove"></span>
 </button>
@@ -124,7 +124,7 @@
        </div>
     </div>
   </li>
-  <li id='strike' class='navigationLi col-md-12 col-xs-12' style="background-color:#f9f9f9; display:none">
+  <li id='strike' class='navigationLi col-md-12 col-xs-12' style="display:none">
     <div id='strikeMenu' class='menu'>
       <div id='strikeLabel' class='menuLabel' style="margin-left:20px;font-size:14px;font-weight:bold">Query for Fault by strike range:<button class="pull-right" title="dismiss" onclick="dismissStrike()" style="border:none;background-color:transparent"><span class="glyphicon glyphicon-remove"></span>
 </button>
@@ -137,7 +137,7 @@
     </div>
   </li>
 
-  <li id='keyword' class='navigationLi col-md-12 col-xs-12' style="background-color:#f9f9f9; display:none">
+  <li id='keyword' class='navigationLi col-md-12 col-xs-12' style="display:none">
     <div id='keywordMenu' class='menu'>
       <div id='keywordLabel' class='menuLabel' style="margin-left:20px;font-size:14px;font-weight:bold">Query for Fault by keyword:<button class="pull-right" title="dismiss" onclick="dismissKeyword()" style="border:none;background-color:transparent"><span class="glyphicon glyphicon-remove"></span>
 </button>
@@ -155,7 +155,7 @@
        </div>
     </div>
   </li>
-  <li id='latlon' class='navigationLi col-md-12 col-xs-12' style="background-color:#f9f9f9; display:none">
+  <li id='latlon' class='navigationLi col-md-12 col-xs-12' style="display:none">
     <div id='latlonMenu' class='menu'>
       <div id='latlonLabel' class='menuLabel' style="margin-left:20px;font-size:14px;font-weight:bold">Query for Fault by latlon:<button class="pull-right" title="dismiss" onclick="dismissLatlon()" style="border:none;background-color:transparent"><span class="glyphicon glyphicon-remove"></span>
 </button>
@@ -175,7 +175,7 @@
     </div>
   </li>
 <!-- debug purpose
-  <li id='gid' class='navigationLi col-md-12 col-xs-12' style="background-color:#f9f9f9; display:none">
+  <li id='gid' class='navigationLi col-md-12 col-xs-12' style="display:none">
     <div id='gidMenu' class='menu'>
       <div id='gidLabel' class='menuLabel' style="margin-left:20px;font-size:14px;font-weight:bold">Query for GEO JSON Object by object_tb_gid:<button class="pull-right" title="dismiss" onclick="dismissGid()" style="border:none;background-color:transparent"><span class="glyphicon glyphicon-remove"></span>
 </button>

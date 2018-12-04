@@ -21,6 +21,11 @@ $myObj->reference=$row[$reference];
 $myObj->reference_check=$row[$reference_check];
 $myObj->ID_comments=$row[$ID_comments];
 $myObj->USGS_ID=$row[$USGS_ID];
+$myObj->system=$row[$system];
+$myObj->region=$row[$region];
+$myObj->section=$row[$section];
+$myObj->fault=$row[$fault];
+
 $myJSON = json_encode($myObj);
 
 return $myJSON;

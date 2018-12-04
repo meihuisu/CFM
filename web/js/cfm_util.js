@@ -74,18 +74,41 @@ function refreshAll() {
   document.getElementById("phpResponseTxt").innerHTML = "";
 //  document.getElementById("objGidTxt").value = '';
   refresh_map();
+  dismiss_sidebar();
   reset_geo_plot();
 }
 
-function getContentFromMeta(meta) {
-// get info on this..
-    var content="name: "+meta['name'];
-    var strike=meta['strike'];
-    if(strike != "") {
-       content = content + "<br>" + "strike: "+strike;
+function _item(meta,str,type,name) {
+    if(meta[type] == undefined || meta[type] == "") {
+       str = str + "<br>" + name+ ": NA";
        } else {
-         content = content + "<br>" + "strike: "+NA;
+         str = str + "<br>" + name+ ": "+meta[type];
     }
+    return str;
+}
+function getLevel1ContentFromMeta(meta) {
+    var content=meta['fault'];
+    content=content+"<br>--------------------";
+    content=content+"<br>SYSTEM: "+meta['system'];
+    content=content+"<br>REGION: "+meta['region'];
+    content=content+"<br>SECTION: "+meta['section'];
+    content=content+"<br>";
+    content=_item(meta,content,'source_Author','AUTHOR');
+    content=content+"<br>VERSION: "+meta['CFM_version'];
+    content=content+"<br>USGS_ID: "+meta['USGS_ID'];
+    return content;
+}
+
+function getLevel2ContentFromMeta(meta) {
+// get info on this..
+    var content=meta['fault'];
+    content=content+"<br>--------------------";
+    content=_item(meta,content,'strike','STRIKE');
+    content=_item(meta,content,'dip','DIP');
+    content=_item(meta,content,'area','AREA');
+    content=_item(meta,content,'exposure','EXPOSURE');
+    content=_item(meta,content,'final_slip_sense','FINAL_SLIP_SENSE');
+
     return content;
 }
 
@@ -133,6 +156,8 @@ function processGeoList() {
        cfm_gid_list.push(gid);
        cfm_nogeo_gid_list.push(gid);
     }
+    window.console.log("total mixed geo..", cfm_gid_list.length);
+
 }
 
 // extract meta data blob from php backend, extract object_tb's gid and 

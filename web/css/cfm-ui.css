@@ -35,14 +35,13 @@ th {text-align: left;}
 .cfm-div {
         position:relative;
         left: 10px;
-        border: 4px solid green;
         width:90%;
         }
 
 
 select {
-    width: 90%;
-    border: 1px solid grey;
+    width: 100%;
+    border: 4px solid green;
     border-radius: 4px;
 }
 
