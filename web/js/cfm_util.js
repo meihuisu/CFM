@@ -109,7 +109,19 @@ function getLevel2ContentFromMeta(meta) {
     content=_item(meta,content,'area','AREA');
     content=_item(meta,content,'exposure','EXPOSURE');
     content=_item(meta,content,'final_slip_sense','FINAL_SLIP_SENSE');
+    return content;
+}
 
+function getLevel3ContentFromMeta(meta) {
+// get info on this..
+    var content=meta['fault'];
+    content=content+"<br>--------------------";
+    content=_item(meta,content,'alternative','ALTERNATIVE');
+    content=_item(meta,content,'model_description','MODEL_DESCRIPTION');
+    content=_item(meta,content,'descriptor','DESCRIPTOR');
+    content=_item(meta,content,'reference','REFERENCE');
+    content=_item(meta,content,'reference_check','REFERENCE_CHECK');
+    content=_item(meta,content,'ID_comments','ID_COMMENTS');
     return content;
 }
 

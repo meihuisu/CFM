@@ -15,7 +15,6 @@ function setup_viewer()
 
  L.esri.basemapLayer("Topographic").addTo(mymap);
 
-
 /**
  var topoURL='https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png';
  var topoAttribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreeMap</a> contributors,<a href=http://viewfinderpanoramas.org"> SRTM</a> | &copy; <a href="https://www.opentopomap.org/copyright">OpenTopoMap</a>(CC-BY-SA)';
@@ -37,6 +36,9 @@ function setup_viewer()
     id: 'mapbox.streets'
   }).addTo(mymap);
 */
+
+
+   L.control.scale({position: 'bottomleft'}).addTo(mymap);  
 
 /**** sample markers on leaflet viewer
   L.marker([38, -119]).addTo(mymap)
