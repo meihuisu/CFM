@@ -41,7 +41,6 @@ function makeRegionList() {
     var html= "<form autocomplete=\"off\"> <select id=\"selectRegion\" onchange=\"searchByRegion(this.value)\"> <option value=\"\">  Click to select a Region</option>";
 
     var sz=(Object.keys(str).length);
-    window.console.log("Number of regions received from backend ->",sz);
     for( var i=0; i< sz; i++) {
        var s = JSON.parse(str[i]);
        var abb=s['abb'];
@@ -78,7 +77,6 @@ function makeSystemList() {
     var html= "<form autocomplete=\"off\"> <select id=\"selectSystem\" onchange=\"searchBySystem(this.value)\"> <option value=\"\">  Click to select a System</option>";
 
     var sz=(Object.keys(str).length);
-    window.console.log("Number of systems received from backend ->",sz);
     for( var i=0; i< sz; i++) {
        var s = JSON.parse(str[i]);
        var abb=s['abb'];
@@ -170,7 +168,14 @@ function _makeResultTableWithGList(glist)
        var gid=glist[i];
        var t=find_meta_list(gid);
        var meta=t['meta'];
-       var name=meta['name'];
+       var name;
+       if( meta == undefined ) {
+          var tmp="hum";
+          window.console.log("this is bad meta..",gid);
+          continue;
+          } else {
+            name=meta['name'];
+       }
        if(!in_nogeo_gid_list(gid)) {
          var s= find_style_list(gid);
          var h= s['highlight'];
