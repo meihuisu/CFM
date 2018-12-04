@@ -79,10 +79,10 @@ function refreshAll() {
 }
 
 function _item(meta,str,type,name) {
-    if(meta[type] !=undefined && meta[type] != "") {
-       str = str + "<br>" + name+ ": "+meta[type];
+    if(meta[type] == undefined || meta[type] == "") {
+       str = str + "<br>" + name+ ": NA";
        } else {
-         str = str + "<br>" + name+ ": "+NA;
+         str = str + "<br>" + name+ ": "+meta[type];
     }
     return str;
 }
