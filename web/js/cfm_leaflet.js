@@ -71,18 +71,6 @@ function setup_viewer()
   return mymap;
 }
 
-// this does not work
-function takeDownPopup(mymap) {
-  var popup = L.popup();
-  if (popup) {
-window.console.log("THere is a popup..");
-        mymap.closePopup(popup);
-        popup = null;
-  } else {
-window.console.log("THERE is no popup..");
-  }
-}
-
 function addGeoToMap(cfmTrace, mymap) {
 
    var geoLayer=L.geoJSON(cfmTrace, {
