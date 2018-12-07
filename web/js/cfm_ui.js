@@ -2,7 +2,10 @@
    cfm_ui.js
 ***/
 
-function setupSlider(min,max) {
+// not using the realmin and realmax
+function setupSlider(realmin,realmax) {
+  var min=0;
+  var max=360;
   setup_strike_range(min,max);
   $( "#slider-strike-range" ).slider({
     range: true,
@@ -28,9 +31,6 @@ function queryByType(type)
   if(type == "section") { getSectionList(); }
   if(type == "name") { getNameList(); }
 }
-
-
-
 
 // use the region list from php backend, generate the form html
 function makeRegionList() {

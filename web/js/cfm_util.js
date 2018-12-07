@@ -5,7 +5,7 @@
 
 // strike range is from 5 to 359
 var strike_range_min = 0;
-var strike_range_max = 0;
+var strike_range_max = 360;
 
 function reset_strike_range()
 {

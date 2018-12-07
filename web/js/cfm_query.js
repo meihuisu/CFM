@@ -1,5 +1,5 @@
 function searchByStrikeRange(min,max) {
-    if (min == "" || max == "") {
+    if (min == undefined || max == undefined) {
         document.getElementById("searchResult").innerHTML = "";
         return;
     } else {
