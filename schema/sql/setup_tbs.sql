@@ -1,4 +1,3 @@
-/*
 COPY SYSTEM_tb(name, abb)
 FROM '/home/postgres/CFM/schema/data/system_tb.csv' DELIMITER ',' CSV HEADER;
 COPY REGION_tb(name, abb)
@@ -13,9 +12,9 @@ COPY OBJECT_500m_tb(name, url)
 FROM '/home/postgres/CFM/schema/data/object_500m_tb.csv' DELIMITER ',' CSV HEADER;
 COPY OBJECT_native_tb(name, url)
 FROM '/home/postgres/CFM/schema/data/object_native_tb.csv' DELIMITER ',' CSV HEADER;
-*/
 
 /* MEI */
+/*
 COPY SYSTEM_tb(name, abb)
 FROM '/Users/mei/scec/cfm/cfm-github/schema/data/system_tb.csv' DELIMITER ',' CSV HEADER;
 COPY REGION_tb(name, abb)
@@ -30,3 +29,4 @@ COPY OBJECT_500m_tb(name, url)
 FROM '/Users/mei/scec/cfm/cfm-github/schema/data/object_500m_tb.csv' DELIMITER ',' CSV HEADER;
 COPY OBJECT_native_tb(name, url)
 FROM '/Users/mei/scec/cfm/cfm-github/schema/data/object_native_tb.csv' DELIMITER ',' CSV HEADER;
+*/
