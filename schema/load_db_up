@@ -9,8 +9,8 @@ psql CFM5_db
 /*
   \i '/Users/mei/scec/cfm/cfm-github/schema/sql/CFM5_preferred_traces.sql';
   \i '/Users/mei/scec/cfm/cfm-github/schema/sql/setup_schema.sql';
-  \i '/Users/mei/scec/cfm/cfm-github/schema/sql/setup_tbs.sql';
-  \i '/Users/mei/scec/cfm/cfm-github/schema/sql/setup_object_tb.sql';
+  \i '/Users/mei/scec/cfm/cfm-github/schema/sql/mei-setup_tbs.sql';
+  \i '/Users/mei/scec/cfm/cfm-github/schema/sql/mei-setup_object_tb.sql';
   \i '/Users/mei/scec/cfm/cfm-github/schema/sql/linkup_traces.sql';
   \i '/Users/mei/scec/cfm/cfm-github/schema/sql/add_foreign_key.sql';
 */
