@@ -43,7 +43,7 @@ bringing up the web serviceo
 
 ## Layout 
 
-  ... Server Side ...
+### Server Side 
        
     Postgres/Postgis database
     TS/SHP data files
@@ -51,7 +51,7 @@ bringing up the web serviceo
     Apache web service to manage incoming
        and outgoing instruction/data
 
-  ... Client Side ...
+### Client Side 
 
     JS scripts to process and manage data
     Html web page to display graphics
