@@ -9,7 +9,8 @@
 $dbconn = pg_connect("host=localhost port=5432 dbname=CFM5_db user=webonly password=scec");
 if (!$dbconn) { die('Could not connect'); }
 
-$query = "SELECT gid,name,url FROM OBJECT_native_tb";
+$query = "SELECT OBJECT_native_tb.gid, OBJECT_native_tb.name, OBJECT_native_tb.url, OBJECT_tb.gid FROM OBJECT_tb, OBJECT_native_tb where OBJECT_tb.object_native_tb_gid=OBJECT_native_tb.gid ";
+
 $result = pg_query($dbconn, $query);
 
 $objNativeList=array();
@@ -19,6 +20,7 @@ while($row = pg_fetch_row($result)) {
     $item->gid=$row[0];
     $item->name=$row[1];
     $item->url=$row[2];
+    $item->objgid=$row[3];
     array_push($objNativeList, json_encode($item));
 }
 

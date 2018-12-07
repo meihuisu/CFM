@@ -1,47 +1,44 @@
 # CFM
 Community Fault Model
 
+This is software stack that is needed at the backend
+server node when postgres and postgis are being built
+from source:
 
-Setting up on linux node: 
+      git
 
-yum install git
-yum -y install gcc
-yum -y install readline-devel
-yum -y install zlib-devel
+        gcc
+        readline-develp
+        zlib-devel
+        json-c
+        autoconf
+        libxml2-devel
+        libtool
 
-wget https://ftp.postgresql.org/pub/source/v10.5/postgresql-10.5.tar.gz
-tar -xzf postgresql-10.5.tar.gz
-cd postgresql-10.5
-./configure --prefix=/usr/local
-make
-sudo make install
+      postgres version a10.5
+        
+        proj5
+        gdal
 
-echo "Update postgres user  .. "
-sudo /usr/sbin/userdel postgres 
-##scec
-sudo /usr/sbin/useradd -d /home/postgres -m postgres
-read -s -p "Enter password for postgres: " password
-echo $password |sudo passwd --stdin postgres
-sudo chage postgres -M -1
+      postgis version 2.5.1
 
-echo "Adding cfmuser .. "
-##scec
-sudo /usr/sbin/useradd -d /home/cfmuser -m cfmuser
-read -s -p "Enter password for cfmuser: " password
-echo $password |sudo passwd --stdin cfmuser
-sudo chage cfmuser -M -1
+      apache web service
 
-##
-su - postgres
-initdb /home/postgres/cfm_db
-pg_ctl -D /home/postgres/cfm_db -l logfile start
-createuser --interactive
+      install cfm viewer from git to /var/www/html 
 
-## 
-su - cfmuser
-cd 
-git clone https://github.com/meihuisu/CFM.git
+Following instructions were used on bringing up the cfm viewer
+on a micro node reserved from AWS cloud service.
+
+run-as-me are the instructions for the installer who is
+installing the software stack
+
+run-as-postgres are the instructions for user, postgres,
+who is bringing up the postgres server
+
+run-as-httpd are the instructions for installing and
+bringing up the web serviceo
 
 
 
-
+    
+        

@@ -45,6 +45,7 @@ function makeRegionList() {
        var s = JSON.parse(str[i]);
        var abb=s['abb'];
        var name=s['name'];
+       cfm_region_list.push( {"abb":abb, "name":name } );
        html=html+"<option value=\"" + abb + "\">"+ name +"</option>";
     }
     return html;
@@ -63,6 +64,7 @@ function makeSectionList() {
        var s = JSON.parse(str[i]);
        var abb=s['abb'];
        var name=s['name'];
+       cfm_section_list.push( {"abb":abb, "name":name } );
        html=html+"<option value=\"" + abb + "\">"+ name +"</option>";
     }
     return html;
@@ -81,6 +83,7 @@ function makeSystemList() {
        var s = JSON.parse(str[i]);
        var abb=s['abb'];
        var name=s['name'];
+       cfm_system_list.push( {"abb":abb, "name":name } );
        html=html+"<option value=\"" + abb + "\">"+ name +"</option>";
     }
     return html;
@@ -99,6 +102,7 @@ function makeNameList() {
        var s = JSON.parse(str[i]);
        var abb=s['abb'];
        var name=s['name'];
+       cfm_name_list.push( {"abb":abb, "name":name } );
        html=html+"<option value=\"" + abb + "\">"+ name +"</option>";
     }
     return html;
@@ -199,4 +203,29 @@ function makeResultTableWithList(glist)
       toggle_layer_with_list(glist);
       document.getElementById("searchResult").innerHTML = _makeResultTableWithGList(glist);
     }
+}
+
+// for native, 500m, 1000m
+function add_downloads(meta,str) {
+  var gid=meta['gid'];
+  if(in_native_gid_list(gid)) {
+    var url=url_in_native_list(gid);
+    if(url) {
+      str=str+'<br><br><a href=\"'+url+'\" download> <button class=\"btn btn-xs cfm-btn\" title=\"native\"><span id=\"download_native_'+gid+'\" class=\"glyphicon glyphicon-download\"></span></button></a>';
+    }
+  }
+  if(in_500m_gid_list(gid)) {
+    var url=url_in_500m_list(gid);
+    if(url) {
+      str=str+'<a href=\"'+url+'\" download> <button class=\"btn btn-xs cfm-btn\" title=\"500m\"><span id=\"download_500m_'+gid+'\" class=\"glyphicon glyphicon-download\"></span></button></a>';
+    }
+  }
+
+  if(in_1000m_gid_list(gid)) {
+    var url=url_in_1000m_list(gid);
+    if(url) {
+       str=str+'<a href=\"'+url+'\" download> <button class=\"btn btn-xs cfm-btn\" title=\"1000m\"><span id=\"download_1000m_'+gid+'\" class=\"glyphicon glyphicon-download\"></span></button></a>';
+    }
+  }
+  return str;
 }

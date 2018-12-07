@@ -1,7 +1,10 @@
-COPY OBJECT_tb(name, alternative, source_author, CFM_version, model_description, descriptor, strike, dip, area, exposure, final_slip_sense, reference, reference_check, ID_comments, USGS_ID) FROM '/home/postgres/CFM/schema/data/object_tb_base.csv' DELIMITER ',' CSV HEADER;
+
+/* MEI */
+COPY OBJECT_tb(name, alternative, source_author, CFM_version, model_description, descriptor, strike, dip, area, exposure, final_slip_sense, reference, reference_check, ID_comments, USGS_ID) FROM '/Users/mei/scec/cfm/cfm-github/schema/data/object_tb_base.csv' DELIMITER ',' CSV HEADER;
+
 
 /*
-COPY OBJECT_tb(name, alternative, source_author, CFM_version, model_description, descriptor, strike, dip, area, exposure, final_slip_sense, reference, reference_check, ID_comments, USGS_ID) FROM '/Users/mei/scec/cfm/cfm-github/schema/data/object_tb_base.csv' DELIMITER ',' CSV HEADER;
+COPY OBJECT_tb(name, alternative, source_author, CFM_version, model_description, descriptor, strike, dip, area, exposure, final_slip_sense, reference, reference_check, ID_comments, USGS_ID) FROM '/home/postgres/CFM/schema/data/object_tb_base.csv' DELIMITER ',' CSV HEADER;
 */
 
 
@@ -12,13 +15,14 @@ CREATE TEMP TABLE tmp_x
          section  VARCHAR(50), ssabb VARCHAR(5),
          fault VARCHAR(60), fabb VARCHAR(5));
 
+/* MEI */
+COPY tmp_x(name,system,sabb,area,rabb,section,ssabb,fault,fabb)
+FROM '/Users/mei/scec/cfm/cfm-github/schema/data/object_tb_head.csv' DELIMITER ',' CSV HEADER;
+
 /*
 COPY tmp_x(name,system,sabb,area,rabb,section,ssabb,fault,fabb)
-    FROM '/Users/mei/scec/cfm/cfm-github/schema/data/object_tb_head.csv' DELIMITER ',' CSV HEADER;
+FROM '/home/postgres/CFM/schema/data/object_tb_head.csv' DELIMITER ',' CSV HEADER;
 */
-
-COPY tmp_x(name,system,sabb,area,rabb,section,ssabb,fault,fabb)
-    FROM '/home/postgres/CFM/schema/data/object_tb_head.csv' DELIMITER ',' CSV HEADER;
 
 UPDATE OBJECT_tb o SET 
     (SYSTEM_tb_gid, REGION_tb_gid, SECTION_tb_gid, FAULT_tb_gid)  =

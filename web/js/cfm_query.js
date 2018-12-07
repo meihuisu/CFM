@@ -327,6 +327,61 @@ function getSystemList() {
     xmlhttp.send();
 }
 
+function getNativeList() {
+    if (window.XMLHttpRequest) {
+        // code for IE7+, Firefox, Chrome, Opera, Safari
+        xmlhttp = new XMLHttpRequest();
+    } else {
+        // code for IE6, IE5
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("phpResponseTxt").innerHTML = this.responseText;
+            makeNativeList();
+        }
+    };
+    xmlhttp.open("GET","php/getNativeList.php",true);
+    xmlhttp.send();
+}
+
+function get500mList() {
+    if (window.XMLHttpRequest) {
+        // code for IE7+, Firefox, Chrome, Opera, Safari
+        xmlhttp = new XMLHttpRequest();
+    } else {
+        // code for IE6, IE5
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("phpResponseTxt").innerHTML = this.responseText;
+            make500mList();
+        }
+    };
+    xmlhttp.open("GET","php/get500mList.php",true);
+    xmlhttp.send();
+}
+
+function get1000mList() {
+    if (window.XMLHttpRequest) {
+        // code for IE7+, Firefox, Chrome, Opera, Safari
+        xmlhttp = new XMLHttpRequest();
+    } else {
+        // code for IE6, IE5
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("phpResponseTxt").innerHTML = this.responseText;
+            make1000mList();
+        }
+    };
+    xmlhttp.open("GET","php/get1000mList.php",true);
+    xmlhttp.send();
+}
+
+
 
 function getStrikeRange() {
     if (window.XMLHttpRequest) {
@@ -368,9 +423,6 @@ function getGeoJSONbyObjGid(gidstr, meta) {
             // grab the geoJSON
             var geoJSON=getGeoJSON();
             var gid=parseInt(gidstr);
-/* multiple faults per single layer
-            addGeoJSONAsFeatureToList(geoJSON,gid,meta);
-*/
             var trace=makeGeoJSONFeature(geoJSON, gid, meta);
             if(trace != undefined)
               load_a_trace(gid,trace);
@@ -388,4 +440,7 @@ function setupSearch()
    queryByType("section");
    queryByType("name");
    getStrikeRange();
+   getNativeList();
+   get1000mList();
+   get500mList();
 }

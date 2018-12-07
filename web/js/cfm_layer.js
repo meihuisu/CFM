@@ -35,27 +35,53 @@ var cfm_section_list=[];
 // [ { "abb": abb1, "name" : name1 }, {"abb": abb2, "name": name2 }, ... ]
 var cfm_name_list=[];
 
+// [{ gid, name, url, objgid}, {gid, name, url, objgid}, ... ] gid that is from native list
+var cfm_native_list=[];
 
+// gid is objgid
+// {gid, gid, ...}
+var cfm_native_gid_list=[];
+
+// [{ gid, name, url, objgid}, {gid, name, url, objgid}, ... ], gid that is from 500m list
+var cfm_500m_list=[];
+
+// gid is objgid
+// {gid, gid, ...}
+var cfm_500m_gid_list=[];
+
+// [{ gid, name, url, objgid }, {gid, name, url, objgid}, ... ], gid that is from 1000m list
+var cfm_1000m_list=[];
+
+// gid is objgid
+// {gid, gid, ...}
+var cfm_1000m_gid_list=[];
+
+// gid is objgid
 // { gid1, gid2, ... }, all objects 
 var cfm_gid_list=[];
 
+// gid is objgid
 // { gid1, gid2, ... }, only without geo
 var cfm_nogeo_gid_list=[];
 
-// all gid ==> gid from object_tb, all objects
+// all objgid ==> gid from object_tb, all objects
 //  [ { "gid": gid1,  "meta": mmm1 }, {  "gid": gid2, "meta": mmm2 }, ... } 
 var cfm_fault_meta_list=[];
 
+// gid is objgid
 // [ {"gid": gid1, "trace": trace1 }, {"gid":gid2, "trace":trace2}... ], only with geo
 var cfm_trace_list=[];
 
+// gid is objgid
 // [ {"gid": gid1, "layer": layer1 }, {"gid":gid2, "layer":layer2}...], only with geo
 var cfm_layer_list=[];
 
 // tracking original style
+// gid is objgid
 // [ {"gid": gid1, "style": style1, "visible": vis1, "highlight": hl1 }...], only with geo
 var cfm_style_list=[];
 
+// gid is objgid
 // { gid1, gid2, ... }, tracking current active search result, from all objects
 var cfm_active_gid_list=[];
 /*********************************************************
@@ -283,6 +309,65 @@ function load_trace_list()
      s['visible']=1; // turn it on
   }
   window.console.log("load_layer_list...",sz);
+}
+
+function in_500m_gid_list(target) {
+   var found=0;
+   cfm_500m_gid_list.forEach(function(element) {
+          if (element == target) {
+             found=1;
+          }
+   });
+   return found;
+}
+
+function url_in_500m_list(target) {
+   var url=null;
+   cfm_500m_list.forEach(function(element) {
+         if(element['objgid']==target) {
+            url=element['url'];
+         }
+   });
+   return url;
+}
+
+function in_1000m_gid_list(target) {
+   var found=0;
+   cfm_1000m_gid_list.forEach(function(element) {
+          if (element == target) {
+             found=1;
+          }
+   });
+   return found;
+}
+
+function url_in_1000m_list(target) {
+   var url=null;
+   cfm_1000m_list.forEach(function(element) {
+         if(element['objgid']==target) {
+            url=element['url'];
+         }
+   });
+   return url;
+}
+
+function in_native_gid_list(target) {
+   var found=0;
+   cfm_native_gid_list.forEach(function(element) {
+          if (element == target)
+             found=1;
+   });
+   return found;
+}
+
+function url_in_native_list(target) {
+   var url=null;
+   cfm_native_list.forEach(function(element) {
+         if(element['objgid']==target) {
+            url=element['url'];
+         }
+   });
+   return url;
 }
 
 function in_nogeo_gid_list(target) {

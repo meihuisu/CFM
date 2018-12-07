@@ -87,6 +87,7 @@ function _item(meta,str,type,name) {
     }
     return str;
 }
+
 function getLevel1ContentFromMeta(meta) {
     var content=meta['fault'];
     content=content+"<br>--------------------";
@@ -97,6 +98,7 @@ function getLevel1ContentFromMeta(meta) {
     content=_item(meta,content,'source_Author','AUTHOR');
     content=content+"<br>VERSION: "+meta['CFM_version'];
     content=content+"<br>USGS_ID: "+meta['USGS_ID'];
+    content=add_downloads(meta,content);
     return content;
 }
 
@@ -278,4 +280,55 @@ function getStrikeRangeMinMax() {
     rMin=parseInt(str.min);
     rMax=parseInt(str.max);
     return [rMin, rMax];
+}
+
+function makeNativeList() {
+    var str = $('[data-side="objNative"]').data('params');
+    if (str == undefined)
+      return "";
+
+    var sz=(Object.keys(str).length);
+    for( var i=0; i< sz; i++) {
+       var s = JSON.parse(str[i]);
+       var gid=parseInt(s['gid']);
+       var name=s['name'];
+       var url=s['url'];
+       var objgid=parseInt(s['objgid']);
+       cfm_native_list.push( {"gid":gid, "name":name, "url":url, "objgid":objgid } );
+       cfm_native_gid_list.push(objgid);
+    }
+}
+
+function make500mList() {
+    var str = $('[data-side="obj500m"]').data('params');
+    if (str == undefined)
+      return "";
+
+    var sz=(Object.keys(str).length);
+    for( var i=0; i< sz; i++) {
+       var s = JSON.parse(str[i]);
+       var gid=parseInt(s['gid']);
+       var name=s['name'];
+       var url=s['url'];
+       var objgid=parseInt(s['objgid']);
+       cfm_500m_list.push( {"gid":gid, "name":name, "url":url, "objgid":objgid } );
+       cfm_500m_gid_list.push( objgid );
+    }
+}
+
+function make1000mList() {
+    var str = $('[data-side="obj1000m"]').data('params');
+    if (str == undefined)
+      return "";
+
+    var sz=(Object.keys(str).length);
+    for( var i=0; i< sz; i++) {
+       var s = JSON.parse(str[i]);
+       var gid=parseInt(s['gid']);
+       var name=s['name'];
+       var url=s['url'];
+       var objgid=parseInt(s['objgid']);
+       cfm_1000m_list.push( {"gid":gid, "name":name, "url":url, "objgid":objgid } );
+       cfm_1000m_gid_list.push(objgid);
+    }
 }

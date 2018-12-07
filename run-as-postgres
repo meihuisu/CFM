@@ -4,12 +4,8 @@ Carve out db space
 Start PostgreSQL server
   pg_ctl -D /home/postgres/cfm_db -l logfile start
 
-dropdb CFM5_db 
-createdb CFM5_db
 
-psql CFM5_db
-    CREATE EXTENSION postgis;
-    SELECT PostGIS_Version();
+run schema/load_up_db
   
 
 
