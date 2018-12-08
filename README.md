@@ -49,8 +49,8 @@ Instructions to stand up the cfm viewer on a micro node reserved from AWS cloud 
 
 ### Client Side 
 
-    JS scripts to process and manage data
-    Html web page to display graphics
+    JS scripts to process and manage data product
+    Html web page for graphics display and user dashboard
        
 
        
