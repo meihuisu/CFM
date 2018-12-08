@@ -4,8 +4,8 @@ Community Fault Model
 
 ## Software requirements
 
-This is the software stack at the backend server node 
-when postgres and postgis are being built from source:
+Software stack at the backend server node when postgres and postgis are
+being built from source:
 
       git
 
@@ -28,17 +28,14 @@ when postgres and postgis are being built from source:
 
       install cfm viewer from git to /var/www/html 
 
-Following instructions were used on bringing up the cfm viewer
-on a micro node reserved from AWS cloud service
+Instructions used on stand up the cfm viewer on a micro 
+node reserved from AWS cloud service
 
-`run-as-me` are the instructions for the installer who is
-installing the software stack
+  `run-as-me`, for the installer who is installing the software stack
 
-`run-as-postgres` are the instructions for user, postgres,
-who is bringing up the postgres server
+  `run-as-postgres`, for user, postgres, who is bringing up the postgres server
 
-`run-as-httpd` are the instructions for installing and
-bringing up the web serviceo
+  `run-as-httpd`, for installing and starting up the web service
 
 
 ## Layout 
