@@ -28,14 +28,13 @@ being built from source:
 
       install cfm viewer from git to /var/www/html 
 
-Instructions used on stand up the cfm viewer on a micro 
-node reserved from AWS cloud service
+Instructions to stand up the cfm viewer on a micro node reserved from AWS cloud service
 
-  `run-as-me`, for the installer who is installing the software stack
+    `run-as-me`, for the installer who is installing the software stack
 
-  `run-as-postgres`, for user, postgres, who is bringing up the postgres server
+    `run-as-postgres`, for user, postgres, who is bringing up the postgres server
 
-  `run-as-httpd`, for installing and starting up the web service
+    `run-as-httpd`, for installing and starting up the web service
 
 
 ## Layout 
