@@ -16,9 +16,11 @@ $maxlat = floatVal($_GET['maxlat']);
 $minlon = floatVal($_GET['minlon']);
 $maxlon = floatVal($_GET['maxlon']);
 
-if($maxlon == "0" && $maxlon == "0") {
+if($maxlat == "0") { 
   $maxlat = $minlat+0.001;
   $minlat = $minlat-0.001;
+}
+if($maxlon == "0") {
   $maxlon = $minlon+0.001;
   $minlon = $minlon-0.001;
 }

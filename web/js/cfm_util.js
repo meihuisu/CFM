@@ -58,8 +58,8 @@ function reset_select_keyword() {
 function reset_select_latlon() {
   document.getElementById("minLatTxt").value = '';
   document.getElementById("minLonTxt").value = '';
-  document.getElementById("maxLatTxt").value = '';
-  document.getElementById("maxLonTxt").value = '';
+  document.getElementById("maxLatTxt").value = 'optional';
+  document.getElementById("maxLonTxt").value = 'optional';
 }
 
 function plotAll() {

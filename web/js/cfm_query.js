@@ -111,12 +111,15 @@ function searchByKeyword() {
 
 // takes 2 or 4 entries
 function searchByLatlon() {
-    maxlatstr="0";
-    maxlonstr="0";
     minlatstr=document.getElementById("minLatTxt").value;
     minlonstr=document.getElementById("minLonTxt").value;
     maxlatstr=document.getElementById("maxLatTxt").value;
     maxlonstr=document.getElementById("maxLonTxt").value;
+    if(maxlatstr == "optional")
+        maxlatstr="0";
+    if(maxlonstr == "optional")
+        maxlonstr="0";
+    
     if (minlatstr == "" || minlonstr=="") {
         document.getElementById("searchResult").innerHTML = "";
         return;
