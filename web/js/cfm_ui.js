@@ -3,7 +3,7 @@
 ***/
 
 // not using the realmin and realmax
-function setupSlider(realmin,realmax) {
+function setupStrikeRangeSlider(realmin,realmax) {
   var min=0;
   var max=360;
   setup_strike_range(min,max);
@@ -22,6 +22,26 @@ function setupSlider(realmin,realmax) {
   $('#slider-strike-range').slider("option", "min", min);
   $('#slider-strike-range').slider("option", "max", max);
   $( "#strike-range" ).val( min + " - " + max );
+}
+
+// using the realmin and realmax
+function setupDipRangeSlider(min,max) {
+  setup_dip_range(min,max);
+  $( "#slider-dip-range" ).slider({
+    range: true,
+    min: 0,
+    max: 500,
+    step: 0.001,
+    values: [ min, max ],
+    slide: function( event, ui ) {
+      $( "#dip-range" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+    }
+  });
+  $( "#dip-range" ).val( $( "#slider-dip-range" ).slider( "values", 0 ) + " - " + $( "#slider-dip-range" ).slider( "values", 1 ) );
+
+  $('#slider-dip-range').slider("option", "min", min);
+  $('#slider-dip-range').slider("option", "max", max);
+  $( "#dip-range" ).val( min + " - " + max );
 }
 
 function queryByType(type)
@@ -113,6 +133,13 @@ function makeStrikeSlider()
     var html="Strike range: <input type=\"text\" id=\"strike-range\" readonly style=\"border:0; color:orange; text-align:center;\"><button id=\"strikeBtn\" type=\"button\" title=\"search with strike range\" class=\"btn btn-default\" style=\"border:0; color:blue\" onclick=\"searchWithStrikeRange()\"><span class=\"glyphicon glyphicon-search\"></span></button></div><div id=\"slider-strike-range\"></div><br>";
     return html;
 } 
+
+function makeDipSlider()
+{
+    var html="Dip range: <input type=\"text\" id=\"dip-range\" readonly style=\"border:0; color:orange; text-align:center;\"><button id=\"dipBtn\" type=\"button\" title=\"search with dip range\" class=\"btn btn-default\" style=\"border:0; color:blue\" onclick=\"searchWithDipRange()\"><span class=\"glyphicon glyphicon-search\"></span></button></div><div id=\"slider-dip-range\"></div><br>";
+    return html;
+} 
+
 
 function nullTableEntry(target) {
    // disable the toggle and highlight button

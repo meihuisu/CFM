@@ -57,6 +57,8 @@
      <span class="glyphicon glyphicon-search"></span> Latlon</button>
     <button id="strikeBtn" class="btn cfm-top-btn" title="search by strike" onclick="strikeClick();">
      <span class="glyphicon glyphicon-search"></span> Strike</button>
+    <button id="dipBtn" class="btn cfm-top-btn" title="search by dip" onclick="dipClick();">
+     <span class="glyphicon glyphicon-search"></span> Dip</button>
     <button id="gidBtn" class="btn cfm-top-btn" title="search by ObjGid" onclick="gidClick();" style="display:none">
      <span class="glyphicon glyphicon-search"></span> ObjGid</button>
     <button id="refreshBtn" class="btn cfm-top-btn" title="refresh all" onclick="refreshAll();">
@@ -133,6 +135,7 @@
        </div>
     </div>
   </li>
+
   <li id='strike' class='navigationLi col-md-12 col-xs-12' style="display:none">
     <div id='strikeMenu' class='menu'>
       <div id='strikeLabel' class='menuLabel' style="margin-left:20px;font-size:14px;font-weight:bold">Query for Fault by strike range:<button class="pull-right" title="dismiss" onclick="dismissStrike()" style="border:none;background-color:transparent"><span class="glyphicon glyphicon-remove"></span>
@@ -141,6 +144,19 @@
       <div class="row col-md-12 col-xs-12">
            <div class="row col-md-12 col-xs-12" style="margin-left:20px; margin-top:20px">
              <div class="cfm-div" id="strikeRange" style="padding-left:10px; padding-right:10px; overflow:hidden;"></div>
+           </div>
+       </div>
+    </div>
+  </li>
+
+  <li id='dip' class='navigationLi col-md-12 col-xs-12' style="display:none">
+    <div id='dipMenu' class='menu'>
+      <div id='dipLabel' class='menuLabel' style="margin-left:20px;font-size:14px;font-weight:bold">Query for Fault by Dip range:<button class="pull-right" title="dismiss" onclick="dismissDip()" style="border:none;background-color:transparent"><span class="glyphicon glyphicon-remove"></span>
+</button>
+      </div>
+      <div class="row col-md-12 col-xs-12">
+           <div class="row col-md-12 col-xs-12" style="margin-left:20px; margin-top:20px">
+             <div class="cfm-div" id="dipRange" style="padding-left:10px; padding-right:10px; overflow:hidden;"></div>
            </div>
        </div>
     </div>
@@ -172,14 +188,11 @@
       <div class="row col-md-12 col-xs-12">
            <div class="row col-md-12 col-xs-12" style="margin-left:20px; margin-top:20px">
 
-      <div class="cfm-div"> Lat:&nbsp&nbsp;<input type="text" id="latTxt" onfocus="this.value=''" style="right-margin:10px; border:1px solid black; color:orange; text-align:center;">
+      <div class="cfm-div"> Lat:&nbsp<input type="text" id="minLatTxt" title="min lat"  onfocus="this.value=''" style="right-margin:10px; border:1px solid black; color:orange; text-align:center;"> &nbsp <input type="text" id="maxLatTxt" title-"max lat" onfocus="this.value=''" style="right-margin:10px; border:1px solid black; color:orange; text-align:center;"> 
       <button id="latlonBtn" type="button" title="search with latlon" class="btn btn-default" style="border: 0; color: blue" onclick="searchByLatlon()">
           <span class="glyphicon glyphicon-search"></span>
-      </button>
-</div>
-      <div class="cfm-div"> Lon:&nbsp;<input type="text" id="lonTxt" onfocus="this.value=''" style="right-margin:10px; border:1px solid black; color:orange; text-align:center;"> </div>
-
-           </div>
+      </button></div>
+      <div clss="cfm-div"> &nbsp Lon:<input type="text" id="minLonTxt" title="min lon" onfocus="this.value=''" style="right-margin:10px; border:1px solid black; color:orange; text-align:center;"> &nbsp <input type="text" id="maxLonTxt" title="max lon" onfocus="this.value=''" style="right-margin:10px; border:1px solid black; color:orange; text-align:center;"> </div>
        </div>
     </div>
   </li>

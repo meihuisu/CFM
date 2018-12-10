@@ -12,6 +12,7 @@ var name_sidebar=false;
 var keyword_sidebar=false;
 var latlon_sidebar=false;
 var strike_sidebar=false;
+var dip_sidebar=false;
 var gid_sidebar=false;
 
 // initiate a click on the sidebar buttons
@@ -24,6 +25,7 @@ function dismiss_sidebar() {
   if(keyword_sidebar) keywordClick();
   if(latlon_sidebar) latlonClick();
   if(strike_sidebar) strikeClick();
+  if(dip_sidebar) dipClick();
   if(gid_sidebar) gidClick();
 }
 
@@ -41,6 +43,7 @@ function systemClick() {
   if(keyword_sidebar) keywordClick();
   if(latlon_sidebar) latlonClick();
   if(strike_sidebar) strikeClick();
+  if(dip_sidebar) dipClick();
   if(gid_sidebar) gidClick();
 
   system_sidebar = !system_sidebar;
@@ -88,6 +91,7 @@ function regionClick() {
   if(keyword_sidebar) keywordClick();
   if(latlon_sidebar) latlonClick();
   if(strike_sidebar) strikeClick();
+  if(dip_sidebar) dipClick();
   if(gid_sidebar) gidClick();
 
   region_sidebar = !region_sidebar;
@@ -135,6 +139,7 @@ function sectionClick() {
   if(keyword_sidebar) keywordClick();
   if(latlon_sidebar) latlonClick();
   if(strike_sidebar) strikeClick();
+  if(dip_sidebar) dipClick();
   if(gid_sidebar) gidClick();
 
   section_sidebar = !section_sidebar;
@@ -181,6 +186,7 @@ function nameClick() {
   if(keyword_sidebar) keywordClick();
   if(latlon_sidebar) latlonClick();
   if(strike_sidebar) strikeClick();
+  if(dip_sidebar) dipClick();
   if(gid_sidebar) gidClick();
 
   name_sidebar = !name_sidebar;
@@ -231,6 +237,7 @@ function keywordClick() {
   if(name_sidebar) nameClick();
   if(latlon_sidebar) latlonClick();
   if(strike_sidebar) strikeClick();
+  if(dip_sidebar) dipClick();
   if(gid_sidebar) gidClick();
 
   keyword_sidebar = !keyword_sidebar;
@@ -313,6 +320,58 @@ function sidebar_strike_slideIn() {
   panelptr.css("display","none");
 }
 
+
+// dip sidebar js
+
+// or could initiate a 'click' on
+// the dipButton
+function dismissDip() {
+  dipClick();
+}
+
+// slide out
+function dipClick() {
+  if(system_sidebar) systemClick();
+  if(region_sidebar) regionClick();
+  if(section_sidebar) sectionClick();
+  if(name_sidebar) nameClick();
+  if(keyword_sidebar) keywordClick();
+  if(latlon_sidebar) latlonClick();
+  if(strike_sidebar) strikeClick();
+  if(gid_sidebar) gidClick();
+
+  dip_sidebar = !dip_sidebar;
+  if(dip_sidebar) {
+    sidebar_dip_slideOut();
+    $('#dipBtn').addClass('pick');
+    } else {
+      sidebar_dip_slideIn();
+      $('#dipBtn').removeClass('pick');
+  }
+}
+
+function sidebar_dip_slideOut() {
+  if (jQuery('#dip').hasClass('menuDisabled')) {
+    // if this menu is disabled, don't slide
+    return;
+  }
+  var panelptr=$('#dip');
+  var sidebarptr=$('#sidebar');
+  panelptr.css("display","");
+  sidebarptr.css("display","");
+  panelptr.removeClass('fade-out').addClass('fade-in');
+}
+
+function sidebar_dip_slideIn() {
+  if (jQuery('#dip').hasClass('menuDisabled')) {
+    // if this menu is disabled, don't slide
+    return;
+  }
+  var panelptr=$('#dip');
+  panelptr.removeClass('fade-in').addClass('fade-out');
+  panelptr.css("display","none");
+}
+
 // latlon sidebar js
 
 // or could initiate a 'click' on
@@ -329,6 +388,7 @@ function latlonClick() {
   if(name_sidebar) nameClick();
   if(keyword_sidebar) keywordClick();
   if(strike_sidebar) strikeClick();
+  if(dip_sidebar) dipClick();
   if(gid_sidebar) gidClick();
 
   latlon_sidebar = !latlon_sidebar;
@@ -378,6 +438,7 @@ function gidClick() {
   if(name_sidebar) nameClick();
   if(keyword_sidebar) keywordClick();
   if(strike_sidebar) strikeClick();
+  if(dip_sidebar) dipClick();
   if(latlon_sidebar) latlonClick();
 
   gid_sidebar = !gid_sidebar;

@@ -7,6 +7,10 @@
 var strike_range_min = 0;
 var strike_range_max = 360;
 
+// dip range is from ? to ?? 
+var strike_range_min = 0;
+var strike_range_max = 0;
+
 function reset_strike_range()
 {
   $( "#strike-range" ).val( strike_range_min + " - " + strike_range_max );
@@ -17,6 +21,18 @@ function setup_strike_range(min,max)
 {
    strike_range_min=min;
    strike_range_max=max;
+}
+
+function reset_dip_range()
+{
+  $( "#dip-range" ).val( dip_range_min + " - " + dip_range_max );
+  $( "#slider-dip-range" ).slider("option", "values" ,[dip_range_min, dip_range_max]);
+}
+
+function setup_dip_range(min,max)
+{
+   dip_range_min=min;
+   dip_range_max=max;
 }
 
 function reset_select_region() {
@@ -67,6 +83,7 @@ function refreshAll() {
   reset_select_system();
   reset_select_name();
   reset_strike_range();
+  reset_dip_range();
   reset_select_keyword();
   reset_select_latlon();
   document.getElementById("geoSearchByObjGidResult").innerHTML = "";
@@ -236,6 +253,9 @@ function processSearchResult(rlist) {
     if (rlist == 'searchByStrikeRange') {
         str = $('[data-side="resultByStrikeRange"]').data('params');
     }
+    if (rlist == 'searchByDipRange') {
+        str = $('[data-side="resultByDipRange"]').data('params');
+    }
 
     if(str == undefined) {
        window.console.log("BAD BAD BAD");
@@ -276,6 +296,13 @@ function getGeoJSON() {
 
 function getStrikeRangeMinMax() {
     str= $('[data-side="strike-range"]').data('params');
+    rMin=parseInt(str.min);
+    rMax=parseInt(str.max);
+    return [rMin, rMax];
+}
+
+function getDipRangeMinMax() {
+    str= $('[data-side="dip-range"]').data('params');
     rMin=parseInt(str.min);
     rMax=parseInt(str.max);
     return [rMin, rMax];

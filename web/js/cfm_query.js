@@ -32,6 +32,40 @@ function searchWithStrikeRange() {
 }
 
 
+function searchByDipRange(min,max) {
+    if (min == undefined || max == undefined) {
+        document.getElementById("searchResult").innerHTML = "";
+        return;
+    } else {
+        if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                toggle_off_all_layer();
+                cfm_active_gid_list=[];
+                document.getElementById("phpResponseTxt").innerHTML = this.responseText;
+                var str = processSearchResult("searchByDipRange");
+                document.getElementById("searchResult").innerHTML = makeResultTable(str);
+            }
+        };
+        xmlhttp.open("GET","php/byDipRange.php?min="+min+"&max="+max,true);
+        xmlhttp.send();
+    }
+}
+
+
+function searchWithDipRange() {
+  //grab the min and max from the slider..
+  vals = $( "#slider-dip-range" ).slider("option", "values");
+  searchByDipRange(vals[0],vals[1]);
+}
+
+
 function searchByFaultObjectName() {
     str=document.getElementById("faultNameTxt").value;
     if (window.XMLHttpRequest) {
@@ -76,13 +110,11 @@ function searchByKeyword() {
 }
 
 function searchByLatlon() {
-    latstr=document.getElementById("latTxt").value;
-    window.console.log("lat");
-    window.console.log(latstr);
-    lonstr=document.getElementById("lonTxt").value;
-    window.console.log("lon");
-    window.console.log(lonstr);
-    if (latstr == "" || lonstr=="") {
+    minlatstr=document.getElementById("minLatTxt").value;
+    minlonstr=document.getElementById("minLonTxt").value;
+    maxlatstr=document.getElementById("maxLatTxt").value;
+    maxlonstr=document.getElementById("maxLonTxt").value;
+    if (minlatstr == "" || minlonstr=="" || maxlatstr == "" || maxlonstr=="") {
         document.getElementById("searchResult").innerHTML = "";
         return;
     } else {
@@ -103,7 +135,7 @@ function searchByLatlon() {
                 document.getElementById("searchResult").innerHTML = makeResultTable(str);
             }
         }
-        xmlhttp.open("GET","php/byLatlon.php?lat="+latstr+"&lon="+lonstr,true);
+        xmlhttp.open("GET","php/byLatlon.php?minlat="+minlatstr+"&maxlat="+maxlatstr+"&minlon="+minlonstr+"&maxlon="+maxlonstr,true);
         xmlhttp.send();
     }
 }
@@ -396,10 +428,30 @@ function getStrikeRange() {
             document.getElementById("phpResponseTxt").innerHTML = this.responseText;
             document.getElementById("strikeRange").innerHTML = makeStrikeSlider();
             [rangeMin, rangeMax]=getStrikeRangeMinMax();
-            setupSlider(rangeMin, rangeMax);
+            setupStrikeRangeSlider(rangeMin, rangeMax);
         }
     };
     xmlhttp.open("GET","php/getStrikeRange.php",true);
+    xmlhttp.send();
+}
+
+function getDipRange() {
+    if (window.XMLHttpRequest) {
+        // code for IE7+, Firefox, Chrome, Opera, Safari
+        xmlhttp = new XMLHttpRequest();
+    } else {
+        // code for IE6, IE5
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("phpResponseTxt").innerHTML = this.responseText;
+            document.getElementById("dipRange").innerHTML = makeDipSlider();
+            [rangeMin, rangeMax]=getDipRangeMinMax();
+            setupDipRangeSlider(rangeMin, rangeMax);
+        }
+    };
+    xmlhttp.open("GET","php/getDipRange.php",true);
     xmlhttp.send();
 }
 
@@ -440,6 +492,7 @@ function setupSearch()
    queryByType("section");
    queryByType("name");
    getStrikeRange();
+   getDipRange();
    getNativeList();
    get1000mList();
    get500mList();

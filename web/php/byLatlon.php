@@ -9,15 +9,13 @@
 $dbconn = pg_connect("host=localhost port=5432 dbname=CFM5_db user=webonly password=scec");
 if (!$dbconn) { die('Could not connect'); }
 
-$lat = floatVal($_GET['lat']);
-$lon = floatVal($_GET['lon']);
-$minlat = $lat-0.0001;
-$maxlat = $lat+0.0001;
-$minlon = $lon-0.0001;
-$maxlon = $lon+0.0001;
+$minlat = floatVal($_GET['minlat']);
+$maxlat = floatVal($_GET['maxlat']);
+$minlon = floatVal($_GET['minlon']);
+$maxlon = floatVal($_GET['maxlon']);
 
-echo "lat range: ", $minlat,", ",$maxlat,"<br>";
-echo "lon range: ", $minlon,", ",$maxlon,"<br>";
+//echo "lat range: ", $minlat,", ",$maxlat,"<br>";
+//echo "lon range: ", $minlon,", ",$maxlon,"<br>";
 
 $query00 = "SELECT OBJECT_tb.name, TRACE_tb.gid from TRACE_tb INNER JOIN OBJECT_tb ON TRACE_tb.gid = OBJECT_tb.trace_tb_gid where ST_Intersects(ST_MakePoint($1,$2)::geography, (ST_Transform(geom,4326)::geography))";
 
