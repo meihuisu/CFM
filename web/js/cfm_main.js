@@ -7,6 +7,14 @@ jQuery(document).ready(function() {
 
   viewermap=setup_viewer();
 
+// handle keyword's input completion
+  $("#keywordTxt").keyup(function(event) {
+        if (event.keyCode === 13) {
+            searchByKeyword();
+        }
+  });     
+
+
   getGeoTraceList();
   getAllTraces();
   setupSearch();
