@@ -56,8 +56,10 @@ function reset_select_keyword() {
 }
 
 function reset_select_latlon() {
-  document.getElementById("latTxt").value = '';
-  document.getElementById("lonTxt").value = '';
+  document.getElementById("minLatTxt").value = '';
+  document.getElementById("minLonTxt").value = '';
+  document.getElementById("maxLatTxt").value = '';
+  document.getElementById("maxLonTxt").value = '';
 }
 
 function plotAll() {
@@ -167,7 +169,7 @@ function processGeoList() {
     geostr = $('[data-side="allGeoList"]').data('params');
     nogeostr = $('[data-side="allNoGeoList"]').data('params');
     if(geostr == undefined || nogeostr == undefined) {
-        window.console.log("BAD BAD BAD");
+        window.console.log("processGeoList: BAD BAD BAD");
         return;
     }
 
@@ -201,7 +203,7 @@ function processTraceMeta(metaList) {
     }
 
     if(str == undefined) {
-       window.console.log("BAD BAD BAD");
+       window.console.log("processTraceMeta: BAD BAD BAD");
        return;
     }
 
@@ -258,7 +260,7 @@ function processSearchResult(rlist) {
     }
 
     if(str == undefined) {
-       window.console.log("BAD BAD BAD");
+       window.console.log("processSearchResult: BAD BAD BAD");
        return;
     }
 

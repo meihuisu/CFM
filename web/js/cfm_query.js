@@ -109,12 +109,15 @@ function searchByKeyword() {
     xmlhttp.send();
 }
 
+// takes 2 or 4 entries
 function searchByLatlon() {
+    maxlatstr="0";
+    maxlonstr="0";
     minlatstr=document.getElementById("minLatTxt").value;
     minlonstr=document.getElementById("minLonTxt").value;
     maxlatstr=document.getElementById("maxLatTxt").value;
     maxlonstr=document.getElementById("maxLonTxt").value;
-    if (minlatstr == "" || minlonstr=="" || maxlatstr == "" || maxlonstr=="") {
+    if (minlatstr == "" || minlonstr=="") {
         document.getElementById("searchResult").innerHTML = "";
         return;
     } else {
