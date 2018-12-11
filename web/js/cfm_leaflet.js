@@ -11,52 +11,40 @@ function refresh_map()
 
 function setup_viewer()
 {
- var mymap = L.map('CFM_plot').setView([34.3, -118.4], 7);
 
- L.esri.basemapLayer("Topographic").addTo(mymap);
+// ersi 
+  var ersi_topographic = L.esri.basemapLayer("Topographic");
+  var ersi_imagery = L.esri.basemapLayer("Imagery");
+  var ersi_ng = L.esri.basemapLayer("NationalGeographic");
 
-/**
- var topoURL='https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png';
- var topoAttribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreeMap</a> contributors,<a href=http://viewfinderpanoramas.org"> SRTM</a> | &copy; <a href="https://www.opentopomap.org/copyright">OpenTopoMap</a>(CC-BY-SA)';
- L.tileLayer(topoURL, { detectRetina: true, attribution: topoAttribution}).addTo(mymap);
-**/
+// otm topo
+  var topoURL='https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png';
+  var topoAttribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreeMap</a> contributors,<a href=http://viewfinderpanoramas.org"> SRTM</a> | &copy; <a href="https://www.opentopomap.org/copyright">OpenTopoMap</a>(CC-BY-SA)';
+ L.tileLayer(topoURL, { detectRetina: true, attribution: topoAttribution})
 
-/*
- var openURL='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'; 
- var openAttribution ='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
- L.tileLayer(openURL, {attribution: openAttribution}).addTo(mymap);
-*/
+  var otm_topographic = L.tileLayer(topoURL, { detectRetina: true, attribution: topoAttribution});
 
-/*
-  L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
-    maxZoom: 18,
-    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
-      '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-      'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-    id: 'mapbox.streets'
-  }).addTo(mymap);
-*/
+// osm street 
+  var openURL='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'; 
+  var openAttribution ='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+  var osm_street=L.tileLayer(openURL, {attribution: openAttribution});
 
+  var baseLayers = {
+    "ersi topo" : ersi_topographic,
+    "ersi imagery" : ersi_imagery,
+    "ersi NG" : ersi_ng,
+    "otm topo": otm_topographic,
+    "osm street" : osm_street
+  };
+  var overLayer = {};
 
-   L.control.scale({position: 'bottomleft'}).addTo(mymap);  
+  var basemap = L.layerGroup();
 
-/**** sample markers on leaflet viewer
-  L.marker([38, -119]).addTo(mymap)
-    .bindPopup("<b>Hello world!</b><br />I am a popup.");
+  var mymap = L.map('CFM_plot', {layers: [ersi_topographic, basemap]}).setView([34.3, -118.4], 7);
 
-  L.circle([43, -120], 20000, {
-    color: 'red',
-    fillColor: '#f03',
-    fillOpacity: 0.5
-  }).addTo(mymap).bindPopup("I am a circle.");
+  L.control.layers(baseLayers, overLayer).addTo(mymap);
 
-  L.polygon([
-    [42.509, -120.5],
-    [42, -121],
-    [43, -121.5]
-  ]).addTo(mymap).bindPopup("I am a polygon.");
-
-****/
+  L.control.scale({metric: 'false', imperial:'false', position: 'bottomleft'}).addTo(mymap);  
 
   var popup = L.popup();
 
