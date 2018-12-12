@@ -83,7 +83,7 @@
 <ul id="sidebar" class="navigation" >
   <li id='system' class='navigationLi col-md-12 col-xs-12' style="display:none">
     <div id='systemMenu' class='menu'>
-      <div id='systemLabel' class='menuLabel' style="margin-left:20px;font-size:14px;font-weight:bold">Query for Fault by system:<button class="pull-right" title="dismiss" onclick="dismissSystem()" style="border:none;background-color:transparent"><span class="glyphicon glyphicon-remove"></span>
+      <div id='systemLabel' class='menuLabel' style="margin-left:20px;font-size:14px;font-weight:bold">Query for Fault by system:<button class="pull-right" title="dismiss" onclick="systemClick()" style="border:none;background-color:transparent"><span class="glyphicon glyphicon-remove"></span>
 </button>
       </div>
       <div class="row col-md-12 col-xs-12">
@@ -97,7 +97,7 @@
   </li>
   <li id='region' class='navigationLi col-md-12 col-xs-12' style="display:none">
     <div id='regionMenu' class='menu'>
-      <div id='regionLabel' class='menuLabel' style="margin-left:20px;font-size:14px;font-weight:bold">Query for Fault by region:<button class="pull-right" title="dismiss" onclick="dismissRegion()" style="border:none;background-color:transparent"><span class="glyphicon glyphicon-remove"></span>
+      <div id='regionLabel' class='menuLabel' style="margin-left:20px;font-size:14px;font-weight:bold">Query for Fault by region:<button class="pull-right" title="dismiss" onclick="regionClick()" style="border:none;background-color:transparent"><span class="glyphicon glyphicon-remove"></span>
 </button>
       </div>
       <div class="row col-md-12 col-xs-12">
@@ -111,7 +111,7 @@
   </li>
   <li id='section' class='navigationLi col-md-12 col-xs-12' style="display:none">
     <div id='sectionMenu' class='menu'>
-      <div id='sectionLabel' class='menuLabel' style="margin-left:20px;font-size:14px;font-weight:bold">Query for Fault by section:<button class="pull-right" title="dismiss" onclick="dismissSection()" style="border:none;background-color:transparent"><span class="glyphicon glyphicon-remove"></span>
+      <div id='sectionLabel' class='menuLabel' style="margin-left:20px;font-size:14px;font-weight:bold">Query for Fault by section:<button class="pull-right" title="dismiss" onclick="sectionClick()" style="border:none;background-color:transparent"><span class="glyphicon glyphicon-remove"></span>
 </button>
       </div>
       <div class="row col-md-12 col-xs-12">
@@ -125,7 +125,7 @@
   </li>
   <li id='name' class='navigationLi col-md-12 col-xs-12' style="display:none">
     <div id='nameMenu' class='menu'>
-      <div id='nameLabel' class='menuLabel' style="margin-left:20px;font-size:14px;font-weight:bold">Query for Fault by name:<button class="pull-right" title="dismiss" onclick="dismissName()" style="border:none;background-color:transparent"><span class="glyphicon glyphicon-remove"></span>
+      <div id='nameLabel' class='menuLabel' style="margin-left:20px;font-size:14px;font-weight:bold">Query for Fault by name:<button class="pull-right" title="dismiss" onclick="nameClick()" style="border:none;background-color:transparent"><span class="glyphicon glyphicon-remove"></span>
 </button>
       </div>
       <div class="row col-md-12 col-xs-12">
@@ -140,7 +140,7 @@
 
   <li id='strike' class='navigationLi col-md-12 col-xs-12' style="display:none">
     <div id='strikeMenu' class='menu'>
-      <div id='strikeLabel' class='menuLabel' style="margin-left:20px;font-size:14px;font-weight:bold">Query for Fault by strike range:<button class="pull-right" title="dismiss" onclick="dismissStrike()" style="border:none;background-color:transparent"><span class="glyphicon glyphicon-remove"></span>
+      <div id='strikeLabel' class='menuLabel' style="margin-left:20px;font-size:14px;font-weight:bold">Query for Fault by strike range:<button class="pull-right" title="dismiss" onclick="strikeClick()" style="border:none;background-color:transparent"><span class="glyphicon glyphicon-remove"></span>
 </button>
       </div>
       <div class="row col-md-12 col-xs-12">
@@ -153,7 +153,7 @@
 
   <li id='dip' class='navigationLi col-md-12 col-xs-12' style="display:none">
     <div id='dipMenu' class='menu'>
-      <div id='dipLabel' class='menuLabel' style="margin-left:20px;font-size:14px;font-weight:bold">Query for Fault by Dip range:<button class="pull-right" title="dismiss" onclick="dismissDip()" style="border:none;background-color:transparent"><span class="glyphicon glyphicon-remove"></span>
+      <div id='dipLabel' class='menuLabel' style="margin-left:20px;font-size:14px;font-weight:bold">Query for Fault by Dip range:<button class="pull-right" title="dismiss" onclick="dipClick()" style="border:none;background-color:transparent"><span class="glyphicon glyphicon-remove"></span>
 </button>
       </div>
       <div class="row col-md-12 col-xs-12">
@@ -166,7 +166,7 @@
 
   <li id='keyword' class='navigationLi col-md-12 col-xs-12' style="display:none">
     <div id='keywordMenu' class='menu'>
-      <div id='keywordLabel' class='menuLabel' style="margin-left:20px;font-size:14px;font-weight:bold">Query for Fault by keyword: <button class="pull-right" title="dismiss" onclick="dismissKeyword()" style="border:none;background-color:transparent"><span class="glyphicon glyphicon-remove"></span>
+      <div id='keywordLabel' class='menuLabel' style="margin-left:20px;font-size:14px;font-weight:bold">Query for Fault by keyword: <button class="pull-right" title="dismiss" onclick="keywordClick()" style="border:none;background-color:transparent"><span class="glyphicon glyphicon-remove"></span>
 </button>
       </div>
       <div class="row col-md-12 col-xs-12">
@@ -184,7 +184,7 @@
   </li>
   <li id='latlon' class='navigationLi col-md-12 col-xs-12' style="display:none">
     <div id='latlonMenu' class='menu'>
-      <div id='latlonLabel' class='menuLabel' style="margin-left:20px;font-size:14px;font-weight:bold">Query for Fault by latlon:<button class="pull-right" title="dismiss" onclick="dismissLatlon()" style="border:none;background-color:transparent"><span class="glyphicon glyphicon-remove"></span>
+      <div id='latlonLabel' class='menuLabel' style="margin-left:20px;font-size:14px;font-weight:bold">Query for Fault by latlon:<button class="pull-right" title="dismiss" onclick="latlonClick()" style="border:none;background-color:transparent"><span class="glyphicon glyphicon-remove"></span>
 </button>
       </div>
       <div class="row col-md-12 col-xs-12">
@@ -201,7 +201,7 @@
 <!-- debug purpose
   <li id='gid' class='navigationLi col-md-12 col-xs-12' style="display:none">
     <div id='gidMenu' class='menu'>
-      <div id='gidLabel' class='menuLabel' style="margin-left:20px;font-size:14px;font-weight:bold">Query for GEO JSON Object by object_tb_gid:<button class="pull-right" title="dismiss" onclick="dismissGid()" style="border:none;background-color:transparent"><span class="glyphicon glyphicon-remove"></span>
+      <div id='gidLabel' class='menuLabel' style="margin-left:20px;font-size:14px;font-weight:bold">Query for GEO JSON Object by object_tb_gid:<button class="pull-right" title="dismiss" onclick="gidClick()" style="border:none;background-color:transparent"><span class="glyphicon glyphicon-remove"></span>
 </button>
       </div>
       <div class="row col-md-12 col-xs-12">

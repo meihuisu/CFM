@@ -31,21 +31,11 @@ function dismiss_sidebar() {
 
 // system sidebar js
 
-function dismissSystem() {
-  systemClick();
-}
-
 // slide out
 function systemClick() {
-  if(region_sidebar) regionClick();
-  if(section_sidebar) sectionClick();
-  if(name_sidebar) nameClick();
-  if(keyword_sidebar) keywordClick();
-  if(latlon_sidebar) latlonClick();
-  if(strike_sidebar) strikeClick();
-  if(dip_sidebar) dipClick();
-  if(gid_sidebar) gidClick();
 
+  if(!system_sidebar) { dismiss_sidebar(); }
+   
   system_sidebar = !system_sidebar;
   if(system_sidebar) {
     sidebar_system_slideOut();
@@ -79,20 +69,9 @@ function sidebar_system_slideIn() {
 
 
 // region sidebar
-function dismissRegion() {
-  regionClick();
-}
-
 // slide out
 function regionClick() {
-  if(system_sidebar) systemClick();
-  if(section_sidebar) sectionClick();
-  if(name_sidebar) nameClick();
-  if(keyword_sidebar) keywordClick();
-  if(latlon_sidebar) latlonClick();
-  if(strike_sidebar) strikeClick();
-  if(dip_sidebar) dipClick();
-  if(gid_sidebar) gidClick();
+  if(!region_sidebar) { dismiss_sidebar(); }
 
   region_sidebar = !region_sidebar;
   if(region_sidebar) {
@@ -127,20 +106,9 @@ function sidebar_region_slideIn() {
 
 
 // section sidebar js
-function dismissSection() {
-  sectionClick();
-}
-
 // slide out
 function sectionClick() {
-  if(system_sidebar) systemClick();
-  if(region_sidebar) regionClick();
-  if(name_sidebar) nameClick();
-  if(keyword_sidebar) keywordClick();
-  if(latlon_sidebar) latlonClick();
-  if(strike_sidebar) strikeClick();
-  if(dip_sidebar) dipClick();
-  if(gid_sidebar) gidClick();
+  if(!section_sidebar) { dismiss_sidebar(); }
 
   section_sidebar = !section_sidebar;
   if(section_sidebar) {
@@ -174,20 +142,9 @@ function sidebar_section_slideIn() {
 }
 
 // name sidebar js
-function dismissName() {
-  nameClick();
-}
-
 // slide out
 function nameClick() {
-  if(system_sidebar) systemClick();
-  if(region_sidebar) regionClick();
-  if(section_sidebar) sectionClick();
-  if(keyword_sidebar) keywordClick();
-  if(latlon_sidebar) latlonClick();
-  if(strike_sidebar) strikeClick();
-  if(dip_sidebar) dipClick();
-  if(gid_sidebar) gidClick();
+  if(!name_sidebar) { dismiss_sidebar(); }
 
   name_sidebar = !name_sidebar;
   if(name_sidebar) {
@@ -222,23 +179,9 @@ function sidebar_name_slideIn() {
 
 
 // keyword sidebar js
-
-// or could initiate a 'click' on
-// the keywordButton
-function dismissKeyword() {
-  keywordClick();
-}
-
 // slide out
 function keywordClick() {
-  if(system_sidebar) systemClick();
-  if(region_sidebar) regionClick();
-  if(section_sidebar) sectionClick();
-  if(name_sidebar) nameClick();
-  if(latlon_sidebar) latlonClick();
-  if(strike_sidebar) strikeClick();
-  if(dip_sidebar) dipClick();
-  if(gid_sidebar) gidClick();
+  if(!keyword_sidebar) { dismiss_sidebar(); }
 
   keyword_sidebar = !keyword_sidebar;
   if(keyword_sidebar) {
@@ -272,22 +215,9 @@ function sidebar_keyword_slideIn() {
 }
 
 // strike sidebar js
-
-// or could initiate a 'click' on
-// the strikeButton
-function dismissStrike() {
-  strikeClick();
-}
-
 // slide out
 function strikeClick() {
-  if(system_sidebar) systemClick();
-  if(region_sidebar) regionClick();
-  if(section_sidebar) sectionClick();
-  if(name_sidebar) nameClick();
-  if(keyword_sidebar) keywordClick();
-  if(latlon_sidebar) latlonClick();
-  if(gid_sidebar) gidClick();
+  if(!strike_sidebar) { dismiss_sidebar(); }
 
   strike_sidebar = !strike_sidebar;
   if(strike_sidebar) {
@@ -322,23 +252,9 @@ function sidebar_strike_slideIn() {
 
 
 // dip sidebar js
-
-// or could initiate a 'click' on
-// the dipButton
-function dismissDip() {
-  dipClick();
-}
-
 // slide out
 function dipClick() {
-  if(system_sidebar) systemClick();
-  if(region_sidebar) regionClick();
-  if(section_sidebar) sectionClick();
-  if(name_sidebar) nameClick();
-  if(keyword_sidebar) keywordClick();
-  if(latlon_sidebar) latlonClick();
-  if(strike_sidebar) strikeClick();
-  if(gid_sidebar) gidClick();
+  if(!dip_sidebar) { dismiss_sidebar(); }
 
   dip_sidebar = !dip_sidebar;
   if(dip_sidebar) {
@@ -373,23 +289,9 @@ function sidebar_dip_slideIn() {
 }
 
 // latlon sidebar js
-
-// or could initiate a 'click' on
-// the latlonButton
-function dismissLatlon() {
-  latlonClick();
-}
-
 // slide out
 function latlonClick() {
-  if(system_sidebar) systemClick();
-  if(region_sidebar) regionClick();
-  if(section_sidebar) sectionClick();
-  if(name_sidebar) nameClick();
-  if(keyword_sidebar) keywordClick();
-  if(strike_sidebar) strikeClick();
-  if(dip_sidebar) dipClick();
-  if(gid_sidebar) gidClick();
+  if(!latlon_sidebar) { dismiss_sidebar(); }
 
   latlon_sidebar = !latlon_sidebar;
   if(latlon_sidebar) {
@@ -423,23 +325,9 @@ function sidebar_latlon_slideIn() {
 }
 
 // gid sidebar js
-
-// or could initiate a 'click' on
-// the gidButton
-function dismissGid() {
-  gidClick();
-}
-
 // slide out
 function gidClick() {
-  if(system_sidebar) systemClick();
-  if(region_sidebar) regionClick();
-  if(section_sidebar) sectionClick();
-  if(name_sidebar) nameClick();
-  if(keyword_sidebar) keywordClick();
-  if(strike_sidebar) strikeClick();
-  if(dip_sidebar) dipClick();
-  if(latlon_sidebar) latlonClick();
+  if(!gid_sidebar) { dismiss_sidebar(); }
 
   gid_sidebar = !gid_sidebar;
   if(gid_sidebar) {

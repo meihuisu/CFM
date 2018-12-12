@@ -166,6 +166,7 @@ function glistFromMeta(str) {
 // str=metadata
 function makeResultTable(str)
 {
+    clear_popup();
     var html="<table><tr><th style=\"border:1px solid white;\">CFM5.2 Fault Objects</th></tr></table>";
     html=html+"<div class=\"cfm-table\" ><table>";
     var sz=(Object.keys(str).length);
@@ -191,6 +192,7 @@ function makeResultTable(str)
 // using internal information, existing style_list
 function _makeResultTableWithGList(glist)
 {
+    clear_popup();
     var html="<table><tr><th style=\"border:1px solid white\">CFM5.2 Fault Objects</th></tr></table>";
     html=html+"<div class=\"cfm-table\" ><table>";
     var sz=glist.length;

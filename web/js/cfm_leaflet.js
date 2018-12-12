@@ -1,5 +1,11 @@
 // This is leaflet specific utilities
 
+function clear_popup()
+{
+  window.console.log("clear popup...");
+  viewermap.closePopup();
+}
+
 function refresh_map()
 {
   if (viewermap == undefined) {
@@ -90,18 +96,20 @@ function addGeoToMap(cfmTrace, mymap) {
     var tmp_coords=coordinates[s][0];
     var swapped_coordinates = [tmp_coords[1], tmp_coords[0]];  //Swap Lat and Lng
 */
+// leaflet-popup-close-button -- location
     if (mymap) {
        var tmp=e.layer.feature.properties;
        var level1=tmp.popupLevel1Content;
        layerPopup = L.popup()
            .setLatLng(e.latlng) 
- //          .setContent('layer#'+e.layer.feature.id+'<br>'+level1) 
+//           .setContent('layer#'+e.layer.feature.id+'<br>'+level1) 
            .setContent(level1) 
            .openOn(mymap);
     }
   });
 /*** XXX
   geoLayer.on('mouseout', function (e) {
+    window.console.log("moues out..layer#"+e.layer.feature.id) 
     if (layerPopup && mymap) {
         mymap.closePopup(layerPopup);
         layerPopup = null;

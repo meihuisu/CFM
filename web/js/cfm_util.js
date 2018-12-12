@@ -73,6 +73,7 @@ function toggleAll() {
     toggle_on_all_layer()
     makeResultTableWithList(cfm_gid_list);
     } else {
+      clear_popup();
       toggle_off_all_layer()
       // need to revert to the current search result
       makeResultTableWithList(cfm_active_gid_list);
@@ -94,6 +95,7 @@ function refreshAll() {
 //  document.getElementById("objGidTxt").value = '';
   refresh_map();
   dismiss_sidebar();
+  clear_popup();
   reset_geo_plot();
 }
 
