@@ -52,7 +52,6 @@
 
 
 .navigation {
-        background-color: #f9f9f9;
 	position: relative;
 	padding: 0px;
 	left: 0px;
@@ -62,9 +61,10 @@
 }
 
 .navigationLi {
-        background-color: #f9f9f9;
-	width: 110%;
-        overflow: scroll;
+        width:110%;
+        padding: 10px;
+        border: none;
+        overflow: hidden;
 }
 
 .menu {
@@ -113,11 +113,6 @@
 .h-slider {
   background: -webkit-linear-gradient(left, hsl(0,0%,98%) 1%,hsl(214,100%,36%) 100%);
   background: -moz-linear-gradient(left, hsl(0,0%,98%) 1%,hsl(214,100%,36%) 100%);
-}
-
-.landmarkcontrol {
-     padding: 5px;
-     width: 100%;
 }
 
 .panel {

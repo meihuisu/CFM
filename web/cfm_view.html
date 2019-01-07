@@ -42,45 +42,50 @@
 </head>
 <body>
 <div class="container-fluid">
-  <div align="center" id="controlBlock" style="border:10px solid white; width:100%">
-    <button id="systemBtn" class="btn cfm-top-btn" title="search by system" onclick="systemClick();">
-     <span class="glyphicon glyphicon-search"></span> System</button>
-    <button id="regionBtn" class="btn cfm-top-btn" title="search by region" onclick="regionClick();">
-     <span class="glyphicon glyphicon-search"></span> Region</button>
-    <button id="sectionBtn" class="btn cfm-top-btn" title="search by section" onclick="sectionClick();">
-     <span class="glyphicon glyphicon-search"></span> Section</button>
-    <button id="nameBtn" class="btn cfm-top-btn" title="search by name" onclick="nameClick();">
-     <span class="glyphicon glyphicon-search"></span> Name</button>
-    <button id="keywordBtn" class="btn cfm-top-btn" title="search by keyword" onclick="keywordClick();">
-     <span class="glyphicon glyphicon-search"></span> Keyword</button>
-    <button id="latlonBtn" class="btn cfm-top-btn" title="search by latlon" onclick="latlonClick();">
-     <span class="glyphicon glyphicon-search"></span> Latlon</button>
-    <button id="strikeBtn" class="btn cfm-top-btn" title="search by strike" onclick="strikeClick();">
-     <span class="glyphicon glyphicon-search"></span> Strike</button>
-    <button id="dipBtn" class="btn cfm-top-btn" title="search by dip" onclick="dipClick();">
-     <span class="glyphicon glyphicon-search"></span> Dip</button>
+  <div align="center" id="controlBlock" style="width:100%;display:flex;justify-content:center; border:10px solid transparent">
+    <div class="row col-md-12 col-xs-12" style="display:inline-block;overflow:hidden;">
+      <button id="systemBtn" class="btn cfm-top-btn" title="search by system" onclick="systemClick();">
+       <span class="glyphicon glyphicon-search"></span> System</button>
+      <button id="regionBtn" class="btn cfm-top-btn" title="search by region" onclick="regionClick();">
+       <span class="glyphicon glyphicon-search"></span> Region</button>
+      <button id="sectionBtn" class="btn cfm-top-btn" title="search by section" onclick="sectionClick();">
+       <span class="glyphicon glyphicon-search"></span> Section</button>
+      <button id="nameBtn" class="btn cfm-top-btn" title="search by name" onclick="nameClick();">
+       <span class="glyphicon glyphicon-search"></span> Name</button>
+      <button id="keywordBtn" class="btn cfm-top-btn" title="search by keyword" onclick="keywordClick();">
+       <span class="glyphicon glyphicon-search"></span> Keyword</button>
+      <button id="latlonBtn" class="btn cfm-top-btn" title="search by latlon" onclick="latlonClick();">
+       <span class="glyphicon glyphicon-search"></span> Latlon</button>
+      <button id="strikeBtn" class="btn cfm-top-btn" title="search by strike" onclick="strikeClick();">
+       <span class="glyphicon glyphicon-search"></span> Strike</button>
+      <button id="dipBtn" class="btn cfm-top-btn" title="search by dip" onclick="dipClick();">
+       <span class="glyphicon glyphicon-search"></span> Dip</button>
 <!--
-    <button id="gidBtn" class="btn cfm-top-btn" title="search by ObjGid" onclick="gidClick();" style="display:none">
-     <span class="glyphicon glyphicon-search"></span> ObjGid</button>
+<button id="gidBtn" class="btn cfm-top-small-btn" title="search by ObjGid" onclick="gidClick();" style="display:none">
+<span class="glyphicon glyphicon-search"></span> ObjGid</button>
 -->
-    <button id="toggleBtn" class="btn cfm-top-btn" title="toggle to display all faults" onclick="toggleAll();">
-     <span class="glyphicon glyphicon-adjust"></span> Toggle</button>
-    <button id="refreshBtn" class="btn cfm-top-btn" title="refresh to initial state" onclick="refreshAll();">
-     <span class="glyphicon glyphicon-refresh"></span> Refresh</button>
+    </div>
+      <button id="toggleBtn" class="btn cfm-top-small-btn" title="toggle to display all faults" onclick="toggleAll();">
+       <span class="glyphicon glyphicon-adjust"></span></button>
+      <button id="refreshBtn" class="btn cfm-top-small-btn" title="refresh to initial state" onclick="refreshAll();">
+       <span class="glyphicon glyphicon-refresh"></span></button>
 <!--
-    <button id="snapBtn" class="btn cfm-top-btn" title="snapshot" onclick="snapAll();">
-     <span class="glyphicon glyphicon-camera"></span> Snapshot</button>
+<button id="external_leaflet_control" class="btn cfm-top-small-btn" title="pick baselayer"></button>
 -->
-  </div>
+   <div id="external_leaflet_control"></div>
+   </div> <!-- controlBlock -->
 
 <div class="row col-md-12 col-xs-12" style="display:inline-block;left:20px;">
 
   <div id='CFM_plot' style="position:fixed;width:55%;height:90%;left:43%;border:solid 4px gray"></div>
 
+<!--
   <div id='queryBlock' style="background-color:#f9f9f9;width:40%;height:25vh;float:left;top:20px;border:4px solid grey;overflow:auto">
+-->
+  <div id='queryBlock' style="background-color:transparent;width:40%;float:left;top:20px; overflow:auto">
 
 <div id="pull-out" style="width:80%;">
-<ul id="sidebar" class="navigation" >
+<ul id="sidebar" class="navigation" display="border:1px solid green" >
   <li id='system' class='navigationLi col-md-12 col-xs-12' style="display:none">
     <div id='systemMenu' class='menu'>
       <div id='systemLabel' class='menuLabel' style="margin-left:20px;font-size:14px;font-weight:bold">Query for Fault by system:<button class="pull-right" title="dismiss" onclick="systemClick()" style="border:none;background-color:transparent"><span class="glyphicon glyphicon-remove"></span>
@@ -173,7 +178,7 @@
            <div class="row col-md-12 col-xs-12" style="margin-left:20px; margin-top:20px">
 
       <div class="cfm-div"> Keyword:&nbsp;<input type="text" id="keywordTxt" onfocus="this.value=''" style="right-margin:10px; border:1px solid black; color:orange; text-align:center;">
-       <button id="keywordBtn" type="button" title="search with keyword" class="btn btn-default" style="border: 0; color: blue" onclick="searchByKeyword()">
+       <button id="keywordBtn" type="button" title="search with keyword" class="btn btn-default cfm-small-btn" onclick="searchByKeyword()">
             <span class="glyphicon glyphicon-search"></span>
        </button>
       </div>
@@ -184,14 +189,14 @@
   </li>
   <li id='latlon' class='navigationLi col-md-12 col-xs-12' style="display:none">
     <div id='latlonMenu' class='menu'>
-      <div id='latlonLabel' class='menuLabel' style="margin-left:20px;font-size:14px;font-weight:bold">Query for Fault by latlon:<button class="pull-right" title="dismiss" onclick="latlonClick()" style="border:none;background-color:transparent"><span class="glyphicon glyphicon-remove"></span>
+      <div id='latlonLabel' class='menuLabel' style="margin-left:20px;font-size:14px;font-weight:bold;">Query for Fault by latlon:<button class="pull-right" title="dismiss" onclick="latlonClick()" style="border:none;background-color:transparent"><span class="glyphicon glyphicon-remove"></span>
 </button>
       </div>
       <div class="row col-md-12 col-xs-12">
-           <div class="row col-md-12 col-xs-12" style="margin-left:20px; margin-top:20px">
+           <div class="row col-md-12 col-xs-12" style="margin-left:20px; margin-top:20px;">
 
       <div class="cfm-div"> Lat:&nbsp<input type="text" id="minLatTxt" title="min lat"  onfocus="this.value=''" style="width:100px; right-margin:10px; border:1px solid black; color:orange; text-align:center;"> &nbsp <input type="text" id="maxLatTxt" title-"optional max lat" value='optional' onfocus="this.value=''" style="width:100px; right-margin:10px; border:1px solid black; color:orange; text-align:center;"> 
-      <button id="latlonBtn" type="button" title="search with latlon" class="btn btn-default" style="border: 0; color: blue" onclick="searchByLatlon()">
+      <button id="latlonBtn" type="button" title="search with latlon" class="btn btn-default cfm-small-btn" onclick="searchByLatlon()">
           <span class="glyphicon glyphicon-search"></span>
       </button></div>
       <div clss="cfm-div"> &nbsp Lon:<input type="text" id="minLonTxt" title="min lon" onfocus="this.value=''" style="width:100px; right-margin:10px; border:1px solid black; color:orange; text-align:center;"> &nbsp <input type="text" id="maxLonTxt" title="optional max lon" value='optional' onfocus="this.value=''" style="width:100px; right-margin:10px; border:1px solid black; color:orange; text-align:center;"> </div>
@@ -208,7 +213,7 @@
            <div class="row col-md-12 col-xs-12" style="margin-left:20px; margin-top:20px">
 
       <div class="cfm-div"> Object gid:&nbsp;<input type="text" id="objGidTxt" onfocus="this.value=''" style="right-margin:10px; border:1px solid black; color:orange; text-align:center;">
-       <button id="objGidBtn" type="button" title="search with object gid" class="btn btn-default" style="border: 0; color: blue" onclick="getGeoJSONbyObjGid()">
+       <button id="objGidBtn" type="button" title="search with object gid" class="btn btn-default" onclick="getGeoJSONbyObjGid()">
             <span class="glyphicon glyphicon-search"></span>
        </button>
      </div>
@@ -220,7 +225,7 @@
 </ul>
 </div><!-- pull-out -->
   </div><!-- queryBlock -->
-<div id='resultBlock' style="position:fixed; top:30vh; left:30px;width:40%; height:80%;">
+<div id='resultBlock' style="position:fixed; top:22vh; left:30px;width:40%;height:90%;">
   <br>
   <div id="searchResult" class="table-responsive"></div>
   <div id="geoSearchByObjGidResult" style="display:none"></div>

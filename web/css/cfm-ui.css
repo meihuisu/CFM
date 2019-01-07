@@ -6,8 +6,56 @@ table { width: 100%; border-collapse: collapse;}
 table, td, th { border: 1px solid grey; padding: 2px;}
 th {text-align: left;}
 
+.leaflet-control-layers {
+        margin-left: 4px;
+        box-shadow: none;
+        background: #D5D5D5;
+        left: 10px;
+        width: 4vw;
+        height: 3vw;
+        border-radius: 4px;
+}
+.leaflet-control-layers-expanded {
+        overflow: hidden;
+        position:absolute;
+        left:85%;
+        top:10px;
+        border: 2px solid red;
+        box-shadow: none;
+        background: #D5D5D5;
+        width: 180px;
+        height: 180px;
+        z-index: 1000;
+        border-radius: 0px;
+}
+
+
+.leaflet-control-layers-toggle {
+        color: green;
+}
+
+.cfm-top-small-btn {
+          background: transparent; 
+          border: 2px solid transparent;
+          color: blue;
+          width: 3vw;
+          height: 3vw;
+          display: inline-block;
+          border-radius: 4px;
+          }
+
+.cfm-small-btn {
+          background: transparent ; 
+          color: blue;
+          width: 3vw;
+          height: 3vw;
+          border-radius: 4px;
+          border: none; 
+          display: inline-block;
+          }
+
 .cfm-table {
-          max-height: 60vh;
+          max-height: 68vh;
           border: 1px solid grey;
           overflow: auto;
         }
@@ -16,7 +64,8 @@ th {text-align: left;}
           background: #D5D5D5; 
           border: 2px solid #D5D5D5;
           color: blue;
-          width: 9vw;
+          width: 10vw;
+          height: 3vw;
           display: inline-block;
         }
 
@@ -24,6 +73,7 @@ th {text-align: left;}
           background: white; 
           border: 1px solid #D5D5D5;
           color: blue;
+          height: 3vw;
           display: inline-block;
         }
 
