@@ -62,6 +62,11 @@ function reset_select_latlon() {
   document.getElementById("maxLonTxt").value = 'optional';
 }
 
+// download meta data of selected highlighted faults 
+function downloadMeta() {
+// XXX
+}
+
 function plotAll() {
 //  load_geo_list_layer();
   load_trace_list();
