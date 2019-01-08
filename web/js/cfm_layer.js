@@ -233,11 +233,11 @@ function toggle_highlight(target) {
    var  star='#'+"highlight_"+target;
 
    if(h==0) {
-     $(star).removeClass('glyphicon-star-empty').addClass('glyphicon-star');
+     $(star).removeClass('glyphicon-ok').addClass('glyphicon-ok-circle');
      s['highlight']=1;
      highlight_layer(target);
      } else {
-       $(star).removeClass('glyphicon-star').addClass('glyphicon-star-empty');
+       $(star).removeClass('glyphicon-ok-circle').addClass('glyphicon-ok');
        s['highlight']=0;
        unhighlight_layer(target);
    }
