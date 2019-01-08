@@ -18,6 +18,7 @@ var gid_sidebar=false;
 // initiate a click on the sidebar buttons
 // to dismiss the sidebar
 function dismiss_sidebar() {
+  clear_popup(); 
   if(region_sidebar) regionClick();
   if(section_sidebar) sectionClick();
   if(system_sidebar) systemClick();
