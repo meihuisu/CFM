@@ -7,13 +7,12 @@ table, td, th { border: 1px solid grey; padding: 2px;}
 th {text-align: left;}
 
 .leaflet-control-layers {
+        background: white; 
         margin-left: 4px;
         box-shadow: none;
-        background: #D5D5D5;
-        left: 10px;
-        width: 4vw;
+        border: 0px solid green;
+        width: 3vw;
         height: 3vw;
-        border-radius: 4px;
 }
 .leaflet-control-layers-expanded {
         overflow: hidden;
@@ -26,7 +25,7 @@ th {text-align: left;}
         width: 180px;
         height: 180px;
         z-index: 1000;
-        border-radius: 0px;
+        border-radius: 4px;
 }
 
 
@@ -35,8 +34,7 @@ th {text-align: left;}
 }
 
 .cfm-top-small-btn {
-          background: transparent; 
-          border: 2px solid transparent;
+          background: white; 
           color: blue;
           width: 3vw;
           height: 3vw;
