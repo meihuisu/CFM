@@ -54,6 +54,16 @@ layerControl.addTo(mymap);
 layerControl._container.remove();
 ctrl_div.appendChild(layerControl.onAdd(mymap));
 
+   // add a label to the leaflet-control-layers-list
+   var forms_div=document.getElementsByClassName('leaflet-control-layers-list');
+   var parent_div=forms_div[0].parentElement;
+   var span = document.createElement('span');
+   span.style="font-size:14px;font-weight:bold;";
+   span.className="leaflet-control-layers-label";
+   span.innerHTML = 'Set background';
+   parent_div.insertBefore(span, forms_div[0]);
+
+
 //  L.control.layers(baseLayers, overLayer).addTo(mymap);
 
 

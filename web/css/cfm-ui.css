@@ -21,7 +21,7 @@ th {text-align: left;}
         box-shadow: none;
         background: #D9D9D9;
         width: 180px;
-        height: 180px;
+        height: 200px;
         z-index: 1000;
         border-radius: 4px;
 }
@@ -31,6 +31,16 @@ th {text-align: left;}
         margin-left: 10px;
         text-align: left;
         border:2px solid transparent;
+}
+
+.leaflet-control-layers-label {
+        display: none;
+}
+
+/* added to add a label to the popup */
+.leaflet-control-layers-expanded .leaflet-control-layers-label {
+        display: block;
+        position: relative;
 }
 
 .cfm-control-colors-expanded {
