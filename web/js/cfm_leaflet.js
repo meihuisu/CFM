@@ -2,7 +2,6 @@
 
 function clear_popup()
 {
-  window.console.log("clear popup...");
   viewermap.closePopup();
 }
 
@@ -36,8 +35,8 @@ function setup_viewer()
 
   var baseLayers = {
     "ersi topo" : ersi_topographic,
-    "ersi imagery" : ersi_imagery,
     "ersi NG" : ersi_ng,
+    "ersi imagery" : ersi_imagery,
     "otm topo": otm_topographic,
     "osm street" : osm_street
   };

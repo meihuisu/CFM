@@ -37,7 +37,7 @@
 </head>
 <body>
 <div class="container-fluid">
-  <div align="center" id="controlBlock" style="border:10px solid white; width:100%;display:flex;justify-content:center">
+  <div align="center" id="controlBlock" style="margin:10px 0px 10px 0px; width:100%;display:flex;justify-content:center">
     <div class="row col-md-12 col-xs-12" style="display:inline-block;overflow:hidden;">
       <button id="systemBtn" class="btn cfm-top-btn" title="search by system" onclick="systemClick();">
        <span class="glyphicon glyphicon-search"></span> System</button>
@@ -61,12 +61,32 @@
 -->
     </div>
       <div id="external_leaflet_control"></div>
-      <button id="basketBtn" class="btn cfm-top-small-btn" title="download selected faults metadata" onclick="downloadMeta();">
-        <span class="glyphicon glyphicon-download-alt"></span></button>
-      <button id="toggleBtn" class="btn cfm-top-small-btn" title="toggle to display all faults" onclick="toggleAll();">
+
+      <button id="colorBtn" class="btn cfm-top-small-btn" onMouseEnter="expandColorsControl()">
+        <span class="glyphicon glyphicon-star"></span></button>
+
+<div id="colorSelect" class="cfm-control-colors">
+  <div class="cfm-control-colors-list"><span style="font-size:14px;font-weight:bold">Set faults color </span>
+  <form onMouseLeave="removeColorsControl()" onchange="changeFaultColor()">
+    <div class="cfm-control-colors-base">
+      <label><div><input type="radio" class="cfm-control-colors-selector" name="cfm-fault-colors" value="default" checked="checked"><span> default</span></div></label>
+
+      <label><div><input type="radio" class="cfm-control-colors-selector" name="cfm-fault-colors" value="strike" ><span> by strike</span></div></label>
+
+      <label><div><input type="radio" class="cfm-control-colors-selector" name="cfm-fault-colors" value="dip" ><span> by dip</span></div></label>
+    </div>
+  </form>
+  </div>
+</div>
+
+      <button id="toggleBtn" class="btn cfm-top-small-btn" title="toggle to display all faults" onclick="toggleAll()">
         <span class="glyphicon glyphicon-adjust"></span></button>
+
       <button id="refreshBtn" class="btn cfm-top-small-btn" title="refresh to initial state" onclick="refreshAll();">
         <span class="glyphicon glyphicon-refresh"></span></button>
+
+      <button id="basketBtn" class="btn cfm-top-small-btn" title="download selected faults metadata" onclick="downloadMeta();">
+        <span class="glyphicon glyphicon-download-alt"></span></button>
    </div> <!-- controlBlock -->
 
 <div class="row col-md-12 col-xs-12" style="display:inline-block;left:20px;">

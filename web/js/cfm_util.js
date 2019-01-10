@@ -64,7 +64,35 @@ function reset_select_latlon() {
 
 // download meta data of selected highlighted faults 
 function downloadMeta() {
-// XXX
+}
+
+function expandColorsControl() {
+   if ( $('#colorSelect').hasClass('cfm-control-colors-expanded') ) {
+     window.console.log("already expanded...");
+     } else {
+       $('#colorSelect').addClass('cfm-control-colors-expanded');
+//      element = document.getElementById('colorSelect');
+//      element.addEventListener('mouseleave', removeColorsControl);
+   }
+}
+
+function removeColorsControl() {
+   if ( $('#colorSelect').hasClass('cfm-control-colors-expanded') ) {
+     $('#colorSelect').removeClass('cfm-control-colors-expanded');
+//    element = document.getElementById('colorSelect');
+//    element.removeEventListener('mouseleave', removeColorsControl);
+     } else {
+        window.console.log("hum.. not yet expanded...");
+   }
+}
+
+// default -- all black
+// by strike
+// by dip
+function changeFaultColor() {
+    val=$('input[name=cfm-fault-colors]:checked').val() 
+    use_fault_color=val;
+    reset_fault_color();
 }
 
 function plotAll() {
@@ -75,6 +103,7 @@ function plotAll() {
 function toggleAll() {
   cfm_toggle_plot= !cfm_toggle_plot;
   if(cfm_toggle_plot) {
+// make every layer visible ignoring highlight changes
     toggle_on_all_layer()
     makeResultTableWithList(cfm_gid_list);
     } else {
@@ -158,9 +187,13 @@ function getGidFromMeta(meta) {
 }
 
 function getColorFromMeta(meta) {
-    var strike=meta['strike'];
+
     var color="black";
-    if(strike != undefined && strike != "") {
+    var strike=meta['strike'];
+    var dip=meta['dip'];
+
+
+    if(use_fault_color=="strike" && strike != undefined && strike != "") {
         v=parseInt(strike);
         v=(v-strike_range_min)/(strike_range_max-strike_range_min);
         blue = Math.round(255 * v);
@@ -168,6 +201,16 @@ function getColorFromMeta(meta) {
         red = Math.round((1-v)*255);
         color="RGB(" + red + "," + green + "," + blue + ")";
      } 
+
+    if(use_fault_color=="dip" && dip != undefined && dip != "") {
+        v=parseInt(dip);
+        v=(v-dip_range_min)/(dip_range_max-dip_range_min);
+        blue = Math.round(255 * v);
+        green = 0;
+        red = Math.round((1-v)*255);
+        color="RGB(" + red + "," + green + "," + blue + ")";
+     } 
+
      return color;
 }
 

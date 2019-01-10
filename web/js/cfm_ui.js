@@ -206,6 +206,7 @@ function _makeResultTableWithGList(glist)
          var s= find_style_list(gid);
          var h= s['highlight'];
          if(h) {
+window.console.log("humm..");
            var t="<tr id=\"row_"+gid+"\"><td style=\"width:25px\"><button class=\"btn btn-xs cfm-btn\" title=\"highlight the fault\" onclick=toggle_highlight("+gid+");><span id=\"highlight_"+gid+"\" class=\"glyphicon glyphicon-ok-circle\"></span></button></td><td style=\"width:25px\"><button class=\"btn btn-xs cfm-btn\" title=\"toggle on/off the fault\" onclick=toggle_layer("+gid+");><span id=\"toggle_"+gid+"\" class=\"glyphicon glyphicon-eye-open\"></span></button></td><td>" + name + "</td></tr>";
            tmp=t+tmp;
            } else {
@@ -230,7 +231,8 @@ function makeResultTableWithList(glist)
 
     if(glist.length > 0) {
       toggle_layer_with_list(glist);
-      document.getElementById("searchResult").innerHTML = _makeResultTableWithGList(glist);
+      var newhtml = _makeResultTableWithGList(glist);
+      document.getElementById("searchResult").innerHTML = newhtml;
     }
 }
 

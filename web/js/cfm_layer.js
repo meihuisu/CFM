@@ -16,13 +16,13 @@ var highlight_style = {
 //var cfm_all_layer;
 
 
-
-
 var cfm_toggle_plot=1;
 
 /***
    tracking data structure
 ***/
+var use_fault_color = "default";
+
 // [ { "abb": abb1, "name" : name1 }, {"abb": abb2, "name": name2 }, ... ]
 var cfm_region_list=[];
 
@@ -149,6 +149,37 @@ function find_style_list(target) {
    return found;
 }
 
+// reset to style with new color
+// in both cfm_style_list and also in layer
+function reset_fault_color() {
+  // reset fault color in the style list
+  var new_cfm_style_list=[];
+  cfm_style_list.forEach(function(element) {
+    var gid=element['gid'];
+    var gmeta=find_meta_list(gid);
+    var newcolor=getColorFromMeta(gmeta['meta']);
+    var vis=element['visible'];
+    var hl=element['highlight'];
+    var newstyle= { "weight":2,
+                    "opacity":0.8,
+                    "color": newcolor
+                  };
+    new_cfm_style_list.push({"gid":gid, "style":newstyle, "visible": vis, "highlight":hl})
+  });
+  cfm_style_list=new_cfm_style_list;
+
+  cfm_layer_list.forEach(function(element) {
+    var gid=element['gid'];
+    var gstyle=find_style_list(gid);
+    var id=get_leaflet_id(element) 
+    var style=gstyle['style'];
+    var v=gstyle['visible'];
+    if(v) {
+       viewermap._layers[id].setStyle(style);
+    }
+  });
+}
+
 function reset_style_list() {
    cfm_style_list.forEach(function(element) {
      element['visible ']=1;
@@ -213,7 +244,7 @@ function reset_layer_list() {
      var gid=element['gid'];
      var s=find_style_list(gid);
      if( s['highlight']==1 ) {
-       unhighlight_layer(gid);
+       toggle_highlight(gid);
      }
    });
 }
@@ -230,34 +261,25 @@ function find_style_list(target) {
 function toggle_highlight(target) {
    var s=find_style_list(target);
    var h=s['highlight'];
-   var  star='#'+"highlight_"+target;
+   var star='#'+"highlight_"+target;
 
    if(h==0) {
      $(star).removeClass('glyphicon-ok').addClass('glyphicon-ok-circle');
      s['highlight']=1;
-     highlight_layer(target);
+     var l=find_layer_list(target);
+     var id=get_leaflet_id(l) 
+     viewermap._layers[id].setStyle(highlight_style);
      } else {
        $(star).removeClass('glyphicon-ok-circle').addClass('glyphicon-ok');
        s['highlight']=0;
-       unhighlight_layer(target);
+       var l=find_layer_list(target);
+       var id=get_leaflet_id(l) 
+       var s= find_style_list(target);
+       var original=s['style'];
+       var v=s['visible'];
+       if(v && original!=undefined)
+          viewermap._layers[id].setStyle(original);
    }
-}
-
-function highlight_layer(target) {
-   var l=find_layer_list(target);
-   var id=get_leaflet_id(l) 
-   viewermap._layers[id].setStyle(highlight_style);
-}
-
-// reset to original style
-function unhighlight_layer(target) {
-   var l=find_layer_list(target);
-   var id=get_leaflet_id(l) 
-   var o= find_style_list(target);
-   var original=o['style'];
-   var v=o['visible'];
-   if(v && original!=undefined)
-      viewermap._layers[id].setStyle(original);
 }
 
 function get_leaflet_id(layer) {
@@ -412,6 +434,7 @@ function toggle_layer_with_list(glist)
   }
 }
 
+// make every layer visible
 function toggle_on_all_layer()
 {
   var sz=cfm_style_list.length;
