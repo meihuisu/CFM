@@ -93,10 +93,7 @@
 
   <div id='CFM_plot' style="position:fixed;width:55%;height:90%;left:43%;border:solid 4px gray"></div>
 
-<!--
-  <div id='queryBlock' style="background-color:#f9f9f9;width:40%;height:25vh;float:left;top:20px;border:4px solid grey;overflow:auto">
--->
-  <div id='queryBlock' style="background-color:transparent;width:40%;float:left;top:20px; overflow:auto">
+  <div id='queryBlock' style="background-color:transparent;width:40%;float:left;top:0px; overflow:auto">
 
 <div id="pull-out" style="width:80%;">
 <ul id="sidebar" class="navigation" display="border:1px solid green" >
@@ -106,7 +103,7 @@
 </button>
       </div>
       <div class="row col-md-12 col-xs-12">
-           <div class="row col-md-12 col-xs-12" style="margin-left:20px; margin-top:20px">
+           <div class="row col-md-12 col-xs-12" style="margin-left:20px; margin-top:10px">
 
       <div class="cfm-div" id="systemList"></div>
 
@@ -120,7 +117,7 @@
 </button>
       </div>
       <div class="row col-md-12 col-xs-12">
-           <div class="row col-md-12 col-xs-12" style="margin-left:20px; margin-top:20px">
+           <div class="row col-md-12 col-xs-12" style="margin-left:20px; margin-top:10px">
 
       <div class="cfm-div" id="regionList"></div>
 
@@ -134,7 +131,7 @@
 </button>
       </div>
       <div class="row col-md-12 col-xs-12">
-           <div class="row col-md-12 col-xs-12" style="margin-left:20px; margin-top:20px">
+           <div class="row col-md-12 col-xs-12" style="margin-left:20px; margin-top:10px">
 
       <div class="cfm-div" id="sectionList"></div>
 
@@ -148,7 +145,7 @@
 </button>
       </div>
       <div class="row col-md-12 col-xs-12">
-           <div class="row col-md-12 col-xs-12" style="margin-left:20px; margin-top:20px">
+           <div class="row col-md-12 col-xs-12" style="margin-left:20px; margin-top:10px">
 
       <div class="cfm-div" id="nameList"></div>
 
@@ -163,7 +160,7 @@
 </button>
       </div>
       <div class="row col-md-12 col-xs-12">
-           <div class="row col-md-12 col-xs-12" style="margin-left:20px; margin-top:20px">
+           <div class="row col-md-12 col-xs-12" style="margin-left:20px; margin-top:10px">
              <div class="cfm-div" id="strikeRange" style="padding-left:10px; padding-right:10px; overflow:hidden;"></div>
            </div>
        </div>
@@ -176,7 +173,7 @@
 </button>
       </div>
       <div class="row col-md-12 col-xs-12">
-           <div class="row col-md-12 col-xs-12" style="margin-left:20px; margin-top:20px">
+           <div class="row col-md-12 col-xs-12" style="margin-left:20px; margin-top:10px">
              <div class="cfm-div" id="dipRange" style="padding-left:10px; padding-right:10px; overflow:hidden;"></div>
            </div>
        </div>
@@ -189,7 +186,7 @@
 </button>
       </div>
       <div class="row col-md-12 col-xs-12">
-           <div class="row col-md-12 col-xs-12" style="margin-left:20px; margin-top:20px">
+           <div class="row col-md-12 col-xs-12" style="margin-left:20px; margin-top:10px">
 
       <div class="cfm-div"> Keyword:&nbsp;<input type="text" id="keywordTxt" onfocus="this.value=''" style="right-margin:10px; border:1px solid black; color:orange; text-align:center;">
        <button id="keywordBtn" type="button" title="search with keyword" class="btn btn-default cfm-small-btn" onclick="searchByKeyword()">
@@ -207,7 +204,7 @@
 </button>
       </div>
       <div class="row col-md-12 col-xs-12">
-           <div class="row col-md-12 col-xs-12" style="margin-left:20px; margin-top:20px;">
+           <div class="row col-md-12 col-xs-12" style="margin-left:20px; margin-top:10px;">
 
       <div class="cfm-div"> Lat:&nbsp<input type="text" id="minLatTxt" title="min lat"  onfocus="this.value=''" style="width:100px; right-margin:10px; border:1px solid black; color:orange; text-align:center;"> &nbsp <input type="text" id="maxLatTxt" title-"optional max lat" value='optional' onfocus="this.value=''" style="width:100px; right-margin:10px; border:1px solid black; color:orange; text-align:center;"> 
       <button id="latlonBtn" type="button" title="search with latlon" class="btn btn-default cfm-small-btn" onclick="searchByLatlon()">
@@ -224,7 +221,7 @@
 </button>
       </div>
       <div class="row col-md-12 col-xs-12">
-           <div class="row col-md-12 col-xs-12" style="margin-left:20px; margin-top:20px">
+           <div class="row col-md-12 col-xs-12" style="margin-left:20px; margin-top:10px">
 
       <div class="cfm-div"> Object gid:&nbsp;<input type="text" id="objGidTxt" onfocus="this.value=''" style="right-margin:10px; border:1px solid black; color:orange; text-align:center;">
        <button id="objGidBtn" type="button" title="search with object gid" class="btn btn-default" onclick="getGeoJSONbyObjGid()">
