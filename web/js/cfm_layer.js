@@ -290,8 +290,16 @@ function toggle_highlight(target) {
      var l=find_layer_list(target);
      var id=get_leaflet_id(l) 
      viewermap._layers[id].setStyle(highlight_style);
+     cfm_select_count++;
+     $('#itemCount').html(cfm_select_count).css('display', 'block')
      } else {
        $(star).removeClass('glyphicon-ok-circle').addClass('glyphicon-ok');
+       cfm_select_count--;
+       if(cfm_select_count == 0) {
+         $('#itemCount').html(cfm_select_count).css('display', 'none')
+         } else {
+           $('#itemCount').html(cfm_select_count).css('display', 'block')
+       }
        s['highlight']=0;
        var l=find_layer_list(target);
        var id=get_leaflet_id(l) 

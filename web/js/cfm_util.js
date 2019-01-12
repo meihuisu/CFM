@@ -196,7 +196,6 @@ function getLevel3ContentFromMeta(meta) {
 // mlist = [ meta1, meta2 ]
 // JSON = { "timestamp":date,"metadata":[ { fault1-meta }, {fault2-meta} ..] }
 function getJSONFromMeta(mlist) {
-    window.console.log("WHOO");
     var timestamp = $.now(); //https://stackoverflow.com/questions/221294/how-do-you-get-a-timestamp-in-javascript
     var data={"timestamp":timestamp, "metadata":mlist };
     var jsonblob=JSON.stringify(data);

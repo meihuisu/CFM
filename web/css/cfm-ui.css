@@ -95,6 +95,20 @@ th {text-align: left;}
         border:2px solid transparent;
 }
 
+#itemCount {
+  display:none;
+  position:absolute;
+  top: 10px;
+  left: 98%;
+  width: 20px;
+  height: 20px;
+  font-size: 12px;
+  border-radius: 50%;
+  background: red;
+  color: white;
+  text-align: center;
+}
+
 .cfm-top-small-btn {
           background: white; 
           color: #6c6cff;

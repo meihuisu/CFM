@@ -2,6 +2,8 @@
    cfm_ui.js
 ***/
 
+var cfm_select_count=0;
+
 // not using the realmin and realmax
 function setupStrikeRangeSlider(realmin,realmax) {
   var min=0;
