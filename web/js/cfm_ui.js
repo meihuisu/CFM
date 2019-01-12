@@ -170,6 +170,7 @@ function makeResultTable(str)
 {
     clear_popup();
     // clear the highlight count..
+window.console.log("here...");
 
     var html="<table><tr><th style=\"border:1px solid white;\">CFM5.2 Fault Objects<button id=\"allBtn\" class=\"btn cfm-btn\" title=\"select all visible faults\" onclick=\"selectAll()\"><span class=\"glyphicon glyphicon-ok\"></span></button></th></tr></table>";
     html=html+"<div class=\"cfm-table\" ><table>";
@@ -182,7 +183,12 @@ function makeResultTable(str)
        var gid=parseInt(s['gid']);
        var name=s['name'];
        if(!in_nogeo_gid_list(gid)) {
-         var t= "<tr id=\"row_"+gid+"\"><td style=\"width:25px\"><button class=\"btn btn-xs cfm-btn\" title=\"highlight the fault\" onclick=toggle_highlight("+gid+");><span id=\"highlight_"+gid+"\" class=\"glyphicon glyphicon-ok\"></span></button></td><td style=\"width:25px\"><button class=\"btn btn-xs cfm-btn\" title=\"toggle on/off the fault\" onclick=toggle_layer("+gid+");><span id=\"toggle_"+gid+"\" class=\"glyphicon glyphicon-eye-open\"></span></button></td><td>" + name + "</td></tr>";
+         var s= find_style_list(gid);
+         if(s && s['highlight']==1) {
+           var t= "<tr id=\"row_"+gid+"\"><td style=\"width:25px\"><button class=\"btn btn-xs cfm-btn\" title=\"highlight the fault\" onclick=toggle_highlight("+gid+");><span id=\"highlight_"+gid+"\" class=\"glyphicon glyphicon-ok-circle\"></span></button></td><td style=\"width:25px\"><button class=\"btn btn-xs cfm-btn\" title=\"toggle on/off the fault\" onclick=toggle_layer("+gid+");><span id=\"toggle_"+gid+"\" class=\"glyphicon glyphicon-eye-open\"></span></button></td><td>" + name + "</td></tr>";
+           } else {
+             var t= "<tr id=\"row_"+gid+"\"><td style=\"width:25px\"><button class=\"btn btn-xs cfm-btn\" title=\"highlight the fault\" onclick=toggle_highlight("+gid+");><span id=\"highlight_"+gid+"\" class=\"glyphicon glyphicon-ok\"></span></button></td><td style=\"width:25px\"><button class=\"btn btn-xs cfm-btn\" title=\"toggle on/off the fault\" onclick=toggle_layer("+gid+");><span id=\"toggle_"+gid+"\" class=\"glyphicon glyphicon-eye-open\"></span></button></td><td>" + name + "</td></tr>";
+         }
          tmp=t+tmp;
         } else {
           var t="<tr id=\"row_"+gid+"\"><td style=\"width:25px\"><button class=\"btn btn-xs cfm-btn\" title=\"highlight the fault\" onclick=toggle_highlight("+gid+") disabled><span id=\"highlight_"+gid+"\" class=\"glyphicon glyphicon-ok\"></span></button></td><td style=\"width:25px\"><button class=\"btn btn-xs cfm-btn\" title=\"toggle on/off the fault\" onclick=toggle_layer("+gid+") disabled><span id=\"toggle_"+gid+"\" class=\"glyphicon glyphicon-eye-open\"></span></button></td><td>" + name + "</td></tr>";
@@ -196,6 +202,7 @@ function makeResultTable(str)
 // using internal information, existing style_list
 function _makeResultTableWithGList(glist)
 {
+    window.console.log("HOO");
     clear_popup();
     var html="<table><tr><th style=\"border:1px solid white\">CFM5.2 Fault Objects<button id=\"allBtn\" class=\"btn cfm-btn\" title=\"select all visible faults\" onclick=\"selectAll()\"><span class=\"glyphicon glyphicon-ok\"></span></button></th></tr></table>";
     html=html+"<div class=\"cfm-table\" ><table>";
@@ -209,7 +216,8 @@ function _makeResultTableWithGList(glist)
        if(!in_nogeo_gid_list(gid)) {
          var s= find_style_list(gid);
          var h= s['highlight'];
-         if(h) {
+         if(h==1) {
+           window.console.log("found a highlight one");
            var t="<tr id=\"row_"+gid+"\"><td style=\"width:25px\"><button class=\"btn btn-xs cfm-btn\" title=\"highlight the fault\" onclick=toggle_highlight("+gid+");><span id=\"highlight_"+gid+"\" class=\"glyphicon glyphicon-ok-circle\"></span></button></td><td style=\"width:25px\"><button class=\"btn btn-xs cfm-btn\" title=\"toggle on/off the fault\" onclick=toggle_layer("+gid+");><span id=\"toggle_"+gid+"\" class=\"glyphicon glyphicon-eye-open\"></span></button></td><td>" + name + "</td></tr>";
            tmp=t+tmp;
            } else {
