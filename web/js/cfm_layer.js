@@ -304,9 +304,19 @@ function toggle_highlight(target) {
      var id=get_leaflet_id(l) 
      viewermap._layers[id].setStyle(highlight_style);
      cfm_select_count++;
+     // adjust width if needed
+     window.console.log("HOOO");
      $('#itemCount').html(cfm_select_count).css('display', 'block')
+/* get actual rendored font/width
+     var fs = $('#itemCount').html(cfm_select_count).css('font-size');
+     var width = $('#itemCount').html(cfm_select_count).css('width');
+*/
+     if(cfm_select_count == 100)
+        $('#itemCount').html(cfm_select_count).css("width","30px");
      } else {
        $(star).removeClass('glyphicon-ok-circle').addClass('glyphicon-ok');
+       if(cfm_select_count == 99) // reset font size
+         $('#itemCount').html(cfm_select_count).css("width","20px");
        cfm_select_count--;
        if(cfm_select_count == 0) {
          $('#itemCount').html(cfm_select_count).css('display', 'none')
