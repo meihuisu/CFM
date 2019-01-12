@@ -111,6 +111,8 @@ th {text-align: left;}
 
 .cfm-top-small-btn {
           background: white; 
+          padding: 6px 6px;
+          font-size: 18px;
           color: #6c6cff;
           width: 3vw;
           height: 3vw;
