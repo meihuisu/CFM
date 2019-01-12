@@ -6,6 +6,10 @@ table { width: 100%; border-collapse: collapse;}
 table, td, th { border: 1px solid grey; padding: 2px;}
 th {text-align: left;}
 
+.glyphicon-ok-circle {
+      color:red;
+}
+
 .leaflet-control-layers {
         background: white; 
         margin-left: 4px;

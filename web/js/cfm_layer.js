@@ -305,7 +305,6 @@ function toggle_highlight(target) {
      viewermap._layers[id].setStyle(highlight_style);
      cfm_select_count++;
      // adjust width if needed
-     window.console.log("HOOO");
      $('#itemCount').html(cfm_select_count).css('display', 'block')
 /* get actual rendored font/width
      var fs = $('#itemCount').html(cfm_select_count).css('font-size');

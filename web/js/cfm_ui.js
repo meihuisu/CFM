@@ -169,6 +169,8 @@ function glistFromMeta(str) {
 function makeResultTable(str)
 {
     clear_popup();
+    // clear the highlight count..
+
     var html="<table><tr><th style=\"border:1px solid white;\">CFM5.2 Fault Objects<button id=\"allBtn\" class=\"btn cfm-btn\" title=\"select all visible faults\" onclick=\"selectAll()\"><span class=\"glyphicon glyphicon-ok\"></span></button></th></tr></table>";
     html=html+"<div class=\"cfm-table\" ><table>";
     var sz=(Object.keys(str).length);
@@ -208,7 +210,6 @@ function _makeResultTableWithGList(glist)
          var s= find_style_list(gid);
          var h= s['highlight'];
          if(h) {
-window.console.log("humm..");
            var t="<tr id=\"row_"+gid+"\"><td style=\"width:25px\"><button class=\"btn btn-xs cfm-btn\" title=\"highlight the fault\" onclick=toggle_highlight("+gid+");><span id=\"highlight_"+gid+"\" class=\"glyphicon glyphicon-ok-circle\"></span></button></td><td style=\"width:25px\"><button class=\"btn btn-xs cfm-btn\" title=\"toggle on/off the fault\" onclick=toggle_layer("+gid+");><span id=\"toggle_"+gid+"\" class=\"glyphicon glyphicon-eye-open\"></span></button></td><td>" + name + "</td></tr>";
            tmp=t+tmp;
            } else {
