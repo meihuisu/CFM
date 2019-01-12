@@ -64,6 +64,15 @@ function reset_select_latlon() {
 
 // download meta data of selected highlighted faults 
 function downloadMeta() {
+   // collect up the meta data from the highlighted set of traces
+   var hlist=get_highlight_list();
+   var mlist=get_meta_list(hlist);
+   var data=getJSONFromMeta(mlist);
+   saveFile(data);
+}
+
+function downloadFile()
+{
 }
 
 function expandColorsControl() {
@@ -133,6 +142,7 @@ function refreshAll() {
   reset_geo_plot();
 }
 
+// building up the content for the popup window on plot
 function _item(meta,str,type,name) {
     if(meta[type] == undefined || meta[type] == "") {
        str = str + "<br>" + name+ ": NA";
@@ -181,6 +191,30 @@ function getLevel3ContentFromMeta(meta) {
     return content;
 }
 
+
+// build up json format for output metadata
+// mlist = [ meta1, meta2 ]
+// JSON = { "timestamp":date,"metadata":[ { fault1-meta }, {fault2-meta} ..] }
+function getJSONFromMeta(mlist) {
+    window.console.log("WHOO");
+    var timestamp = $.now(); //https://stackoverflow.com/questions/221294/how-do-you-get-a-timestamp-in-javascript
+    var data={"timestamp":timestamp, "metadata":mlist };
+    var jsonblob=JSON.stringify(data);
+//http://stackoverflow.com/questions/105034/how-to-create-a-guid-uuid-in-javascript
+    return jsonblob;
+}
+
+function saveFile(data, fname)
+{
+//http://stackoverflow.com/questions/105034/how-to-create-a-guid-uuid-in-javascript
+    var rnd= Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+    var fname="CFM_metadata_"+rnd+".json";
+    var blob = new Blob([data], {
+        type: "text/plain;charset=utf-8"
+    });
+    saveAs(blob, fname);
+}
+
 function getGidFromMeta(meta) {
    var gid=meta['gid'];
    return gid;
@@ -191,7 +225,6 @@ function getColorFromMeta(meta) {
     var color="black";
     var strike=meta['strike'];
     var dip=meta['dip'];
-
 
     if(use_fault_color=="strike" && strike != undefined && strike != "") {
         v=parseInt(strike);

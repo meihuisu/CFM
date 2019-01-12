@@ -25,6 +25,7 @@
 <script type='text/javascript' src='js/vendor/bootstrap.min.js'></script>
 <script type='text/javascript' src='js/vendor/jquery-ui.js'></script>
 <script type='text/javascript' src='js/vendor/ersi-leaflet.js'></script>
+<script type='text/javascript' src='js/vendor/FileSaver.js'></script>
 
 <script type="text/javascript" src="js/debug.js"></script>
 <script type="text/javascript" src="js/cfm_leaflet.js"></script>
@@ -64,20 +65,7 @@
 
       <button id="colorBtn" class="btn cfm-top-small-btn" onMouseEnter="expandColorsControl()">
         <span class="glyphicon glyphicon-star"></span></button>
-
-<div id="colorSelect" class="cfm-control-colors">
-  <div class="cfm-control-colors-list"><span style="font-size:14px;font-weight:bold">Set faults color </span>
-  <form onMouseLeave="removeColorsControl()" onchange="changeFaultColor()">
-    <div class="cfm-control-colors-base">
-      <label><div><input type="radio" class="cfm-control-colors-selector" name="cfm-fault-colors" value="default" checked="checked"><span> default</span></div></label>
-
-      <label><div><input type="radio" class="cfm-control-colors-selector" name="cfm-fault-colors" value="strike" ><span> by strike</span></div></label>
-
-      <label><div><input type="radio" class="cfm-control-colors-selector" name="cfm-fault-colors" value="dip" ><span> by dip</span></div></label>
-    </div>
-  </form>
-  </div>
-</div>
+      <div id="colorSelect" class="cfm-control-colors"></div>
 
       <button id="toggleBtn" class="btn cfm-top-small-btn" title="toggle to display all faults" onclick="toggleAll()">
         <span class="glyphicon glyphicon-adjust"></span></button>

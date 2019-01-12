@@ -204,6 +204,15 @@ function find_meta_list(target) {
    return found;
 }
 
+function get_meta_list(gidlist) {
+   var mlist=[];
+   gidlist.forEach(function(gid) {
+     var m=find_meta_list(gid);
+     mlist.push(m['meta']);
+   });
+   return mlist;
+}
+
 /* return true if target is in the trace list */
 function in_trace_list(target) {
    var found=0;
@@ -249,6 +258,7 @@ function reset_layer_list() {
    });
 }
 
+
 function find_style_list(target) { 
    var found=undefined;
    cfm_style_list.forEach(function(element) {
@@ -257,6 +267,17 @@ function find_style_list(target) {
    });
    return found;
 }
+
+function get_highlight_list() {
+   var hlist=[];
+   cfm_style_list.forEach(function(element) {
+     if( element['highlight']==1 ) {
+       hlist.push(element['gid']);
+     }
+   });
+   return hlist;
+}
+
 
 function toggle_highlight(target) {
    var s=find_style_list(target);
@@ -465,9 +486,4 @@ function toggle_layer(target)
       $(eye).removeClass('glyphicon-eye-close').addClass('glyphicon-eye-open');
       viewermap.addLayer(layer);
   }
-}
-
-//  do some popup and options 
-function download_layer(target) {
-   window.console.log("download_layer: not implmented yet..");
 }

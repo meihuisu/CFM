@@ -260,3 +260,12 @@ function add_downloads(meta,str) {
   }
   return str;
 }
+
+
+// very lazy way to inject this into html
+function addFaultColorsSelect() {
+  var htmlstr="<div class=\"cfm-control-colors-list\"><span style=\"font-size:14px;font-weight:bold\">Set faults color </span><form onMouseLeave=\"removeColorsControl()\" onchange=\"changeFaultColor()\"><div class=\"cfm-control-colors-base\"><label><div><input type=\"radio\" class=\"cfm-control-colors-selector\" name=\"cfm-fault-colors\" value=\"default\" checked=\"checked\"><span> default</span></div></label><label><div><input type=\"radio\" class=\"cfm-control-colors-selector\" name=\"cfm-fault-colors\" value=\"strike\" ><span> by strike</span></div></label><label><div><input type=\"radio\" class=\"cfm-control-colors-selector\" name=\"cfm-fault-colors\" value=\"dip\" ><span> by dip</span></div></label></div></form></div>";
+
+   var html_div=document.getElementById('colorSelect');
+   html_div.innerHTML = htmlstr;
+}

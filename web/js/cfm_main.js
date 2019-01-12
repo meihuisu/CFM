@@ -18,7 +18,7 @@ jQuery(document).ready(function() {
   getGeoTraceList();
   getAllTraces();
   setupSearch();
-
+  addFaultColorsSelect();
 }) // end of MAIN
 
 
