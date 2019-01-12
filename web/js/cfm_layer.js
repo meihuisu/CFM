@@ -3,7 +3,10 @@
 ***/
 
 var highlight_style = {
+/*
     'color': 'RGB(0, 255, 255)',
+*/
+    'color': 'RGB(255, 0, 0)',
     'opacity':1,
     'weight': 2,
 };
@@ -252,12 +255,22 @@ function reset_layer_list() {
    cfm_layer_list.forEach(function(element) {
      var gid=element['gid'];
      var s=find_style_list(gid);
-     if( s['highlight']==1 ) {
+     if( s['highlight']==1 && s['visible']==1 ) {
        toggle_highlight(gid);
      }
    });
 }
 
+// select every layer
+function select_layer_list() {
+   cfm_layer_list.forEach(function(element) {
+     var gid=element['gid'];
+     var s=find_style_list(gid);
+     if( s['highlight']==0 && s['visible']==1 ) {
+       toggle_highlight(gid);
+     }
+   });
+}
 
 function find_style_list(target) { 
    var found=undefined;

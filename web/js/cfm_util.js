@@ -3,6 +3,8 @@
 
 ***/
 
+var select_all_flag=0;
+
 // strike range is from 5 to 359
 var strike_range_min = 0;
 var strike_range_max = 360;
@@ -71,10 +73,6 @@ function downloadMeta() {
    saveFile(data);
 }
 
-function downloadFile()
-{
-}
-
 function expandColorsControl() {
    if ( $('#colorSelect').hasClass('cfm-control-colors-expanded') ) {
      window.console.log("already expanded...");
@@ -120,6 +118,16 @@ function toggleAll() {
       toggle_off_all_layer()
       // need to revert to the current search result
       makeResultTableWithList(cfm_active_gid_list);
+  }
+}
+
+function selectAll() {
+  if(select_all_flag == 0) {
+    select_layer_list();
+    select_all_flag=1;
+    } else {
+       reset_layer_list();
+       select_all_flag=0;
   }
 }
 

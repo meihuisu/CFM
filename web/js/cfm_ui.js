@@ -169,7 +169,7 @@ function glistFromMeta(str) {
 function makeResultTable(str)
 {
     clear_popup();
-    var html="<table><tr><th style=\"border:1px solid white;\">CFM5.2 Fault Objects</th></tr></table>";
+    var html="<table><tr><th style=\"border:1px solid white;\">CFM5.2 Fault Objects<button id=\"allBtn\" class=\"btn cfm-btn\" title=\"select all visible faults\" onclick=\"selectAll()\"><span class=\"glyphicon glyphicon-ok\"></span></button></th></tr></table>";
     html=html+"<div class=\"cfm-table\" ><table>";
     var sz=(Object.keys(str).length);
     var tmp="";
@@ -195,7 +195,7 @@ function makeResultTable(str)
 function _makeResultTableWithGList(glist)
 {
     clear_popup();
-    var html="<table><tr><th style=\"border:1px solid white\">CFM5.2 Fault Objects</th></tr></table>";
+    var html="<table><tr><th style=\"border:1px solid white\">CFM5.2 Fault Objects<button id=\"allBtn\" class=\"btn cfm-btn\" title=\"select all visible faults\" onclick=\"selectAll()\"><span class=\"glyphicon glyphicon-ok\"></span></button></th></tr></table>";
     html=html+"<div class=\"cfm-table\" ><table>";
     var sz=glist.length;
     var tmp="";

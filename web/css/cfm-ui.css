@@ -148,9 +148,10 @@ th {text-align: left;}
 
 .cfm-btn {
           background: white; 
-          border: 1px solid #D5D5D5;
+          border: 0px solid #D5D5D5;
           color: blue;
-          height: 3vw;
+          height: 2vw;
+          width: 2vw;
           display: inline-block;
         }
 
