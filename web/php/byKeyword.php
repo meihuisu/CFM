@@ -11,7 +11,7 @@ if (!$dbconn) { die('Could not connect'); }
 
 $q = ($_GET['q']);
 
-$query = "SELECT gid,name FROM OBJECT_tb WHERE to_tsvector(name) @@ to_tsquery($1)";
+$query = "SELECT gid,name FROM OBJECT_tb WHERE to_tsvector(name) @@ plainto_tsquery($1)";
 
 $result = pg_prepare($dbconn, "my_query", $query);
 $data = array($q);

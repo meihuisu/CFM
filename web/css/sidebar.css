@@ -54,7 +54,6 @@
 .navigation {
 	position: relative;
 	padding: 0px;
-	left: 0px;
         width:110%;
 	list-style: none;
 	z-index: 9999;

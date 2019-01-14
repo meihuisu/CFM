@@ -56,12 +56,8 @@
        <span class="glyphicon glyphicon-search"></span> Strike</button>
       <button id="dipBtn" class="btn cfm-top-btn" title="search by dip" onclick="dipClick();">
        <span class="glyphicon glyphicon-search"></span> Dip</button>
-<!--
-<button id="gidBtn" class="btn cfm-top-small-btn" title="search by ObjGid" onclick="gidClick();" style="display:none">
-<span class="glyphicon glyphicon-search"></span> ObjGid</button>
--->
     </div>
-      <div id="external_leaflet_control"></div>
+      <div id="external_leaflet_control" class="cfm-top-small-size" ></div>
 
       <button id="colorBtn" class="btn cfm-top-small-btn" onMouseEnter="expandColorsControl()">
         <span class="glyphicon glyphicon-star"></span></button>
@@ -78,21 +74,21 @@
       </button>
       <div id="itemCount"></div>
    </div> <!-- controlBlock -->
-<div class="row col-md-12 col-xs-12" style="display:inline-block;left:20px;">
+<div class="row col-md-12 col-xs-12" style="position:absolute;display:inline-block;left:20px;top:7vh;">
 
   <div id='CFM_plot' style="position:fixed;width:55%;height:90%;left:43%;border:solid 4px gray"></div>
 
-  <div id='queryBlock' style="background-color:transparent;width:40%;float:left;top:0px; overflow:auto">
+  <div id='queryBlock' style="position:fixed; background-color:transparent;top:7vh; width:40%;overflow:hidden;">
 
 <div id="pull-out" style="width:80%;">
-<ul id="sidebar" class="navigation" display="border:1px solid green" >
+<ul id="sidebar" class="navigation"  >
   <li id='system' class='navigationLi col-md-12 col-xs-12' style="display:none">
     <div id='systemMenu' class='menu'>
       <div id='systemLabel' class='menuLabel' style="margin-left:20px;font-size:14px;font-weight:bold">Query for Fault by system:<button class="pull-right" title="dismiss" onclick="systemClick()" style="border:none;background-color:transparent"><span class="glyphicon glyphicon-remove"></span>
 </button>
       </div>
       <div class="row col-md-12 col-xs-12">
-           <div class="row col-md-12 col-xs-12" style="margin-left:20px; margin-top:10px">
+           <div class="row col-md-12 col-xs-12" style="margin-left:20px; margin-top:20px">
 
       <div class="cfm-div" id="systemList"></div>
 
@@ -106,7 +102,7 @@
 </button>
       </div>
       <div class="row col-md-12 col-xs-12">
-           <div class="row col-md-12 col-xs-12" style="margin-left:20px; margin-top:10px">
+           <div class="row col-md-12 col-xs-12" style="margin-left:20px; margin-top:20px">
 
       <div class="cfm-div" id="regionList"></div>
 
@@ -120,7 +116,7 @@
 </button>
       </div>
       <div class="row col-md-12 col-xs-12">
-           <div class="row col-md-12 col-xs-12" style="margin-left:20px; margin-top:10px">
+           <div class="row col-md-12 col-xs-12" style="margin-left:20px; margin-top:20px">
 
       <div class="cfm-div" id="sectionList"></div>
 
@@ -134,7 +130,7 @@
 </button>
       </div>
       <div class="row col-md-12 col-xs-12">
-           <div class="row col-md-12 col-xs-12" style="margin-left:20px; margin-top:10px">
+           <div class="row col-md-12 col-xs-12" style="margin-left:20px; margin-top:20px">
 
       <div class="cfm-div" id="nameList"></div>
 
@@ -149,7 +145,7 @@
 </button>
       </div>
       <div class="row col-md-12 col-xs-12">
-           <div class="row col-md-12 col-xs-12" style="margin-left:20px; margin-top:10px">
+           <div class="row col-md-12 col-xs-12" style="margin-left:20px; margin-top:20px">
              <div class="cfm-div" id="strikeRange" style="padding-left:10px; padding-right:10px; overflow:hidden;"></div>
            </div>
        </div>
@@ -162,7 +158,7 @@
 </button>
       </div>
       <div class="row col-md-12 col-xs-12">
-           <div class="row col-md-12 col-xs-12" style="margin-left:20px; margin-top:10px">
+           <div class="row col-md-12 col-xs-12" style="margin-left:20px; margin-top:20px">
              <div class="cfm-div" id="dipRange" style="padding-left:10px; padding-right:10px; overflow:hidden;"></div>
            </div>
        </div>
@@ -175,9 +171,9 @@
 </button>
       </div>
       <div class="row col-md-12 col-xs-12">
-           <div class="row col-md-12 col-xs-12" style="margin-left:20px; margin-top:10px">
+           <div class="row col-md-12 col-xs-12" style="margin-left:20px; margin-top:20px">
 
-      <div class="cfm-div"> Keyword:&nbsp;<input type="text" id="keywordTxt" onfocus="this.value=''" style="right-margin:10px; border:1px solid black; color:orange; text-align:center;">
+      <div class="cfm-div"> Keyword:&nbsp;<input type="text" id="keywordTxt" onfocus="this.value=''" style="right-margin:10px; width:20vw;border:1px solid black; color:orange; text-align:center;">
        <button id="keywordBtn" type="button" title="search with keyword" class="btn btn-default cfm-small-btn" onclick="searchByKeyword()">
             <span class="glyphicon glyphicon-search"></span>
        </button>
@@ -193,13 +189,13 @@
 </button>
       </div>
       <div class="row col-md-12 col-xs-12">
-           <div class="row col-md-12 col-xs-12" style="margin-left:20px; margin-top:10px;">
+           <div class="row col-md-12 col-xs-12" style="margin-left:20px; margin-top:20px;">
 
-      <div class="cfm-div"> Lat:&nbsp<input type="text" id="minLatTxt" title="min lat"  onfocus="this.value=''" style="width:100px; right-margin:10px; border:1px solid black; color:orange; text-align:center;"> &nbsp <input type="text" id="maxLatTxt" title-"optional max lat" value='optional' onfocus="this.value=''" style="width:100px; right-margin:10px; border:1px solid black; color:orange; text-align:center;"> 
+      <div class="cfm-div"> Lat:&nbsp<input type="text" id="minLatTxt" title="min lat"  onfocus="this.value=''" style="width:10vw; right-margin:10px; border:1px solid black; color:orange; text-align:center;"> &nbsp <input type="text" id="maxLatTxt" title-"optional max lat" value='optional' onfocus="this.value=''" style="width:10vw; right-margin:10px; border:1px solid black; color:orange; text-align:center;"> 
       <button id="latlonBtn" type="button" title="search with latlon" class="btn btn-default cfm-small-btn" onclick="searchByLatlon()">
           <span class="glyphicon glyphicon-search"></span>
       </button></div>
-      <div clss="cfm-div"> &nbsp Lon:<input type="text" id="minLonTxt" title="min lon" onfocus="this.value=''" style="width:100px; right-margin:10px; border:1px solid black; color:orange; text-align:center;"> &nbsp <input type="text" id="maxLonTxt" title="optional max lon" value='optional' onfocus="this.value=''" style="width:100px; right-margin:10px; border:1px solid black; color:orange; text-align:center;"> </div>
+      <div clss="cfm-div"> &nbsp Lon:<input type="text" id="minLonTxt" title="min lon" onfocus="this.value=''" style="width:10vw; right-margin:10px; border:1px solid black; color:orange; text-align:center;"> &nbsp <input type="text" id="maxLonTxt" title="optional max lon" value='optional' onfocus="this.value=''" style="width:10vw; right-margin:10px; border:1px solid black; color:orange; text-align:center;"> </div>
        </div>
     </div>
   </li>
@@ -225,7 +221,7 @@
 </ul>
 </div><!-- pull-out -->
   </div><!-- queryBlock -->
-<div id='resultBlock' style="position:fixed; top:22vh; left:30px;width:40%;height:90%;">
+<div id='resultBlock' style="position:fixed; top:20vh; left:30px;width:40%;height:90%;">
   <br>
   <div id="searchResult" class="table-responsive"></div>
   <div id="geoSearchByObjGidResult" style="display:none"></div>

@@ -20,7 +20,7 @@ th {text-align: left;}
 .leaflet-control-layers-expanded {
         overflow: hidden;
         position:absolute;
-        left:80%;
+        left:85%;
         border: 2px solid grey;
         box-shadow: none;
         background: #D9D9D9;
@@ -37,6 +37,10 @@ th {text-align: left;}
         border:2px solid transparent;
 }
 
+.leaflet-control-layers-toggle {
+         margin-top:1.2vh;
+}
+
 .leaflet-control-layers-label {
         display: none;
 }
@@ -50,7 +54,7 @@ th {text-align: left;}
 .cfm-control-colors-expanded {
         overflow: hidden;
         position:absolute;
-        left:85%;
+        left:88%;
         border: 2px solid grey;
         box-shadow: none;
         background: #D9D9D9;
@@ -124,18 +128,27 @@ th {text-align: left;}
           border-radius: 2px;
           }
 
+.cfm-top-small-sz {
+          background: white; 
+          padding: 6px 6px;
+          font-size: 18px;
+          color: #6c6cff;
+          width: 3vw;
+          height: 3vw;
+          display: inline-block;
+          border-radius: 2px;
+          }
+
+
 .cfm-small-btn {
           background: transparent ; 
           color: blue;
-          width: 3vw;
-          height: 3vw;
-          border-radius: 4px;
           border: none; 
           display: inline-block;
           }
 
 .cfm-table {
-          max-height: 68vh;
+          max-height: 69vh;
           border: 1px solid grey;
           overflow: auto;
         }
