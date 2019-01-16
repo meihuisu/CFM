@@ -19,6 +19,7 @@ jQuery(document).ready(function() {
   getAllTraces();
   setupSearch();
   addFaultColorsSelect();
+  addDownloadSelect();
 }) // end of MAIN
 
 

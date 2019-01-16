@@ -65,12 +65,11 @@ function reset_select_latlon() {
 }
 
 // download meta data of selected highlighted faults 
-function downloadMeta() {
-   // collect up the meta data from the highlighted set of traces
-   var hlist=get_highlight_list();
-   var mlist=get_meta_list(hlist);
-   var data=getJSONFromMeta(mlist);
-   saveFile(data);
+function downloadMeta(mlist) {
+   var data;
+   var timestamp;
+   [data,timestamp]=getJSONFromMeta(mlist);
+   saveAsBlobFile(data, timestamp);
 }
 
 function expandColorsControl() {
@@ -100,6 +99,116 @@ function changeFaultColor() {
     val=$('input[name=cfm-fault-colors]:checked').val() 
     use_fault_color=val;
     reset_fault_color();
+}
+
+// for native, 500m, 1000m
+// with added metadata file
+function downloadURLsAsZip(mlist) {
+  var cnt=mlist.length;
+
+  if(cnt == 0)
+    return;
+ 
+  var data;
+  var timestamp;
+  var url;
+  var dname;
+
+  [data,timestamp]=getJSONFromMeta(mlist);
+  var nzip=new JSZip();
+
+  // put in the metadata
+  var fname="CFM_metadata_"+timestamp+".json"; 
+  nzip.file(fname, data);
+  
+  for(var i=0; i<cnt; i++) {
+    var meta=mlist[i];
+    var gid=meta['gid'];
+    if (use_download_set == 'native') {
+      if(in_native_gid_list(gid)) {
+        url=url_in_native_list(gid);
+        if(url) {
+          dname=url.substring(url.lastIndexOf('/')+1);
+          var promise = $.get(url);
+          nzip.file(dname,promise);
+        }
+      }
+      continue;
+    }
+    if (use_download_set == '500m') {
+      if(in_500m_gid_list(gid)) {
+        url=url_in_500m_list(gid);
+        if(url) {
+          dname=url.substring(url.lastIndexOf('/')+1);
+          var promise = $.get(url);
+          nzip.file(dname,promise);
+        }
+      }
+      continue;
+    }
+    if (use_download_set == '1000m') {
+      if(in_1000m_gid_list(gid)) {
+        url=url_in_1000m_list(gid);
+        if(url) {
+          dname=url.substring(url.lastIndexOf('/')+1);
+          var promise = $.get(url);
+          nzip.file(dname,promise);
+        }
+      }
+      continue;
+    }
+  }
+
+  var zipfname="CFM_"+timestamp+".zip"; 
+  nzip.generateAsync({type:"blob"}).then(function (content) {
+    // see FileSaver.js
+    saveAs(content, zipfname);
+  })
+}
+
+
+function expandDownloadControl() {
+   if ( $('#downloadSelect').hasClass('cfm-control-download-expanded') ) {
+     window.console.log("already expanded...");
+     } else {
+       $('#downloadSelect').addClass('cfm-control-download-expanded');
+   }
+}
+
+function removeDownloadControl() {
+    var divs=document.getElementsByClassName('cfm-control-download-selector');
+    for(var i = 0; i < divs.length; i++)
+    {
+      var div=divs[i];
+      if(div.checked == true) {
+         div.checked=false;
+         reset_download_set();
+         return;
+      }
+    }
+   if ( $('#downloadSelect').hasClass('cfm-control-download-expanded') ) {
+     $('#downloadSelect').removeClass('cfm-control-download-expanded');
+     } else {
+        window.console.log("hum.. not yet expanded...");
+   }
+}
+
+function changeDownloadSet() {
+    var val=$('input[name=cfm-fault-download]:checked').val() 
+    use_download_set=val;
+    startDownload();
+}
+
+function startDownload()
+{
+  // collect up the meta data from the highlighted set of traces
+  var hlist=get_highlight_list();
+  var mlist=get_meta_list(hlist);
+  if (use_download_set == 'meta') {
+    downloadMeta(mlist);
+    } else {
+      downloadURLsAsZip(mlist);
+  }
 }
 
 function plotAll() {
@@ -208,18 +317,7 @@ function getJSONFromMeta(mlist) {
     var data={"timestamp":timestamp, "metadata":mlist };
     var jsonblob=JSON.stringify(data);
 //http://stackoverflow.com/questions/105034/how-to-create-a-guid-uuid-in-javascript
-    return jsonblob;
-}
-
-function saveFile(data, fname)
-{
-//http://stackoverflow.com/questions/105034/how-to-create-a-guid-uuid-in-javascript
-    var rnd= Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-    var fname="CFM_metadata_"+rnd+".json";
-    var blob = new Blob([data], {
-        type: "text/plain;charset=utf-8"
-    });
-    saveAs(blob, fname);
+    return [jsonblob,timestamp];
 }
 
 function getGidFromMeta(meta) {

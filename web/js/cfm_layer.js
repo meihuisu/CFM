@@ -3,10 +3,10 @@
 ***/
 
 var highlight_style = {
-/*
     'color': 'RGB(0, 255, 255)',
-*/
+/*
     'color': 'RGB(255, 0, 0)',
+*/
     'opacity':1,
     'weight': 2,
 };
@@ -25,6 +25,7 @@ var cfm_toggle_plot=1;
    tracking data structure
 ***/
 var use_fault_color = "default";
+var use_download_set = "";
 
 // [ { "abb": abb1, "name" : name1 }, {"abb": abb2, "name": name2 }, ... ]
 var cfm_region_list=[];
@@ -71,11 +72,12 @@ var cfm_nogeo_gid_list=[];
 //  [ { "gid": gid1,  "meta": mmm1 }, {  "gid": gid2, "meta": mmm2 }, ... } 
 var cfm_fault_meta_list=[];
 
-// gid is objgid
+// gid is objgid, trace is leaflet feature (1 per layer)
 // [ {"gid": gid1, "trace": trace1 }, {"gid":gid2, "trace":trace2}... ], only with geo
 var cfm_trace_list=[];
 
-// gid is objgid
+// gid is objgid, layer is geoLayer made from geoJSON with trace-feature 
+// by leaflet
 // [ {"gid": gid1, "layer": layer1 }, {"gid":gid2, "layer":layer2}...], only with geo
 var cfm_layer_list=[];
 
@@ -177,10 +179,15 @@ function reset_fault_color() {
     var id=get_leaflet_id(element) 
     var style=gstyle['style'];
     var v=gstyle['visible'];
+    var h=gstyle['highlight'];
     if(v) {
-       viewermap._layers[id].setStyle(style);
+       if(!h) {
+         viewermap._layers[id].setStyle(style);
+       }
     }
   });
+   
+//???  reset_layer_list();
 }
 
 function reset_style_list() {
@@ -205,6 +212,11 @@ function find_meta_list(target) {
         found=element;
    });
    return found;
+}
+
+function reset_download_set()
+{
+   use_download_set = "";
 }
 
 function get_meta_list(gidlist) {

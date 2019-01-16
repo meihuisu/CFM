@@ -26,6 +26,7 @@
 <script type='text/javascript' src='js/vendor/jquery-ui.js'></script>
 <script type='text/javascript' src='js/vendor/ersi-leaflet.js'></script>
 <script type='text/javascript' src='js/vendor/FileSaver.js'></script>
+<script type='text/javascript' src='js/vendor/jszip.js'></script>
 
 <script type="text/javascript" src="js/debug.js"></script>
 <script type="text/javascript" src="js/cfm_leaflet.js"></script>
@@ -57,7 +58,7 @@
       <button id="dipBtn" class="btn cfm-top-btn" title="search by dip" onclick="dipClick();">
        <span class="glyphicon glyphicon-search"></span> Dip</button>
     </div>
-      <div id="external_leaflet_control" class="cfm-top-small-size" ></div>
+      <div id="external_leaflet_control"></div>
 
       <button id="colorBtn" class="btn cfm-top-small-btn" onMouseEnter="expandColorsControl()">
         <span class="glyphicon glyphicon-star"></span></button>
@@ -69,12 +70,12 @@
       <button id="refreshBtn" class="btn cfm-top-small-btn" title="refresh to initial state" onclick="refreshAll();">
         <span class="glyphicon glyphicon-refresh"></span></button>
 
-      <button id="basketBtn" class="btn cfm-top-small-btn" title="download selected faults metadata" onclick="downloadMeta();">
-        <span class="glyphicon glyphicon-download-alt"></span>
-      </button>
+      <button id="basketBtn" class="btn cfm-top-small-btn" title="download selected faults metadata" onMouseEnter="expandDownloadControl()">
+        <span class="glyphicon glyphicon-download-alt"></span></button>
       <div id="itemCount"></div>
+      <div id="downloadSelect" class="cfm-control-download"></div>
    </div> <!-- controlBlock -->
-<div class="row col-md-12 col-xs-12" style="position:absolute;display:inline-block;left:20px;top:7vh;">
+<div class="row col-md-12 col-xs-12" style="position:absolute;display:inline-block;left:20px;top:8vh;">
 
   <div id='CFM_plot' style="position:fixed;width:55%;height:90%;left:43%;border:solid 4px gray"></div>
 
