@@ -243,6 +243,12 @@ function makeResultTableWithList(glist)
       document.getElementById("searchResult").innerHTML = newhtml;
     }
 }
+// 
+function add_details(meta,str) {
+  var gid=meta['gid'];
+  str=str+'<button class=\"btn btn-xs cfm-small-btn\" title=\"show detail\"><span id=\"detail_'+gid+'\" class=\"glyphicon glyphicon-menu-hamburger\" onclick=\"show_detail('+gid+')\"></span></button>';
+  return str;
+}
 
 // for native, 500m, 1000m
 function add_downloads(meta,str) {
@@ -250,7 +256,7 @@ function add_downloads(meta,str) {
   if(in_native_gid_list(gid)) {
     var url=url_in_native_list(gid);
     if(url) {
-      str=str+'<br><br><a href=\"'+url+'\" download> <button class=\"btn btn-xs cfm-btn\" title=\"download native tsurf file\"><span id=\"download_native_'+gid+'\" class=\"glyphicon glyphicon-download\"></span>native</button></a>';
+      str=str+'<a href=\"'+url+'\" download> <button class=\"btn btn-xs cfm-btn\" title=\"download native tsurf file\"><span id=\"download_native_'+gid+'\" class=\"glyphicon glyphicon-download\"></span>native</button></a>';
     }
   }
   if(in_500m_gid_list(gid)) {

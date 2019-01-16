@@ -108,6 +108,11 @@ function downloadURLsAsZip(mlist) {
 
   if(cnt == 0)
     return;
+
+  if(cnt < 0) {
+    window.console.log("BAD BAD...");  
+    return;
+  }
  
   var data;
   var timestamp;
@@ -279,6 +284,8 @@ function getLevel1ContentFromMeta(meta) {
     content=_item(meta,content,'source_Author','AUTHOR');
     content=content+"<br>VERSION: "+meta['CFM_version'];
     content=content+"<br>USGS_ID: "+meta['USGS_ID'];
+    content=content+"<br><br>";
+    content=add_details(meta,content);
     content=add_downloads(meta,content);
     return content;
 }
