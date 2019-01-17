@@ -148,7 +148,7 @@ function find_style_list(target) {
 }
 
 // reset to style with new color
-// in both cfm_style_list and also in layer
+// in both cfm_style_list and also in layer -- but only visible ones
 function reset_fault_color() {
   // reset fault color in the style list
   var new_cfm_style_list=[];
@@ -177,6 +177,8 @@ function reset_fault_color() {
        if(!h) {
          viewermap._layers[id].setStyle(style);
        }
+      } else {
+      gstyle['dirty_style']=true;
     }
   });
 }
@@ -237,7 +239,7 @@ function in_active_gid_list(target) {
      return found;
 
    cfm_active_gid_list.forEach(function(element) {
-     if ( element['gid'] == target )
+     if ( element == target )
         found=1;
    });
    return found;
@@ -467,7 +469,7 @@ function toggle_off_all_layer()
      var vis=s['visible'];
      var gid=s['gid'];
      if(vis == 1) { 
-       toggle_layer(gid) 
+        toggle_layer(gid) 
      }
   }
   cfm_toggle_plot=0;
@@ -484,8 +486,9 @@ function toggle_layer_with_list(glist)
         continue;
      var vis=s['visible'];
      var gid=s['gid'];
-     if(vis == 0) 
-       toggle_layer(gid) 
+     if(vis == 0) { 
+         toggle_layer(gid) 
+     }
   }
 }
 
@@ -498,8 +501,13 @@ function toggle_on_all_layer()
      var s=cfm_style_list[i];
      var vis=s['visible'];
      var gid=s['gid'];
-     if(vis == 0) 
-       toggle_layer(gid) 
+     if(vis == 0) { 
+       toggle_layer(gid); 
+          // mark only in active search list
+       if(in_active_gid_list(gid)==1) { 
+          s['dirty_visible']=true;
+       }
+     }
   }
 }
 
@@ -516,8 +524,19 @@ function toggle_layer(target)
     viewermap.removeLayer(layer);
     s['visible'] = 0;
     } else {
+      if( s['dirty_visible'] != undefined ){ // do nothing
+        s['dirty_visible'] = undefined;
+        return;
+      }
       s['visible'] = 1;
       $(eye).removeClass('glyphicon-eye-close').addClass('glyphicon-eye-open');
       viewermap.addLayer(layer);
+// if style is dirty, needs to be updated from the stylelist..
+      if( s['dirty_style'] !=  undefined ) {
+        var id=get_leaflet_id(c);
+        var style=s['style'];
+        viewermap._layers[id].setStyle(style);
+        s['dirty_style']=undefined;
+      }
   }
 }

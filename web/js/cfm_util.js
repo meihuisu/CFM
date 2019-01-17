@@ -225,6 +225,7 @@ function toggleAll() {
   cfm_toggle_plot= !cfm_toggle_plot;
   if(cfm_toggle_plot) {
 // make every layer visible ignoring highlight changes
+// preserve all visibility state
     toggle_on_all_layer()
     makeResultTableWithList(cfm_gid_list);
     } else {
