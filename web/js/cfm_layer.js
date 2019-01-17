@@ -11,14 +11,7 @@ var highlight_style = {
     'weight': 2,
 };
 
-/***
- all trace Layer consist of many feautures(=faults) to be 
- manipulated in sync
-***/
-//var cfm_all_trace={"type":"FeatureCollection", "features":[]};
-//var cfm_all_layer;
-
-
+// for toggleAll option
 var cfm_toggle_plot=1;
 
 /***
@@ -120,8 +113,8 @@ function makeGeoJSONFeature(geoJSON, gid, meta) {
        blob=JSON.parse(geoJSON);
   }
 
-  var content=getLevel2ContentFromMeta(meta);
-  var level1content=getLevel1ContentFromMeta(meta);
+  var level2content=getSecondaryContentFromMeta(meta);
+  var level1content=getMainContentFromMeta(meta);
   var color=getColorFromMeta(meta);
   var style= { "weight":2,
                "opacity":0.8,
@@ -130,8 +123,8 @@ function makeGeoJSONFeature(geoJSON, gid, meta) {
 
   var tmp= { "id":gid,
              "type":"Feature", 
-             "properties": { "popupContent": content,
-                             "popupLevel1Content":level1content,
+             "properties": { "popupContent": level2content,
+                             "popupMainContent":level1content,
                              "style": style
                            },
              "geometry": blob 
@@ -186,8 +179,6 @@ function reset_fault_color() {
        }
     }
   });
-   
-//???  reset_layer_list();
 }
 
 function reset_style_list() {
@@ -253,6 +244,7 @@ function in_active_gid_list(target) {
 }
 
 
+// find a layer from the layer list
 function find_layer_list(target) { 
    var found=undefined;
    cfm_layer_list.forEach(function(element) {

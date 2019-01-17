@@ -246,7 +246,10 @@ function makeResultTableWithList(glist)
 // 
 function add_details(meta,str) {
   var gid=meta['gid'];
-  str=str+'<button class=\"btn btn-xs cfm-small-btn\" title=\"show detail\"><span id=\"detail_'+gid+'\" class=\"glyphicon glyphicon-menu-hamburger\" onclick=\"show_detail('+gid+')\"></span></button>';
+  str=str+'<button class=\"btn btn-xs cfm-small-btn\" title=\"show more details\"><span id=\"detail_'+gid+'\" class=\"glyphicon glyphicon-menu-hamburger\" onclick=\"show_details('+gid+')\"></span></button>';
+/* XXX
+  str=str+'<button class=\"btn btn-xs cfm-small-btn\" title=\"show more details\"><span id=\"detail_'+gid+'\" class=\"glyphicon glyphicon-menu-hamburger\" onmouseover=\"show_details('+gid+')\" onmouseleave="\close_details('+gid+')\"></span></button>';
+*/
   return str;
 }
 

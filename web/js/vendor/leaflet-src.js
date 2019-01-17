@@ -9856,6 +9856,7 @@ Layer.include({
 	},
 
 	// @method unbindPopup(): this
+//           .setContent('layer#'+e.layer.feature.id+'<br>'+level1) 
 	// Removes the popup previously bound with `bindPopup`.
 	unbindPopup: function () {
 		if (this._popup) {

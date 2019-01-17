@@ -114,6 +114,14 @@ ctrl_div.appendChild(layerControl.onAdd(mymap));
   return mymap;
 }
 
+function popupDetails(layer) {
+   layer.openPopup(layer);
+}
+
+function closeDetails(layer) {
+   layer.closePopup();
+}
+
 function addGeoToMap(cfmTrace, mymap) {
 
    var geoLayer=L.geoJSON(cfmTrace, {
@@ -148,10 +156,10 @@ function addGeoToMap(cfmTrace, mymap) {
 // leaflet-popup-close-button -- location
     if (mymap) {
        var tmp=e.layer.feature.properties;
-       var level1=tmp.popupLevel1Content;
+       var level1=tmp.popupMainContent;
+//       layerPopup = L.popup({ autoClose: false, closeOnClick: false })
        layerPopup = L.popup()
            .setLatLng(e.latlng) 
-//           .setContent('layer#'+e.layer.feature.id+'<br>'+level1) 
            .setContent(level1) 
            .openOn(mymap);
     }
@@ -165,7 +173,6 @@ function addGeoToMap(cfmTrace, mymap) {
     }
   });
 ***/
-
   return geoLayer;
 }
 

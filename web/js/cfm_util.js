@@ -274,7 +274,7 @@ function _item(meta,str,type,name) {
     return str;
 }
 
-function getLevel1ContentFromMeta(meta) {
+function getMainContentFromMeta(meta) {
     var content=meta['fault'];
     content=content+"<br>--------------------";
     content=content+"<br>SYSTEM: "+meta['system'];
@@ -290,7 +290,19 @@ function getLevel1ContentFromMeta(meta) {
     return content;
 }
 
-function getLevel2ContentFromMeta(meta) {
+function show_details(gid)
+{
+   var l=find_layer_list(gid);
+   if(l) {
+      geoLayer=l['layer'];
+      geoLayer.eachLayer(function(layer) {
+        popupDetails(layer);
+        toggle_highlight(gid);
+      });
+   }
+}
+
+function getSecondaryContentFromMeta(meta) {
 // get info on this..
     var content=meta['fault'];
     content=content+"<br>--------------------";
