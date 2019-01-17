@@ -277,7 +277,11 @@ function _item(meta,str,type,name) {
 
 function getMainContentFromMeta(meta) {
     var content=meta['fault'];
-    content=content+"<br>--------------------";
+    var sz=content.length+10;
+    var c="<br>";
+    for(var i=0; i<sz; i++)
+       c=c+"-";
+    content=content+c;
     content=content+"<br>SYSTEM: "+meta['system'];
     content=content+"<br>REGION: "+meta['region'];
     content=content+"<br>SECTION: "+meta['section'];
@@ -285,9 +289,9 @@ function getMainContentFromMeta(meta) {
     content=_item(meta,content,'source_Author','AUTHOR');
     content=content+"<br>VERSION: "+meta['CFM_version'];
     content=content+"<br>USGS_ID: "+meta['USGS_ID'];
-    content=content+"<br><br>";
-    content=add_details(meta,content);
-    content=add_downloads(meta,content);
+    content=content+"<br>";
+    content=add_details_btn(meta,content);
+    content=add_highlight_btn(meta,content);
     return content;
 }
 
@@ -298,7 +302,6 @@ function show_details(gid)
       geoLayer=l['layer'];
       geoLayer.eachLayer(function(layer) {
         popupDetails(layer);
-        toggle_highlight(gid);
       });
    }
 }
@@ -306,12 +309,18 @@ function show_details(gid)
 function getSecondaryContentFromMeta(meta) {
 // get info on this..
     var content=meta['fault'];
-    content=content+"<br>--------------------";
+    var sz=content.length+10;
+    var c="<br>";
+    for(var i=0; i<sz; i++)
+       c=c+"-";
+    content=content+c;
     content=_item(meta,content,'strike','STRIKE');
     content=_item(meta,content,'dip','DIP');
     content=_item(meta,content,'area','AREA');
     content=_item(meta,content,'exposure','EXPOSURE');
     content=_item(meta,content,'final_slip_sense','FINAL_SLIP_SENSE');
+    content=content+"<br>";
+    content=add_downloads_btn(meta,content);
     return content;
 }
 

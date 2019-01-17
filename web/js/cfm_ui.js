@@ -253,18 +253,23 @@ function makeResultTableWithList(glist)
       document.getElementById("searchResult").innerHTML = newhtml;
     }
 }
-// 
-function add_details(meta,str) {
+
+// add details button 
+function add_details_btn(meta,str) {
   var gid=meta['gid'];
-  str=str+'<button class=\"btn btn-xs cfm-small-btn\" title=\"show more details\"><span id=\"detail_'+gid+'\" class=\"glyphicon glyphicon-menu-hamburger\" onclick=\"show_details('+gid+')\"></span></button>';
-/* XXX
-  str=str+'<button class=\"btn btn-xs cfm-small-btn\" title=\"show more details\"><span id=\"detail_'+gid+'\" class=\"glyphicon glyphicon-menu-hamburger\" onmouseover=\"show_details('+gid+')\" onmouseleave="\close_details('+gid+')\"></span></button>';
-*/
+  str=str+'<button class=\"btn btn-xs cfm-small-btn\" title=\"show more fault details\"><span id=\"detail_'+gid+'\" class=\"glyphicon glyphicon-menu-hamburger\" onclick=\"show_details('+gid+')\"></span></button>';
+  return str;
+}
+
+// add details button 
+function add_highlight_btn(meta,str) {
+  var gid=meta['gid'];
+  str=str+'<button class=\"btn btn-xs cfm-small-btn\" title=\"highlight this fault\"><span id=\"detail_'+gid+'\" class=\"glyphicon glyphicon-ok\" onclick=\"toggle_highlight('+gid+')\"></span></button>';
   return str;
 }
 
 // for native, 500m, 1000m
-function add_downloads(meta,str) {
+function add_downloads_btn(meta,str) {
   var gid=meta['gid'];
   if(in_native_gid_list(gid)) {
     var url=url_in_native_list(gid);
