@@ -268,24 +268,20 @@ function refreshAll() {
 // building up the content for the popup window on plot
 function _item(meta,str,type,name) {
     if(meta[type] == undefined || meta[type] == "") {
-       str = str + "<br>" + name+ ": NA";
+       str = str + name + ": NA";
        } else {
-         str = str + "<br>" + name+ ": "+meta[type];
+         str = str + name+ ": "+meta[type];
     }
     return str;
 }
 
 function getMainContentFromMeta(meta) {
     var content=meta['fault'];
-    var sz=content.length+10;
-    var c="<br>";
-    for(var i=0; i<sz; i++)
-       c=c+"-";
-    content=content+c;
-    content=content+"<br>SYSTEM: "+meta['system'];
+    content=content+"<hr>";
+    content=content+"SYSTEM: "+meta['system'];
     content=content+"<br>REGION: "+meta['region'];
     content=content+"<br>SECTION: "+meta['section'];
-    content=content+"<br>";
+    content=content+"<br><br>";
     content=_item(meta,content,'source_Author','AUTHOR');
     content=content+"<br>VERSION: "+meta['CFM_version'];
     content=content+"<br>USGS_ID: "+meta['USGS_ID'];
@@ -309,15 +305,15 @@ function show_details(gid)
 function getSecondaryContentFromMeta(meta) {
 // get info on this..
     var content=meta['fault'];
-    var sz=content.length+10;
-    var c="<br>";
-    for(var i=0; i<sz; i++)
-       c=c+"-";
-    content=content+c;
+    content=content+"<hr>";
     content=_item(meta,content,'strike','STRIKE');
+    content=content+"<br>";
     content=_item(meta,content,'dip','DIP');
+    content=content+"<br>";
     content=_item(meta,content,'area','AREA');
+    content=content+"<br>";
     content=_item(meta,content,'exposure','EXPOSURE');
+    content=content+"<br>";
     content=_item(meta,content,'final_slip_sense','FINAL_SLIP_SENSE');
     content=content+"<br><br>";
     content=add_downloads_btn(meta,content);
@@ -327,7 +323,7 @@ function getSecondaryContentFromMeta(meta) {
 function getLevel3ContentFromMeta(meta) {
 // get info on this..
     var content=meta['fault'];
-    content=content+"<br>--------------------";
+    content=content+"<hr>";
     content=_item(meta,content,'alternative','ALTERNATIVE');
     content=_item(meta,content,'model_description','MODEL_DESCRIPTION');
     content=_item(meta,content,'descriptor','DESCRIPTOR');
