@@ -3,10 +3,10 @@
 ***/
 
 var highlight_style = {
-    'color': 'RGB(0, 255, 255)',
 /*
-    'color': 'RGB(255, 0, 0)',
+    'color': 'RGB(0, 255, 255)',
 */
+    'color': 'RGB(255, 0, 0)',
     'opacity':1,
     'weight': 2,
 };
