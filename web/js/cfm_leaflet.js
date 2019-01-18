@@ -60,7 +60,7 @@ ctrl_div.appendChild(layerControl.onAdd(mymap));
    var span = document.createElement('span');
    span.style="font-size:14px;font-weight:bold;";
    span.className="leaflet-control-layers-label";
-   span.innerHTML = 'Set background';
+   span.innerHTML = 'Select background';
    parent_div.insertBefore(span, forms_div[0]);
 
 

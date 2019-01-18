@@ -289,7 +289,7 @@ function getMainContentFromMeta(meta) {
     content=_item(meta,content,'source_Author','AUTHOR');
     content=content+"<br>VERSION: "+meta['CFM_version'];
     content=content+"<br>USGS_ID: "+meta['USGS_ID'];
-    content=content+"<br>";
+    content=content+"<br><br>";
     content=add_details_btn(meta,content);
     content=add_highlight_btn(meta,content);
     return content;
@@ -319,7 +319,7 @@ function getSecondaryContentFromMeta(meta) {
     content=_item(meta,content,'area','AREA');
     content=_item(meta,content,'exposure','EXPOSURE');
     content=_item(meta,content,'final_slip_sense','FINAL_SLIP_SENSE');
-    content=content+"<br>";
+    content=content+"<br><br>";
     content=add_downloads_btn(meta,content);
     return content;
 }
