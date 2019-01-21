@@ -173,7 +173,7 @@ th {text-align: left;}
         }
 
 .cfm-table {
-          max-height: 69vh;
+          max-height: 67vh;
           border: 1px solid grey;
           overflow: auto;
         }
