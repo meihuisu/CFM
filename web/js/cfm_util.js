@@ -202,8 +202,10 @@ function startDownload()
   var hlist=get_highlight_list();
   var mlist=get_meta_list(hlist);
   var cnt=mlist.length;
-  if(cnt == 0)
+  if(cnt == 0) {
+    alert("No fault selected"); 
     return;
+  }
   if (use_download_set == 'meta') {
     downloadMeta(mlist);
     } else {

@@ -62,7 +62,7 @@
 
       <button id="colorBtn" class="btn cfm-top-small-btn" onMouseEnter="expandColorsControl()">
         <span class="glyphicon glyphicon-star"></span></button>
-      <div id="colorSelect" class="cfm-control-colors"></div>
+      <div id="colorSelect" class="cfm-control-colors" onMouseLeave="removeColorsControl()"></div>
 
       <button id="toggleBtn" class="btn cfm-top-small-btn" title="toggle to display all faults" onclick="toggleAll()">
         <span class="glyphicon glyphicon-adjust"></span></button>
@@ -73,7 +73,7 @@
       <button id="basketBtn" class="btn cfm-top-small-btn" title="download selected faults metadata" onMouseEnter="expandDownloadControl()">
         <span class="glyphicon glyphicon-download-alt"></span></button>
       <div id="itemCount"></div>
-      <div id="downloadSelect" class="cfm-control-download"></div>
+      <div id="downloadSelect" class="cfm-control-download" onMouseLeave="removeDownloadControl()"></div>
    </div> <!-- controlBlock -->
 <div class="row col-md-12 col-xs-12" style="position:absolute;display:inline-block;left:20px;top:8vh;">
 
