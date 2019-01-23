@@ -65,6 +65,7 @@ function reset_select_latlon() {
 }
 
 // download meta data of selected highlighted faults 
+// mlist should not be null
 function downloadMeta(mlist) {
    var data;
    var timestamp;
@@ -103,17 +104,8 @@ function changeFaultColor() {
 
 // for native, 500m, 1000m
 // with added metadata file
+// mlist should not be null
 function downloadURLsAsZip(mlist) {
-  var cnt=mlist.length;
-
-  if(cnt == 0)
-    return;
-
-  if(cnt < 0) {
-    window.console.log("BAD BAD...");  
-    return;
-  }
- 
   var data;
   var timestamp;
   var url;
@@ -209,6 +201,9 @@ function startDownload()
   // collect up the meta data from the highlighted set of traces
   var hlist=get_highlight_list();
   var mlist=get_meta_list(hlist);
+  var cnt=mlist.length;
+  if(cnt == 0)
+    return;
   if (use_download_set == 'meta') {
     downloadMeta(mlist);
     } else {

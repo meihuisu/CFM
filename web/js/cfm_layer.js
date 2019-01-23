@@ -76,12 +76,17 @@ var cfm_layer_list=[];
 
 // tracking original style
 // gid is objgid
-// [ {"gid": gid1, "style": style1, "visible": vis1, "highlight": hl1 }...], only with geo
+// [ {"gid": gid1, "style": style1, "visible": vis1, "highlight": hl1 },...], only with geo
 var cfm_style_list=[];
 
 // gid is objgid
 // { gid1, gid2, ... }, tracking current active search result, from all objects
 var cfm_active_gid_list=[];
+
+// a set of markers composed of lat lon locations, marking an area (start with just 1)
+// [ {"layer":layer1, "markers":[ {latA,lonA}, {latB,lonB}]},...];
+var cfm_active_area=[];
+
 /*********************************************************
 *********************************************************/
 
