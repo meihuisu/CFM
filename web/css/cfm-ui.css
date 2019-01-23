@@ -28,7 +28,7 @@ th {text-align: left;}
         height: 3vh;
 }
 .leaflet-control-layers-expanded {
-        overflow: hidden;
+        overflow: auto;
         position:absolute;
         left:85%;
         top: 10px;
@@ -36,7 +36,7 @@ th {text-align: left;}
         box-shadow: none;
         background: #D9D9D9;
         min-width: 180px;
-        min-height: 160px;
+        min-height: 170px;
         z-index: 1000;
         border-radius: 4px;
 }
@@ -70,7 +70,7 @@ th {text-align: left;}
         box-shadow: none;
         background: #D9D9D9;
         min-width: 150px;
-        min-height: 100px;
+        min-height: 110px;
         z-index: 1000;
         border-radius: 4px;
 }
