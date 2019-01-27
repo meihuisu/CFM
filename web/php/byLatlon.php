@@ -11,18 +11,34 @@ if (!$dbconn) { die('Could not connect'); }
 
 // if there are only 1 set of lat lon, then expand into a range
 
-$minlat = floatVal($_GET['minlat']);
-$maxlat = floatVal($_GET['maxlat']);
-$minlon = floatVal($_GET['minlon']);
-$maxlon = floatVal($_GET['maxlon']);
 
-if($maxlat == "0") { 
-  $maxlat = $minlat+0.001;
-  $minlat = $minlat-0.001;
+
+$firstlat = floatVal($_GET['firstlat']);
+$secondlat = floatVal($_GET['secondlat']);
+$firstlon = floatVal($_GET['firstlon']);
+$secondlon = floatVal($_GET['secondlon']);
+
+if($secondlat == "0") { 
+  $secondlat = $firstlat+0.001;
+  $firstlat = $firstlat-0.001;
 }
-if($maxlon == "0") {
-  $maxlon = $minlon+0.001;
-  $minlon = $minlon-0.001;
+if($secondlon == "0") {
+  $secondlon = $firstlon+0.001;
+  $firstlon = $firstlon-0.001;
+}
+
+$minlon = $firstlon;
+$maxlon = $secondlon;
+if($firstlon > $secondlon) {
+   $minlon = $secondlon;
+   $maxlon = $firstlon;
+}
+
+$minlat = $firstlat;
+$maxlat = $secondlat;
+if($firstlat > $secondlat) {
+  $minlat = $secondlat;
+  $maxlat = $firstlat;
 }
 
 echo "lat range: ", $minlat,", ",$maxlat,"<br>";

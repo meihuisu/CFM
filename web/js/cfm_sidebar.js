@@ -34,9 +34,8 @@ function dismiss_sidebar() {
 
 // slide out
 function systemClick() {
-
   if(!system_sidebar) { dismiss_sidebar(); }
-   
+
   system_sidebar = !system_sidebar;
   if(system_sidebar) {
     sidebar_system_slideOut();
@@ -299,11 +298,83 @@ function latlonClick() {
     sidebar_latlon_slideOut();
     $('#latlonBtn').addClass('pick');
     } else {
+      // enable the popup on map
       sidebar_latlon_slideIn();
       $('#latlonBtn').removeClass('pick');
   }
 }
 
+
+var park_a, park_b, park_c, park_d;
+function clicked_at(lat,lon) {
+   // need to capture the lat lon and draw a rectangle
+   if(latlon_sidebar) {
+     var firstlatstr=document.getElementById("firstLatTxt").value;
+     var firstlonstr=document.getElementById("firstLonTxt").value;
+     var secondlatstr=document.getElementById("secondLatTxt").value;
+     var secondlonstr=document.getElementById("secondLonTxt").value;
+     if(firstlatstr == "") {
+       park_a=lat;
+       park_b=lon;
+       $( "#firstLatTxt" ).val(lat);
+       $( "#firstLonTxt" ).val(lon);
+// drop a marker
+       add_bounding_rectangle_marker(park_a,park_b);
+       } else {
+         if(secondlatstr == "optional") {
+           park_c=lat;
+           park_d=lon;
+           $( "#secondLatTxt" ).val(lat);
+           $( "#secondLonTxt" ).val(lon);
+           } else {
+             park_a=park_c;
+             park_b=park_d;
+             add_bounding_rectangle_marker(park_a,park_b);
+             park_c=lat;
+             park_d=lon;
+             $( "#firstLatTxt" ).val(secondlatstr);
+             $( "#firsetLonTxt" ).val(secondlonstr);
+             $( "#secondLatTxt" ).val(lat);
+             $( "#secondLonTxt" ).val(lon);
+         }
+         // draw a rectangle bounding box
+         add_bounding_rectangle_layer(park_a,park_b,park_c,park_d);
+     }
+   }
+}
+function entered_latlon_by_hand() {
+   // need to capture the lat lon and draw a rectangle
+  var firstlatstr=document.getElementById("firstLatTxt").value;
+  var firstlonstr=document.getElementById("firstLonTxt").value;
+  var secondlatstr=document.getElementById("secondLatTxt").value;
+  var secondlonstr=document.getElementById("secondLonTxt").value;
+
+  if(secondlatstr == "optional" && secondlonstr == "optional") {
+    if(firstlatstr && firstlonstr) { // 2 values
+       var t1=parseFloat(firstlatstr);
+       var t2=parseFloat(firstlonstr);
+       park_a=t1-0.01;
+       park_b=t2-0.01;
+       park_c=t1+0.01;
+       park_d=t2+0.01;
+       add_bounding_rectangle_marker(t1,t2);
+       add_bounding_rectangle_layer(park_a,park_b,park_c,park_d);
+    } 
+    } else {
+       if(secondlatstr && secondlonstr) {
+         if(firstlatstr && firstlonstr) { // 4 values
+           park_a=parseFloat(firstlatstr);
+           park_b=parseFloat(firstlonstr);
+           park_c=parseFloat(secondlatstr);
+           park_d=parseFloat(secondlonstr);
+           add_bounding_rectangle_marker(park_a,park_b);
+           add_bounding_rectangle_layer(park_a,park_b,park_c,park_d);
+         }
+       }
+  }
+}
+
+//dismiss all popup and suppress the popup on map
 function sidebar_latlon_slideOut() {
   if (jQuery('#latlon').hasClass('menuDisabled')) {
     // if this menu is disabled, don't slide
@@ -315,6 +386,35 @@ function sidebar_latlon_slideOut() {
   sidebarptr.css("display","");
   panelptr.removeClass('fade-out').addClass('fade-in');
 }
+
+function markLatlon() {
+  if(skipPopup == false) { // enable marking
+    clear_popup();
+    skipPopup = true;
+    unbind_layer_popup();
+    park_a=park_b=park_c=park_d=undefined;
+    $('#markerBtn').css("color","red");
+    } else {
+       skipPopup = false;
+       $('#markerBtn').css("color","blue");
+       rebind_layer_popup();
+//       remove_bounding_rectangle_layer();
+//       remove_bounding_rectangle_marker();
+//       reset_select_latlon();
+  }
+}
+
+function reset_markLatlon() {
+  skipPopup = false;
+  $('#markerBtn').css("color","blue");
+  rebind_layer_popup();
+  remove_bounding_rectangle_layer();
+  remove_bounding_rectangle_marker();
+  reset_select_latlon();
+}
+
+
+// enable the popup on map
 function sidebar_latlon_slideIn() {
   if (jQuery('#latlon').hasClass('menuDisabled')) {
     // if this menu is disabled, don't slide
@@ -323,6 +423,7 @@ function sidebar_latlon_slideIn() {
   var panelptr=$('#latlon');
   panelptr.removeClass('fade-in').addClass('fade-out');
   panelptr.css("display","none");
+  reset_markLatlon();
 }
 
 // gid sidebar js

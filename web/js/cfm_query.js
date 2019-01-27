@@ -111,16 +111,16 @@ function searchByKeyword() {
 
 // takes 2 or 4 entries
 function searchByLatlon() {
-    minlatstr=document.getElementById("minLatTxt").value;
-    minlonstr=document.getElementById("minLonTxt").value;
-    maxlatstr=document.getElementById("maxLatTxt").value;
-    maxlonstr=document.getElementById("maxLonTxt").value;
-    if(maxlatstr == "optional")
-        maxlatstr="0";
-    if(maxlonstr == "optional")
-        maxlonstr="0";
+    firstlatstr=document.getElementById("firstLatTxt").value;
+    firstlonstr=document.getElementById("firstLonTxt").value;
+    secondlatstr=document.getElementById("secondLatTxt").value;
+    secondlonstr=document.getElementById("secondLonTxt").value;
+    if(secondlatstr == "optional")
+        secondlatstr="0";
+    if(secondlonstr == "optional")
+        secondlonstr="0";
     
-    if (minlatstr == "" || minlonstr=="") {
+    if (firstlatstr == "" || firstlonstr=="") {
         document.getElementById("searchResult").innerHTML = "";
         return;
     } else {
@@ -141,7 +141,7 @@ function searchByLatlon() {
                 document.getElementById("searchResult").innerHTML = makeResultTable(str);
             }
         }
-        xmlhttp.open("GET","php/byLatlon.php?minlat="+minlatstr+"&maxlat="+maxlatstr+"&minlon="+minlonstr+"&maxlon="+maxlonstr,true);
+        xmlhttp.open("GET","php/byLatlon.php?firstlat="+firstlatstr+"&secondlat="+secondlatstr+"&firstlon="+firstlonstr+"&secondlon="+secondlonstr,true);
         xmlhttp.send();
     }
 }

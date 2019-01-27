@@ -58,10 +58,10 @@ function reset_select_keyword() {
 }
 
 function reset_select_latlon() {
-  document.getElementById("minLatTxt").value = '';
-  document.getElementById("minLonTxt").value = '';
-  document.getElementById("maxLatTxt").value = 'optional';
-  document.getElementById("maxLonTxt").value = 'optional';
+  document.getElementById("firstLatTxt").value = '';
+  document.getElementById("firstLonTxt").value = '';
+  document.getElementById("secondLatTxt").value = 'optional';
+  document.getElementById("secondLonTxt").value = 'optional';
 }
 
 // download meta data of selected highlighted faults 
@@ -237,12 +237,13 @@ function selectAll() {
   if(select_all_flag == 0) {
     select_layer_list();
     select_all_flag=1;
+    $('#allBtn').css("color","red");
     } else {
        reset_layer_list();
        select_all_flag=0;
+      $('#allBtn').css("color","blue");
   }
-}
-
+} 
 function refreshAll() {
   reset_select_region();
   reset_select_section();

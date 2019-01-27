@@ -104,10 +104,16 @@ ctrl_div.appendChild(layerControl.onAdd(mymap));
 // mouse location popup 
   var popup = L.popup();
   function onMapClick(e) {
-    popup
-      .setLatLng(e.latlng)
-      .setContent("You clicked the map at " + e.latlng.toString())
-      .openOn(mymap);
+    if(!skipPopup) {
+      popup
+        .setLatLng(e.latlng)
+        .setContent("You clicked the map at " + e.latlng.toString())
+        .openOn(mymap);
+      } else {
+        // if in latlon search ..
+        var loc=e.latlng;
+        clicked_at(loc['lat'],loc['lng']);
+    }
   }
   mymap.on('click', onMapClick);
 
@@ -140,7 +146,7 @@ function addGeoToMap(cfmTrace, mymap) {
             return {color: "#0000ff", "weight":2}
         }
      },
-     onEachFeature: onEachFeature
+     onEachFeature: bindPopupEachFeature
    }).addTo(mymap);
 
    var layerPopup;
@@ -154,7 +160,7 @@ function addGeoToMap(cfmTrace, mymap) {
     var swapped_coordinates = [tmp_coords[1], tmp_coords[0]];  //Swap Lat and Lng
 */
 // leaflet-popup-close-button -- location
-    if (mymap) {
+    if (mymap && !skipPopup) {
        var tmp=e.layer.feature.properties;
        var level1=tmp.popupMainContent;
 //       layerPopup = L.popup({ autoClose: false, closeOnClick: false })
@@ -177,10 +183,8 @@ function addGeoToMap(cfmTrace, mymap) {
 }
 
 
-function onEachFeature(feature, layer) {
-//    var popupContent = "<p>I started out as a GeoJSON " +
-//        feature.geometry.type + ", but now I'm a Leaflet vector!</p>";
-
+// binding the 'detail' fault content
+function bindPopupEachFeature(feature, layer) {
     var popupContent="";
 
     if (feature.properties != undefined  && feature.properties.popupContent != undefined ) {
@@ -188,4 +192,31 @@ function onEachFeature(feature, layer) {
     }
     layer.bindPopup(popupContent);
 }
+
+// https://gis.stackexchange.com/questions/148554/disable-feature-popup-when-creating-new-simple-marker
+function unbindPopupEachFeature(layer) {
+    layer.unbindPopup();
+}
+
+function addRectangleLayer(latA,lonA,latB,lonB) {
+/*
+  var pointA=L.point(latA,lonA);
+  var pointB=L.point(latB,lonB);
+  var bounds=L.latLngBounds(viewermap.containerPointToLatLng(pointA),
+                                  viewermap.containerPointToLatLng(pointB));
+*/
+  var bounds = [[latA, lonA], [latB, lonB]];     
+window.console.log("addRectanglelayer A point...",latA, " ", lonA);
+window.console.log("addRectanglelayer B point...",latB, " ", lonB);
+  var layer=L.rectangle(bounds).addTo(viewermap);
+  return layer;
+}
+
+function addMarkerLayer(lat,lon) {
+window.console.log("addMarkerLayer.. point..", lat,lon);
+  var bounds = [lat, lon];
+  var layer = new L.marker(bounds).addTo(viewermap);
+  return layer;
+}
+
 

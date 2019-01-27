@@ -186,17 +186,16 @@
   </li>
   <li id='latlon' class='navigationLi col-md-12 col-xs-12' style="display:none">
     <div id='latlonMenu' class='menu'>
-      <div id='latlonLabel' class='menuLabel' style="margin-left:20px;font-size:14px;font-weight:bold;">Query for Fault by latlon:<button class="pull-right" title="dismiss" onclick="latlonClick()" style="border:none;background-color:transparent"><span class="glyphicon glyphicon-remove"></span>
-</button>
+      <div id='latlonLabel' class='menuLabel' style="margin-left:20px;font-size:14px;font-weight:bold;">Query for Fault by latlon:<button id="markerBtn" class="btn cfm-small-btn" title="select latlon on map" onclick="markLatlon()" style="border:none;background-color:transparent"><span class="glyphicon glyphicon-map-marker"></span></button><button class="pull-right" title="dismiss" onclick="latlonClick()" style="border:none;background-color:transparent"><span class="glyphicon glyphicon-remove"></span></button>
       </div>
       <div class="row col-md-12 col-xs-12">
            <div class="row col-md-12 col-xs-12" style="margin-left:20px; margin-top:20px;">
 
-      <div class="cfm-div"> Lat:&nbsp<input type="text" id="minLatTxt" title="min lat"  onfocus="this.value=''" style="width:10vw; right-margin:10px; border:1px solid black; color:orange; text-align:center;"> &nbsp <input type="text" id="maxLatTxt" title-"optional max lat" value='optional' onfocus="this.value=''" style="width:10vw; right-margin:10px; border:1px solid black; color:orange; text-align:center;"> 
+      <div class="cfm-div"> Lat:&nbsp<input type="text" id="firstLatTxt" title="first lat"  onfocus="this.value=''" style="width:10vw; right-margin:10px; border:1px solid black; color:orange; text-align:center;"> &nbsp <input type="text" id="secondLatTxt" title-"optional second lat" value='optional' onfocus="this.value=''" style="width:10vw; right-margin:10px; border:1px solid black; color:orange; text-align:center;"> 
       <button id="latlonBtn" type="button" title="search with latlon" class="btn btn-default cfm-small-btn" onclick="searchByLatlon()">
           <span class="glyphicon glyphicon-search"></span>
       </button></div>
-      <div clss="cfm-div"> &nbsp Lon:<input type="text" id="minLonTxt" title="min lon" onfocus="this.value=''" style="width:10vw; right-margin:10px; border:1px solid black; color:orange; text-align:center;"> &nbsp <input type="text" id="maxLonTxt" title="optional max lon" value='optional' onfocus="this.value=''" style="width:10vw; right-margin:10px; border:1px solid black; color:orange; text-align:center;"> </div>
+      <div clss="cfm-div"> &nbsp Lon:<input type="text" id="firstLonTxt" title="first lon" onfocus="this.value=''" style="width:10vw; right-margin:10px; border:1px solid black; color:orange; text-align:center;"> &nbsp <input type="text" id="secondLonTxt" title="optional second lon" value='optional' onfocus="this.value=''" style="width:10vw; right-margin:10px; border:1px solid black; color:orange; text-align:center;"> </div>
        </div>
     </div>
   </li>

@@ -1,6 +1,8 @@
 /***
    cfm_layer.js
 ***/
+// control whether the main mouseover popup should be active or not
+var skipPopup=false;
 
 var highlight_style = {
 /*
@@ -83,9 +85,10 @@ var cfm_style_list=[];
 // { gid1, gid2, ... }, tracking current active search result, from all objects
 var cfm_active_gid_list=[];
 
-// a set of markers composed of lat lon locations, marking an area (start with just 1)
+// a set of bounding box composed of  2 lat lon locations
 // [ {"layer":layer1, "markers":[ {latA,lonA}, {latB,lonB}]},...];
-var cfm_active_area=[];
+var cfm_latlon_area_list=[];
+var cfm_latlon_marker_list=[];
 
 /*********************************************************
 *********************************************************/
@@ -174,13 +177,15 @@ function reset_fault_color() {
   cfm_layer_list.forEach(function(element) {
     var gid=element['gid'];
     var gstyle=find_style_list(gid);
-    var id=get_leaflet_id(element) 
     var style=gstyle['style'];
     var v=gstyle['visible'];
     var h=gstyle['highlight'];
     if(v) {
        if(!h) {
-         viewermap._layers[id].setStyle(style);
+           var geolayer=element['layer'];
+           geolayer.eachLayer(function(layer) {
+             layer.setStyle(style);
+           }); 
        }
       } else {
       gstyle['dirty_style']=true;
@@ -199,6 +204,43 @@ function remove_layer_list() {
   cfm_layer_list.forEach(function(element) {
       var l=element['layer'];
       viewermap.removeLayer(l);
+  });
+}
+
+
+function get_feature(gid) {
+  var cnt=cfm_trace_list.length;
+  for(var i=0; i<cnt; i++) {
+    var element=cfm_trace_list[i];
+    var g=element['gid'];
+    if (gid == element['gid']) {
+       var trace=element["trace"];
+       return trace;
+    }
+  }
+  return {};
+}
+
+//           layer.bindPopup(layer.feature.properties.name);
+
+// unbind layer's popup on detail content
+function unbind_layer_popup() {
+  cfm_layer_list.forEach(function(element) {
+    var geolayer=element['layer'];
+    geolayer.eachLayer(function(layer) {
+       unbindPopupEachFeature(layer);
+    }); 
+  });
+}
+
+// rebind layer's popup on detail content
+function rebind_layer_popup() {
+  cfm_layer_list.forEach(function(element) {
+    var geolayer=element['layer'];
+    geolayer.eachLayer(function(layer) {
+       var feature=layer.feature;
+       bindPopupEachFeature(feature,layer);
+     }); 
   });
 }
 
@@ -303,17 +345,19 @@ function get_highlight_list() {
 }
 
 
-function toggle_highlight(target) {
-   var s=find_style_list(target);
+function toggle_highlight(gid) {
+   var s=find_style_list(gid);
    var h=s['highlight'];
-   var star='#'+"highlight_"+target;
+   var star='#'+"highlight_"+gid;
 
    if(h==0) {
      $(star).removeClass('glyphicon-ok').addClass('glyphicon-ok-circle');
      s['highlight']=1;
-     var l=find_layer_list(target);
-     var id=get_leaflet_id(l) 
-     viewermap._layers[id].setStyle(highlight_style);
+     var l=find_layer_list(gid);
+     var geolayer=l['layer'];
+     geolayer.eachLayer(function(layer) {
+       layer.setStyle(highlight_style);
+     }); 
      cfm_select_count++;
      // adjust width if needed
      $('#itemCount').html(cfm_select_count).css('display', 'block')
@@ -334,13 +378,16 @@ function toggle_highlight(target) {
            $('#itemCount').html(cfm_select_count).css('display', 'block')
        }
        s['highlight']=0;
-       var l=find_layer_list(target);
-       var id=get_leaflet_id(l) 
-       var s= find_style_list(target);
+       var l=find_layer_list(gid);
+       var geolayer=l['layer'];
+       var s= find_style_list(gid);
        var original=s['style'];
        var v=s['visible'];
-       if(v && original!=undefined)
-          viewermap._layers[id].setStyle(original);
+       if(v && original != undefined) {
+          geolayer.eachLayer(function(layer) {
+            layer.setStyle(original);
+          }); 
+       }
    }
 }
 
@@ -349,10 +396,10 @@ function get_leaflet_id(layer) {
    return id;
 }
 
-function find_trace_list(target) { 
+function find_trace_list(gid) { 
    var found=undefined;
    cfm_trace_list.forEach(function(element) {
-     if ( element['gid'] == target )
+     if ( element['gid'] == gid )
         found=element;
    });
    return found;
@@ -516,17 +563,17 @@ function toggle_on_all_layer()
   }
 }
 
-function toggle_layer(target)
+function toggle_layer(gid)
 {
-  var c=find_layer_list(target);
-  var s=find_style_list(target);
-  var t=find_trace_list(target);
-  var layer=c['layer'];
+  var c=find_layer_list(gid);
+  var s=find_style_list(gid);
+  var t=find_trace_list(gid);
+  var geolayer=c['layer'];
   var vis=s['visible'];
-  var eye='#'+"toggle_"+target;
+  var eye='#'+"toggle_"+gid;
   if(vis == 1) {
     $(eye).removeClass('glyphicon-eye-open').addClass('glyphicon-eye-close');
-    viewermap.removeLayer(layer);
+    viewermap.removeLayer(geolayer);
     s['visible'] = 0;
     } else {
       if( s['dirty_visible'] != undefined ){ // do nothing
@@ -535,13 +582,46 @@ function toggle_layer(target)
       }
       s['visible'] = 1;
       $(eye).removeClass('glyphicon-eye-close').addClass('glyphicon-eye-open');
-      viewermap.addLayer(layer);
+      viewermap.addLayer(geolayer);
 // if style is dirty, needs to be updated from the stylelist..
       if( s['dirty_style'] !=  undefined ) {
-        var id=get_leaflet_id(c);
         var style=s['style'];
-        viewermap._layers[id].setStyle(style);
+        geolayer.eachLayer(function(layer) {
+          layer.setStyle(style);
+        }); 
         s['dirty_style']=undefined;
       }
   }
+}
+
+function add_bounding_rectangle_layer(a,b,c,d) {
+window.console.log("making rectangle..",a," ",b," ",c," ",d);
+  remove_bounding_rectangle_layer();
+  var layer=addRectangleLayer(a,b,c,d);
+  var tmp={"layer":layer, "marker":[{"lat":a,"lon":b},{"lat":c,"lon":d}]};
+  cfm_latlon_area_list.push(tmp);
+}
+
+function remove_bounding_rectangle_layer() {
+   if(cfm_latlon_area_list.length > 0) {
+     var area=cfm_latlon_area_list.pop();
+     var l=area["layer"]; 
+     viewermap.removeLayer(l);
+   }
+}
+
+function add_bounding_rectangle_marker(a,b) {
+window.console.log("making marker..",a," ",b);
+  remove_bounding_rectangle_marker();
+  var layer=addMarkerLayer(a,b);
+  var tmp={"layer":layer, "marker":[{"lat":a,"lon":b}]};
+  cfm_latlon_marker_list.push(tmp);
+}
+
+function remove_bounding_rectangle_marker() {
+   if(cfm_latlon_marker_list.length > 0) {
+     var marker=cfm_latlon_marker_list.pop();
+     var l=marker["layer"]; 
+     viewermap.removeLayer(l);
+   }
 }
