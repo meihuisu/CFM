@@ -5,10 +5,6 @@ jQuery(document).ready(function() {
   frameHeight=window.innerHeight;
   frameWidth=window.innerWidth;
 
-  var myname= location.hostname;
-
-  alert("I am on "+myname);
-
   viewermap=setup_viewer();
 
 // special handle keyword's input completion
