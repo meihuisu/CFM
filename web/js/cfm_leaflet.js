@@ -206,14 +206,11 @@ function addRectangleLayer(latA,lonA,latB,lonB) {
                                   viewermap.containerPointToLatLng(pointB));
 */
   var bounds = [[latA, lonA], [latB, lonB]];     
-window.console.log("addRectanglelayer A point...",latA, " ", lonA);
-window.console.log("addRectanglelayer B point...",latB, " ", lonB);
   var layer=L.rectangle(bounds).addTo(viewermap);
   return layer;
 }
 
 function addMarkerLayer(lat,lon) {
-window.console.log("addMarkerLayer.. point..", lat,lon);
   var bounds = [lat, lon];
   var layer = new L.marker(bounds).addTo(viewermap);
   return layer;

@@ -86,6 +86,8 @@ var cfm_style_list=[];
 var cfm_active_gid_list=[];
 
 // a set of bounding box composed of  2 lat lon locations
+// for now, expect there is just 1 area only
+// and only 1 marker
 // [ {"layer":layer1, "markers":[ {latA,lonA}, {latB,lonB}]},...];
 var cfm_latlon_area_list=[];
 var cfm_latlon_marker_list=[];
@@ -439,7 +441,6 @@ function load_trace_list()
      var s =find_style_list(gid);
      s['visible']=1; // turn it on
   }
-  window.console.log("load_layer_list...",sz);
 }
 
 function in_500m_gid_list(target) {
@@ -595,7 +596,7 @@ function toggle_layer(gid)
 }
 
 function add_bounding_rectangle_layer(a,b,c,d) {
-window.console.log("making rectangle..",a," ",b," ",c," ",d);
+  // remove old one and add a new one
   remove_bounding_rectangle_layer();
   var layer=addRectangleLayer(a,b,c,d);
   var tmp={"layer":layer, "marker":[{"lat":a,"lon":b},{"lat":c,"lon":d}]};
@@ -603,7 +604,7 @@ window.console.log("making rectangle..",a," ",b," ",c," ",d);
 }
 
 function remove_bounding_rectangle_layer() {
-   if(cfm_latlon_area_list.length > 0) {
+   if(cfm_latlon_area_list.length == 1) {
      var area=cfm_latlon_area_list.pop();
      var l=area["layer"]; 
      viewermap.removeLayer(l);
@@ -611,7 +612,6 @@ function remove_bounding_rectangle_layer() {
 }
 
 function add_bounding_rectangle_marker(a,b) {
-window.console.log("making marker..",a," ",b);
   remove_bounding_rectangle_marker();
   var layer=addMarkerLayer(a,b);
   var tmp={"layer":layer, "marker":[{"lat":a,"lon":b}]};
@@ -619,9 +619,10 @@ window.console.log("making marker..",a," ",b);
 }
 
 function remove_bounding_rectangle_marker() {
-   if(cfm_latlon_marker_list.length > 0) {
+   if(cfm_latlon_marker_list.length == 1) {
      var marker=cfm_latlon_marker_list.pop();
      var l=marker["layer"]; 
      viewermap.removeLayer(l);
    }
 }
+

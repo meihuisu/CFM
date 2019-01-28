@@ -1,4 +1,3 @@
-
 /**
 
   cfm_sidebar.js
@@ -305,7 +304,9 @@ function latlonClick() {
 }
 
 
+//XXX, do we want to reset this ?? 
 var park_a, park_b, park_c, park_d;
+
 function clicked_at(lat,lon) {
    // need to capture the lat lon and draw a rectangle
    if(latlon_sidebar) {
@@ -313,6 +314,23 @@ function clicked_at(lat,lon) {
      var firstlonstr=document.getElementById("firstLonTxt").value;
      var secondlatstr=document.getElementById("secondLatTxt").value;
      var secondlonstr=document.getElementById("secondLonTxt").value;
+
+     // special case, if there is preset by manual input and then
+     // a switch to map input
+
+     if(firstlatstr != "" && park_a == undefined) {
+       park_a = parseFloat(firstlatstr);
+     }
+     if(firstlonstr != "" && park_b == undefined) {
+       park_b = parseFloat(firstlonstr);
+     }
+     if(secondlatstr != "" && secondlatstr!="optional" && park_c == undefined) {
+       park_c = parseFloat(secondlatstr);
+     }
+     if(secondlonstr != "" && secondlonstr!="optional" && park_d == undefined) {
+       park_d = parseFloat(secondlonstr);
+     }
+
      if(firstlatstr == "") {
        park_a=lat;
        park_b=lon;
@@ -333,7 +351,7 @@ function clicked_at(lat,lon) {
              park_c=lat;
              park_d=lon;
              $( "#firstLatTxt" ).val(secondlatstr);
-             $( "#firsetLonTxt" ).val(secondlonstr);
+             $( "#firstLonTxt" ).val(secondlonstr);
              $( "#secondLatTxt" ).val(lat);
              $( "#secondLonTxt" ).val(lon);
          }
@@ -342,8 +360,14 @@ function clicked_at(lat,lon) {
      }
    }
 }
-function entered_latlon_by_hand() {
-   // need to capture the lat lon and draw a rectangle
+
+// need to capture the lat lon and draw a rectangle but
+// not when in the map-marking mode : skipPopup==true
+function chk_and_add_bounding_rectangle_marker() {
+  
+  if(skipPopup == true) {
+    return;
+  }
   var firstlatstr=document.getElementById("firstLatTxt").value;
   var firstlonstr=document.getElementById("firstLonTxt").value;
   var secondlatstr=document.getElementById("secondLatTxt").value;
