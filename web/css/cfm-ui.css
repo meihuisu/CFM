@@ -155,7 +155,10 @@ th {text-align: left;}
           background: white; 
           padding: 6px 6px;
           font-size: 14px;
+          color: blue;
+/*
           color: #6c6cff;
+*/
           width: 3vw;
           height: 3vh;
           display: inline-block;
