@@ -377,10 +377,10 @@ function chk_and_add_bounding_rectangle_marker() {
     if(firstlatstr && firstlonstr) { // 2 values
        var t1=parseFloat(firstlatstr);
        var t2=parseFloat(firstlonstr);
-       park_a=t1-0.01;
-       park_b=t2-0.01;
-       park_c=t1+0.01;
-       park_d=t2+0.01;
+       park_a=t1-0.001;
+       park_b=t2-0.001;
+       park_c=t1+0.001;
+       park_d=t2+0.001;
        add_bounding_rectangle_marker(t1,t2);
        add_bounding_rectangle_layer(park_a,park_b,park_c,park_d);
     } 
