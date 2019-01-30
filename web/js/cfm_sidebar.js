@@ -14,6 +14,9 @@ var strike_sidebar=false;
 var dip_sidebar=false;
 var gid_sidebar=false;
 
+var drawing_rectangle=false;
+var marking_rectangle=false;
+
 // initiate a click on the sidebar buttons
 // to dismiss the sidebar
 function dismiss_sidebar() {
@@ -306,9 +309,9 @@ function latlonClick() {
 
 //XXX, do we want to reset this ?? 
 var park_a, park_b, park_c, park_d;
-
 function clicked_at(lat,lon) {
    // need to capture the lat lon and draw a rectangle
+   window.console.log("calling clicked_at...");
    if(latlon_sidebar) {
      var firstlatstr=document.getElementById("firstLatTxt").value;
      var firstlonstr=document.getElementById("firstLonTxt").value;
@@ -358,6 +361,23 @@ function clicked_at(lat,lon) {
          // draw a rectangle bounding box
          add_bounding_rectangle_layer(park_a,park_b,park_c,park_d);
      }
+   }
+}
+
+function set_latlons(firstlat,firstlon,secondlat,secondlon) {
+   // need to capture the lat lon and draw a rectangle
+   if(latlon_sidebar && drawing_rectangle) {
+       $( "#firstLatTxt" ).val(firstlat);
+       $( "#firstLonTxt" ).val(firstlon);
+       $( "#secondLatTxt" ).val(secondlat);
+       $( "#secondLonTxt" ).val(secondlon);
+   }
+}
+
+function clicked_at2()
+{
+   if(latlon_sidebar && drawing_rectangle) {
+     drawRectangle();
    }
 }
 
@@ -411,20 +431,42 @@ function sidebar_latlon_slideOut() {
   panelptr.removeClass('fade-out').addClass('fade-in');
 }
 
+function mark2Latlon() {
+  if(marking_rectangle) { // turn it off
+    markLatlon();
+  }
+  if(skipPopup == false) { // enable marking
+    clear_popup();
+    skipPopup = true;
+    drawing_rectangle=true;
+    unbind_layer_popup();
+    $('#marker2Btn').css("color","red");
+    } else {
+       skipPopup = false;
+       drawing_rectangle=false;
+       skipRectangle();
+       $('#marker2Btn').css("color","blue");
+       rebind_layer_popup();
+  }
+}
+
 function markLatlon() {
+
+  if(drawing_rectangle) { // turn it off
+    mark2Latlon();
+  }
   if(skipPopup == false) { // enable marking
     clear_popup();
     skipPopup = true;
     unbind_layer_popup();
     park_a=park_b=park_c=park_d=undefined;
+    marking_rectangle=true;
     $('#markerBtn').css("color","red");
     } else {
        skipPopup = false;
        $('#markerBtn').css("color","blue");
        rebind_layer_popup();
-//       remove_bounding_rectangle_layer();
-//       remove_bounding_rectangle_marker();
-//       reset_select_latlon();
+       marking_rectangle=false;
   }
 }
 
@@ -434,6 +476,7 @@ function reset_markLatlon() {
   rebind_layer_popup();
   remove_bounding_rectangle_layer();
   remove_bounding_rectangle_marker();
+  remove_bounding_rectangle_layer2();
   reset_select_latlon();
 }
 

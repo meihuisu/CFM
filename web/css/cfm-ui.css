@@ -20,6 +20,10 @@ th {text-align: left;}
       color:red;
 }
 
+.leaflet-control-container {
+      display: none;
+}
+
 .leaflet-control-layers {
         background: white; 
         margin-left: 4px;

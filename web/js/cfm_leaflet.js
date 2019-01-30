@@ -1,4 +1,18 @@
 // This is leaflet specific utilities
+var rectangle_options = {
+       showArea: false,
+         shapeOptions: {
+              stroke: true,
+              color: "blue",
+              weight: 3,
+              opacity: 0.5,
+              fill: true,
+              fillColor: null, //same as color by default
+              fillOpacity: 0.1,
+              clickable: false
+         }
+};
+var rectangleDrawer;
 
 function clear_popup()
 {
@@ -44,46 +58,31 @@ function setup_viewer()
   var basemap = L.layerGroup();
 
 // ==> mymap <==
-  var mymap = L.map('CFM_plot', {layers: [ersi_topographic, basemap], zoomControl:false}).setView([34.3, -118.4], 7);
+  var mymap = L.map('CFM_plot', { drawControl:false, layers: [ersi_topographic, basemap], zoomControl:false}).setView([34.3, -118.4], 7);
 
 // basemap selection
   var ctrl_div=document.getElementById('external_leaflet_control');
 
-var layerControl = L.control.layers(baseLayers, overLayer,{collapsed: true });
-layerControl.addTo(mymap);
-layerControl._container.remove();
-ctrl_div.appendChild(layerControl.onAdd(mymap));
-
-   // add a label to the leaflet-control-layers-list
-   var forms_div=document.getElementsByClassName('leaflet-control-layers-list');
-   var parent_div=forms_div[0].parentElement;
-   var span = document.createElement('span');
-   span.style="font-size:14px;font-weight:bold;";
-   span.className="leaflet-control-layers-label";
-   span.innerHTML = 'Select background';
-   parent_div.insertBefore(span, forms_div[0]);
-
-
+// ==> layer control <==
+// add and put it in the customized place
 //  L.control.layers(baseLayers, overLayer).addTo(mymap);
-
-
-// scalebar
+  var layerControl = L.control.layers(baseLayers, overLayer,{collapsed: true });
+  layerControl.addTo(mymap);
+  layerControl._container.remove();
+  ctrl_div.appendChild(layerControl.onAdd(mymap));
+  // add a label to the leaflet-control-layers-list
+  var forms_div=document.getElementsByClassName('leaflet-control-layers-list');
+  var parent_div=forms_div[0].parentElement;
+  var span = document.createElement('span');
+  span.style="font-size:14px;font-weight:bold;";
+  span.className="leaflet-control-layers-label";
+  span.innerHTML = 'Select background';
+  parent_div.insertBefore(span, forms_div[0]);
+  
+// ==> scalebar <==
   L.control.scale({metric: 'false', imperial:'false', position: 'bottomleft'}).addTo(mymap);  
 
-/*
-  var external_leaflet_control = L.control();
-  external_leaflet_control.onAdd= function (map) {
-       this._div=document.getElementById('external_leaflet_control');
-       this.update();
-       return this._div;
-  }
-
-  external_leaflet_control.update = function (props) {
-       this._div.innerHTML = '&lt;h4&gt;US Population Density&lt;/h4&gt;';
-  };
-*/
-
-/*
+/* TODO
  watermark XXX
   L.Control.Watermark = L.control.extend({
     onAdd: function (map) {
@@ -101,25 +100,70 @@ ctrl_div.appendChild(layerControl.onAdd(mymap));
   }
 */
 
-// mouse location popup 
+// ==> mouse location popup <== 
   var popup = L.popup();
   function onMapClick(e) {
-    if(!skipPopup) {
+    if(!skipPopup) { // suppress if in latlon search ..
       popup
         .setLatLng(e.latlng)
         .setContent("You clicked the map at " + e.latlng.toString())
         .openOn(mymap);
-      } else {
-        // if in latlon search ..
-        var loc=e.latlng;
-        clicked_at(loc['lat'],loc['lng']);
+      } else {   // but still need to track it.. for click-and-drag
+        if(marking_rectangle) {
+          var loc=e.latlng;
+          clicked_at(loc['lat'],loc['lng']);
+        }
     }
   }
   mymap.on('click', onMapClick);
 
+  function onMapMouseOver(e) {
+    if(drawing_rectangle) {
+      clicked_at2();
+    }
+  }
+  mymap.on('mouseover', onMapMouseOver);
+
+// ==> rectangle drawing control <==
+/*
+  var drawnItems = new L.FeatureGroup();
+  mymap.addLayer(drawnItems);
+  var drawControl = new L.Control.Draw({
+       draw: false,
+       edit: { featureGroup: drawnItems } 
+  });
+  mymap.addControl(drawControl);
+*/
+  rectangleDrawer = new L.Draw.Rectangle(mymap, rectangle_options);     
+  mymap.on(L.Draw.Event.CREATED, function (e) {
+    var type = e.layerType,
+        layer = e.layer;
+    if (type === 'rectangle') {  // only tracks retangles
+        // get the boundary of the rectangle
+        var latlngs=layer.getLatLngs();
+        // first one is always the south-west, 
+        // third one is always the north-east
+        var loclist=latlngs[0];
+        var sw=loclist[0];
+        var ne=loclist[2];
+        add_bounding_rectangle_layer2(layer,sw['lat'],sw['lng'],ne['lat'],ne['lng']);
+        mymap.addLayer(layer);
+    }
+  });
+
+
+// finally, 
   return mymap;
 }
 
+function drawRectangle(){
+  rectangleDrawer.enable();
+}
+function skipRectangle(){
+  rectangleDrawer.disable();
+}
+
+// ==> feature popup on each layer <==
 function popupDetails(layer) {
    layer.openPopup(layer);
 }

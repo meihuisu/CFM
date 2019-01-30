@@ -90,6 +90,8 @@ var cfm_active_gid_list=[];
 // and only 1 marker
 // [ {"layer":layer1, "markers":[ {latA,lonA}, {latB,lonB}]},...];
 var cfm_latlon_area_list=[];
+var cfm_latlon_rectangle_list=[];
+// [ {"layer":layer, "marker":[{"lat":a,"lon":b}]},...];
 var cfm_latlon_marker_list=[];
 
 /*********************************************************
@@ -607,6 +609,22 @@ function remove_bounding_rectangle_layer() {
    if(cfm_latlon_area_list.length == 1) {
      var area=cfm_latlon_area_list.pop();
      var l=area["layer"]; 
+     viewermap.removeLayer(l);
+   }
+}
+
+function add_bounding_rectangle_layer2(layer, a,b,c,d) {
+  // remove old one and add a new one
+  remove_bounding_rectangle_layer2();
+  var tmp={"layer":layer, "marker":[{"lat":a,"lon":b},{"lat":c,"lon":d}]};
+  set_latlons(a,b,c,d);
+  cfm_latlon_rectangle_list.push(tmp);
+}
+
+function remove_bounding_rectangle_layer2() {
+   if(cfm_latlon_rectangle_list.length == 1) {
+     var rectangle=cfm_latlon_rectangle_list.pop();
+     var l=rectangle["layer"]; 
      viewermap.removeLayer(l);
    }
 }
