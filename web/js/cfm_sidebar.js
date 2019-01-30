@@ -434,6 +434,8 @@ function sidebar_latlon_slideOut() {
 function mark2Latlon() {
   if(marking_rectangle) { // turn it off
     markLatlon();
+    remove_bounding_rectangle_layer();
+    remove_bounding_rectangle_marker();
   }
   if(skipPopup == false) { // enable marking
     clear_popup();
@@ -454,6 +456,7 @@ function markLatlon() {
 
   if(drawing_rectangle) { // turn it off
     mark2Latlon();
+    remove_bounding_rectangle_layer2();
   }
   if(skipPopup == false) { // enable marking
     clear_popup();
@@ -473,6 +476,16 @@ function markLatlon() {
 function reset_markLatlon() {
   skipPopup = false;
   $('#markerBtn').css("color","blue");
+  rebind_layer_popup();
+  remove_bounding_rectangle_layer();
+  remove_bounding_rectangle_marker();
+  remove_bounding_rectangle_layer2();
+  reset_select_latlon();
+}
+
+function reset_mark2Latlon() {
+  skipPopup = false;
+  $('#marker2Btn').css("color","blue");
   rebind_layer_popup();
   remove_bounding_rectangle_layer();
   remove_bounding_rectangle_marker();
