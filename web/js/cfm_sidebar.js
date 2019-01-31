@@ -15,7 +15,6 @@ var dip_sidebar=false;
 var gid_sidebar=false;
 
 var drawing_rectangle=false;
-var marking_rectangle=false;
 
 // initiate a click on the sidebar buttons
 // to dismiss the sidebar
@@ -306,64 +305,6 @@ function latlonClick() {
   }
 }
 
-
-//XXX, do we want to reset this ?? 
-var park_a, park_b, park_c, park_d;
-function clicked_at(lat,lon) {
-   // need to capture the lat lon and draw a rectangle
-   window.console.log("calling clicked_at...");
-   if(latlon_sidebar) {
-     var firstlatstr=document.getElementById("firstLatTxt").value;
-     var firstlonstr=document.getElementById("firstLonTxt").value;
-     var secondlatstr=document.getElementById("secondLatTxt").value;
-     var secondlonstr=document.getElementById("secondLonTxt").value;
-
-     // special case, if there is preset by manual input and then
-     // a switch to map input
-
-     if(firstlatstr != "" && park_a == undefined) {
-       park_a = parseFloat(firstlatstr);
-     }
-     if(firstlonstr != "" && park_b == undefined) {
-       park_b = parseFloat(firstlonstr);
-     }
-     if(secondlatstr != "" && secondlatstr!="optional" && park_c == undefined) {
-       park_c = parseFloat(secondlatstr);
-     }
-     if(secondlonstr != "" && secondlonstr!="optional" && park_d == undefined) {
-       park_d = parseFloat(secondlonstr);
-     }
-
-     if(firstlatstr == "") {
-       park_a=lat;
-       park_b=lon;
-       $( "#firstLatTxt" ).val(lat);
-       $( "#firstLonTxt" ).val(lon);
-// drop a marker
-       add_bounding_rectangle_marker(park_a,park_b);
-       } else {
-         if(secondlatstr == "optional") {
-           park_c=lat;
-           park_d=lon;
-           $( "#secondLatTxt" ).val(lat);
-           $( "#secondLonTxt" ).val(lon);
-           } else {
-             park_a=park_c;
-             park_b=park_d;
-             add_bounding_rectangle_marker(park_a,park_b);
-             park_c=lat;
-             park_d=lon;
-             $( "#firstLatTxt" ).val(secondlatstr);
-             $( "#firstLonTxt" ).val(secondlonstr);
-             $( "#secondLatTxt" ).val(lat);
-             $( "#secondLonTxt" ).val(lon);
-         }
-         // draw a rectangle bounding box
-         add_bounding_rectangle_layer(park_a,park_b,park_c,park_d);
-     }
-   }
-}
-
 function set_latlons(firstlat,firstlon,secondlat,secondlon) {
    // need to capture the lat lon and draw a rectangle
    if(latlon_sidebar && drawing_rectangle) {
@@ -374,7 +315,7 @@ function set_latlons(firstlat,firstlon,secondlat,secondlon) {
    }
 }
 
-function clicked_at2()
+function draw_at()
 {
    if(latlon_sidebar && drawing_rectangle) {
      drawRectangle();
@@ -382,10 +323,10 @@ function clicked_at2()
 }
 
 // need to capture the lat lon and draw a rectangle but
-// not when in the map-marking mode : skipPopup==true
-function chk_and_add_bounding_rectangle_marker() {
+// not when in the map-marking mode : drawing_rectangle==true
+function chk_and_add_bounding_rectangle() {
   
-  if(skipPopup == true) {
+  if(drawing_rectangle) {
     return;
   }
   var firstlatstr=document.getElementById("firstLatTxt").value;
@@ -401,8 +342,7 @@ function chk_and_add_bounding_rectangle_marker() {
        park_b=t2-0.001;
        park_c=t1+0.001;
        park_d=t2+0.001;
-       add_bounding_rectangle_marker(t1,t2);
-       add_bounding_rectangle_layer(park_a,park_b,park_c,park_d);
+       add_bounding_rectangle(park_a,park_b,park_c,park_d);
     } 
     } else {
        if(secondlatstr && secondlonstr) {
@@ -411,8 +351,7 @@ function chk_and_add_bounding_rectangle_marker() {
            park_b=parseFloat(firstlonstr);
            park_c=parseFloat(secondlatstr);
            park_d=parseFloat(secondlonstr);
-           add_bounding_rectangle_marker(park_a,park_b);
-           add_bounding_rectangle_layer(park_a,park_b,park_c,park_d);
+           add_bounding_rectangle(park_a,park_b,park_c,park_d);
          }
        }
   }
@@ -431,65 +370,30 @@ function sidebar_latlon_slideOut() {
   panelptr.removeClass('fade-out').addClass('fade-in');
 }
 
-function mark2Latlon() {
-  if(marking_rectangle) { // turn it off
-    markLatlon();
-    remove_bounding_rectangle_layer();
-    remove_bounding_rectangle_marker();
-  }
+function markLatlon() {
   if(skipPopup == false) { // enable marking
     clear_popup();
     skipPopup = true;
     drawing_rectangle=true;
     unbind_layer_popup();
-    $('#marker2Btn').css("color","red");
+    $('#markerBtn').css("color","red");
     } else {
        skipPopup = false;
        drawing_rectangle=false;
        skipRectangle();
-       $('#marker2Btn').css("color","blue");
-       rebind_layer_popup();
-  }
-}
-
-function markLatlon() {
-
-  if(drawing_rectangle) { // turn it off
-    mark2Latlon();
-    remove_bounding_rectangle_layer2();
-  }
-  if(skipPopup == false) { // enable marking
-    clear_popup();
-    skipPopup = true;
-    unbind_layer_popup();
-    park_a=park_b=park_c=park_d=undefined;
-    marking_rectangle=true;
-    $('#markerBtn').css("color","red");
-    } else {
-       skipPopup = false;
        $('#markerBtn').css("color","blue");
+       remove_bounding_rectangle_layer();
        rebind_layer_popup();
-       marking_rectangle=false;
   }
 }
 
 function reset_markLatlon() {
   skipPopup = false;
   $('#markerBtn').css("color","blue");
+  drawing_rectangle=false;
+  skipRectangle();
   rebind_layer_popup();
   remove_bounding_rectangle_layer();
-  remove_bounding_rectangle_marker();
-  remove_bounding_rectangle_layer2();
-  reset_select_latlon();
-}
-
-function reset_mark2Latlon() {
-  skipPopup = false;
-  $('#marker2Btn').css("color","blue");
-  rebind_layer_popup();
-  remove_bounding_rectangle_layer();
-  remove_bounding_rectangle_marker();
-  remove_bounding_rectangle_layer2();
   reset_select_latlon();
 }
 

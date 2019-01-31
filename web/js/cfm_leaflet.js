@@ -108,18 +108,13 @@ function setup_viewer()
         .setLatLng(e.latlng)
         .setContent("You clicked the map at " + e.latlng.toString())
         .openOn(mymap);
-      } else {   // but still need to track it.. for click-and-drag
-        if(marking_rectangle) {
-          var loc=e.latlng;
-          clicked_at(loc['lat'],loc['lng']);
-        }
     }
   }
   mymap.on('click', onMapClick);
 
   function onMapMouseOver(e) {
     if(drawing_rectangle) {
-      clicked_at2();
+      draw_at();
     }
   }
   mymap.on('mouseover', onMapMouseOver);
@@ -146,7 +141,7 @@ function setup_viewer()
         var loclist=latlngs[0];
         var sw=loclist[0];
         var ne=loclist[2];
-        add_bounding_rectangle_layer2(layer,sw['lat'],sw['lng'],ne['lat'],ne['lng']);
+        add_bounding_rectangle_layer(layer,sw['lat'],sw['lng'],ne['lat'],ne['lng']);
         mymap.addLayer(layer);
     }
   });

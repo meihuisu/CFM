@@ -121,7 +121,7 @@ function searchByLatlon() {
         secondlonstr="0";
 
 // if in hand input mode, need to add the marker+retangle..
-    chk_and_add_bounding_rectangle_marker();
+    chk_and_add_bounding_rectangle();
     
     if (firstlatstr == "" || firstlonstr=="") {
         document.getElementById("searchResult").innerHTML = "";

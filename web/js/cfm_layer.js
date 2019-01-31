@@ -87,12 +87,8 @@ var cfm_active_gid_list=[];
 
 // a set of bounding box composed of  2 lat lon locations
 // for now, expect there is just 1 area only
-// and only 1 marker
-// [ {"layer":layer1, "markers":[ {latA,lonA}, {latB,lonB}]},...];
+// [ {"layer":layer1, "latlngs":[ {latA,lonA}, {latB,lonB}]},...];
 var cfm_latlon_area_list=[];
-var cfm_latlon_rectangle_list=[];
-// [ {"layer":layer, "marker":[{"lat":a,"lon":b}]},...];
-var cfm_latlon_marker_list=[];
 
 /*********************************************************
 *********************************************************/
@@ -597,11 +593,11 @@ function toggle_layer(gid)
   }
 }
 
-function add_bounding_rectangle_layer(a,b,c,d) {
+function add_bounding_rectangle(a,b,c,d) {
   // remove old one and add a new one
   remove_bounding_rectangle_layer();
   var layer=addRectangleLayer(a,b,c,d);
-  var tmp={"layer":layer, "marker":[{"lat":a,"lon":b},{"lat":c,"lon":d}]};
+  var tmp={"layer":layer, "latlngs":[{"lat":a,"lon":b},{"lat":c,"lon":d}]};
   cfm_latlon_area_list.push(tmp);
 }
 
@@ -613,34 +609,11 @@ function remove_bounding_rectangle_layer() {
    }
 }
 
-function add_bounding_rectangle_layer2(layer, a,b,c,d) {
+function add_bounding_rectangle_layer(layer, a,b,c,d) {
   // remove old one and add a new one
-  remove_bounding_rectangle_layer2();
-  var tmp={"layer":layer, "marker":[{"lat":a,"lon":b},{"lat":c,"lon":d}]};
+  remove_bounding_rectangle_layer();
+  var tmp={"layer":layer, "latlngs":[{"lat":a,"lon":b},{"lat":c,"lon":d}]};
   set_latlons(a,b,c,d);
-  cfm_latlon_rectangle_list.push(tmp);
-}
-
-function remove_bounding_rectangle_layer2() {
-   if(cfm_latlon_rectangle_list.length == 1) {
-     var rectangle=cfm_latlon_rectangle_list.pop();
-     var l=rectangle["layer"]; 
-     viewermap.removeLayer(l);
-   }
-}
-
-function add_bounding_rectangle_marker(a,b) {
-  remove_bounding_rectangle_marker();
-  var layer=addMarkerLayer(a,b);
-  var tmp={"layer":layer, "marker":[{"lat":a,"lon":b}]};
-  cfm_latlon_marker_list.push(tmp);
-}
-
-function remove_bounding_rectangle_marker() {
-   if(cfm_latlon_marker_list.length == 1) {
-     var marker=cfm_latlon_marker_list.pop();
-     var l=marker["layer"]; 
-     viewermap.removeLayer(l);
-   }
+  cfm_latlon_area_list.push(tmp);
 }
 
