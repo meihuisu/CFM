@@ -53,6 +53,9 @@ Instructions to stand up the cfm viewer on a micro node reserved from AWS cloud 
     Html web page for graphics display and user dashboard
        
 
-       
-    
+### Data
+
+    Schema/scripts contains scripts that is used to recreate the csv datafiles
+    for filling in the postgres db tables
+     
         
